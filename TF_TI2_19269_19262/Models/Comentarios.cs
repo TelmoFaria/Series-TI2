@@ -21,9 +21,9 @@ namespace TF_TI2_19269_19262.Models
         [ForeignKey("Episodios")]
         public int EpisodioFK { get; set; }
         public virtual Episodios Episodios { get; set; }
-/*
+
         [ForeignKey("Utilizadores")]
         public int UtilizadorFK { get; set; }
-        public virtual Utilizadores Utilizadores { get; set; }*/
+        public virtual Utilizadores Utilizadores { get; set; }
     }
 }

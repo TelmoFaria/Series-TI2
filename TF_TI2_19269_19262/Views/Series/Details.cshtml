@@ -39,7 +39,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Foto)
+            <a href="~/Imagens/@Html.DisplayFor(model => model.Foto)" target="_blank">
+                <img src="~/Imagens/@Html.DisplayFor(model => model.Foto)" width="74" height="100" />
+            </a>
         </dd>
 
         <dt>
@@ -55,7 +57,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Video)
+            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen></iframe>
         </dd>
 
         <dt>

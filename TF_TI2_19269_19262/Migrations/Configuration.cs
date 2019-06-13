@@ -43,25 +43,25 @@
                "durante o dia, e como hacker vigilante durante a noite. Elliot se ve numa encruzilhada quando o lider (Christian Slater) de um misterioso grupo de" +
                " hacker o recruta para destruir a firma que ele e pago para proteger. Motivado pelas suas crencas pessoais, ele luta para resistir a chance de destruir" +
                " os CEOs da multinacional que ele acredita estarem controlando - e destruindo " +
-               "- o mundo.",Video="https://www.youtube.com/watch?v=cV1oNnwmdi4",Foto="Serie1.jpg",Classificacao=8.5,EditoraFK=4},
+               "- o mundo.",Video="cV1oNnwmdi4",Foto="Serie1.jpg",Classificacao=8.5,EditoraFK=4},
                new Series {ID=2, Nome="Sherlock", Genero="Crime, Drama, Misterio",Sinopse="Baseada nos livros de Sir Arthur Conan Doyle, " +
                "Sherlock conta as aventuras do detetive particular Sherlock Holmes " +
                "(Benedict Cumberbatch) e seu fiel escudeiro, Dr. John Watson " +
-               "(Martin Freeman), na Inglaterra dos dias de hoje.",Video="https://www.youtube.com/watch?v=uzyKkKB7mT4",Foto="Serie2.jpg",Classificacao=9.1,EditoraFK=3},
+               "(Martin Freeman), na Inglaterra dos dias de hoje.",Video="uzyKkKB7mT4",Foto="Serie2.jpg",Classificacao=9.1,EditoraFK=3},
                new Series {ID=3, Nome="Stranger Things", Genero="Drama, Fantasia, Terror",Sinopse="Ambientada na ficticia cidade de Hawkins, Indiana, Stranger " +
                "Things decorre no ano de 1983 e conta a historia de um rapaz que desapareceu misteriosamente. Enquanto procuram por respostas, a policia, " +
                "a familia e os amigos do menino acabam mergulhando num extraordinario misterio envolvendo um experimento secreto do governo, forcas sobrenaturais " +
-               "e uma menina muito estranha.",Video="https://www.youtube.com/watch?v=YEG3bmU_WaI&t=1s",
+               "e uma menina muito estranha.",Video="-RcPZdihrp4",
                    Foto ="Serie3.jpg",Classificacao=8.9,EditoraFK=2},
                new Series {ID=4, Nome="The 100", Genero="Drama, Misterio, Ficcao Cientifica",Sinopse="Quando uma guerra nuclear destruiu a civilizacao e o planeta Terra, " +
                "os unicos sobreviventes foram 400 pessoas que estavam em 12 estacoes espaciais em orbita." +
                " 97 anos e tres geracoes depois, a populacao ja contava com 4 mil pessoas, mas os " +
                "recursos ja vao escassos. Para garantir o futuro, um grupo de cem jovens e enviado a superficie da Terra para descobrir se ela esta habitavel",
-                   Video ="https://www.youtube.com/watch?v=neAxqk0WYtc&t=2s",Foto="Serie4.jpg",Classificacao=9.1,EditoraFK=5},
+                   Video ="G-PpFU6tuek",Foto="Serie4.jpg",Classificacao=9.1,EditoraFK=5},
                new Series {ID=5, Nome="Game of Thrones", Genero="Acao, Aventura, Drama",Sinopse="A serie passa-se em Westeros, uma terra reminiscente da Europa Medieval," +
                " onde as estacoes duram anos ou ata mesmo decadas. A historia gira em torno de uma " +
                "batalha entre os Sete Reinos, onde duas familias dominantes lutam pelo controlo do Trono de Ferro, " +
-               "cuja posse possivelmente assegurara a sobrevivencia durante o inverno que esta por vir.",Video="https://www.youtube.com/watch?v=BpJYNVhGf1s",
+               "cuja posse possivelmente assegurara a sobrevivencia durante o inverno que esta por vir.",Video="BpJYNVhGf1s",
                    Foto ="Serie5.jpg",Classificacao=9.5,EditoraFK=1},
 
             };
@@ -288,14 +288,25 @@
             pessoas.ForEach(pp => context.Pessoas.AddOrUpdate(p => p.Nome, pp));
             context.SaveChanges();
 
+            var utilizadores = new List<Utilizadores>
+            {
+               new Utilizadores {ID=1, Nome="John Doe", UserName="JohnDoe", Email="johndoe@teste.com", Nacionalidade="Taiwanesa"},
+               new Utilizadores {ID=2, Nome="João Alves", UserName="joaorga", Email="joao@teste.com", Nacionalidade="Portuguesa"},
+               new Utilizadores {ID=3, Nome="Telmo Faria", UserName="telmofaria", Email="telmo@teste.com", Nacionalidade="Portuguesa"},
+
+
+            };
+            utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.Nome, uu));
+            context.SaveChanges();
+
             //*********************************************************************
             //            // adiciona Comentarios
             var comentarios = new List<Comentarios> {
-               new Comentarios {ID=1,Assunto="Não gostei",Texto="Não gostei muito deste episódio",EpisodioFK=1},
-               new Comentarios {ID=2,Assunto="Gostei",Texto="Gostei muito",EpisodioFK=2},
-               new Comentarios {ID=3,Assunto="Adorei",Texto="Adorei este episódio, foi o melhor de sempre",EpisodioFK=3},
-               new Comentarios {ID=4,Assunto="Detestei",Texto="Detestei este episódio",EpisodioFK=4},
-               new Comentarios {ID=5,Assunto="Horrivel",Texto="O pior episódio desta série",EpisodioFK=5},
+               new Comentarios {ID=1,Assunto="Não gostei",Texto="Não gostei muito deste episódio",EpisodioFK=1, UtilizadorFK=2},
+               new Comentarios {ID=2,Assunto="Gostei",Texto="Gostei muito",EpisodioFK=2, UtilizadorFK=3},
+               new Comentarios {ID=3,Assunto="Adorei",Texto="Adorei este episódio, foi o melhor de sempre",EpisodioFK=3, UtilizadorFK=2},
+               new Comentarios {ID=4,Assunto="Detestei",Texto="Detestei este episódio",EpisodioFK=4, UtilizadorFK=1},
+               new Comentarios {ID=5,Assunto="Horrivel",Texto="O pior episódio desta série",EpisodioFK=5, UtilizadorFK=3},
             };
             comentarios.ForEach(cc => context.Comentarios.AddOrUpdate(c => c.Assunto, cc));
             context.SaveChanges();
@@ -313,6 +324,8 @@
             };
             pessoasepisodios.ForEach(rr => context.PessoasEpisodios.AddOrUpdate(r => r.ID, rr));
             context.SaveChanges();
+
+
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TF_TI2_19269_19262.Models
         public string Email { get; set; }
 
         public string Nacionalidade { get; set; }
-/*
-        public virtual ICollection<Comentarios> Comentarios { get; set; }*/
+
+        public virtual ICollection<Comentarios> Comentarios { get; set; }
     }
 }
