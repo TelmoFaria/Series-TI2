@@ -46,7 +46,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Foto,Ator")] Pessoas pessoas)
+        public ActionResult Create([Bind(Include = "ID,Nome,Foto")] Pessoas pessoas)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Foto,Ator")] Pessoas pessoas)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Foto")] Pessoas pessoas)
         {
             if (ModelState.IsValid)
             {

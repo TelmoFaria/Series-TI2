@@ -19,7 +19,7 @@ namespace TF_TI2_19269_19262.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Genero { get; set; }
 
-        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
+
         public string Foto { get; set; }
 
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]

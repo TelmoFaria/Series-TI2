@@ -74,6 +74,8 @@ namespace TF_TI2_19269_19262.Controllers
             else
             {
                 ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+                ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", series.EditoraFK);
+
                 return View(series);
             }
 
