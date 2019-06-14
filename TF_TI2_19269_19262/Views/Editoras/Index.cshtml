@@ -26,7 +26,10 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Logo)
+            @*  @Html.DisplayFor(modelItem => item.Logo)*@
+            <a href="~/Imagens/@item.Logo" target="_blank">
+                <img src="~/Imagens/@item.Logo" width="74" height="100" />
+            </a>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

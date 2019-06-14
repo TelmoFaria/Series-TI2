@@ -41,10 +41,13 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Foto)
+            @*  @Html.DisplayFor(modelItem => item.Foto)*@
+            <a href="~/Imagens/@item.Foto" target="_blank">
+                <img src="~/Imagens/@item.Foto" width="74" height="100" />
+            </a>
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trailer)
+        <td>         
+            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>                    
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

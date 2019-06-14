@@ -50,7 +50,10 @@
             @Html.DisplayFor(modelItem => item.Sinopse)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Foto)
+            @*  @Html.DisplayFor(modelItem => item.Foto)*@
+            <a href="~/Imagens/@item.Foto" target="_blank">
+                <img src="~/Imagens/@item.Foto" width="74" height="100" />
+            </a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Trailer)

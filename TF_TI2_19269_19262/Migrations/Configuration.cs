@@ -79,33 +79,33 @@
             //            // adiciona Temporadas
             var temporadas = new List<Temporadas> {
                 //Mr.Robot
-               new Temporadas {ID=1, Numero=1,Nome="Mr.RobotS01",Foto="Mr.RobotS01.jpg",Trailer="https://www.youtube.com/watch?v=xIBiJ_SzJTA", SerieFK=1},
-               new Temporadas {ID=2, Numero=2,Nome="Mr.RobotS02",Foto="Mr.RobotS02.jpg",Trailer="https://www.youtube.com/watch?v=Oc-AsN7d1wg", SerieFK=1},
-               new Temporadas {ID=3, Numero=3,Nome="Mr.RobotS03",Foto="Mr.RobotS03.jpg",Trailer="https://www.youtube.com/watch?v=ESLDL8H1qG0", SerieFK=1},
+               new Temporadas {ID=1, Numero=1,Nome="Mr.RobotS01",Foto="Mr.RobotS01.jpg",Trailer="xIBiJ_SzJTA", SerieFK=1},
+               new Temporadas {ID=2, Numero=2,Nome="Mr.RobotS02",Foto="Mr.RobotS02.jpg",Trailer="Oc-AsN7d1wg", SerieFK=1},
+               new Temporadas {ID=3, Numero=3,Nome="Mr.RobotS03",Foto="Mr.RobotS03.jpg",Trailer="ESLDL8H1qG0", SerieFK=1},
                 //sherlock
-               new Temporadas {ID=4, Numero=1,Nome="SherlockS01",Foto="SherlockS01.jpg",Trailer="https://www.youtube.com/watch?v=xK7S9mrFWL4", SerieFK=2},
-               new Temporadas {ID=5, Numero=2,Nome="SherlockS02",Foto="SherlockS02.jpg",Trailer="https://www.youtube.com/watch?v=bF71IxmOdeE", SerieFK=2},
-               new Temporadas {ID=6, Numero=3,Nome="SherlockS03",Foto="SherlockS03.jpg",Trailer="https://www.youtube.com/watch?v=9UcR9iKArd0", SerieFK=2},
-               new Temporadas {ID=7, Numero=4,Nome="SherlockS04",Foto="SherlockS04.jpg",Trailer="https://www.youtube.com/watch?v=qlcWFoNqZHc", SerieFK=2},
+               new Temporadas {ID=4, Numero=1,Nome="SherlockS01",Foto="SherlockS01.jpg",Trailer="xK7S9mrFWL4", SerieFK=2},
+               new Temporadas {ID=5, Numero=2,Nome="SherlockS02",Foto="SherlockS02.jpg",Trailer="bF71IxmOdeE", SerieFK=2},
+               new Temporadas {ID=6, Numero=3,Nome="SherlockS03",Foto="SherlockS03.jpg",Trailer="9UcR9iKArd0", SerieFK=2},
+               new Temporadas {ID=7, Numero=4,Nome="SherlockS04",Foto="SherlockS04.jpg",Trailer="qlcWFoNqZHc", SerieFK=2},
                 //Stranger Things
-               new Temporadas {ID=8, Numero=1,Nome="StrangerThingsS01",Foto="StrangerThingsS01.jpg",Trailer="https://www.youtube.com/watch?v=Bb4uR9gTVXI", SerieFK=3},
-               new Temporadas {ID=9, Numero=2,Nome="StrangerThingsS02",Foto="StrangerThingsS02.jpg",Trailer="https://www.youtube.com/watch?v=R1ZXOOLMJ8s", SerieFK=3},
+               new Temporadas {ID=8, Numero=1,Nome="StrangerThingsS01",Foto="StrangerThingsS01.jpg",Trailer="Bb4uR9gTVXI", SerieFK=3},
+               new Temporadas {ID=9, Numero=2,Nome="StrangerThingsS02",Foto="StrangerThingsS02.jpg",Trailer="R1ZXOOLMJ8s", SerieFK=3},
                //The 100
-               new Temporadas {ID=10, Numero=1,Nome="The100S01",Foto="The100S01.jpg",Trailer="https://www.youtube.com/watch?v=ia1Fbg96vL0", SerieFK=4},
-               new Temporadas {ID=11, Numero=2,Nome="The100S02",Foto="The100S02.jpg",Trailer="https://www.youtube.com/watch?v=IW7_ZzFZF-o", SerieFK=4},
-               new Temporadas {ID=12, Numero=3,Nome="The100S03",Foto="The100S03.jpg",Trailer="https://www.youtube.com/watch?v=uwxwHTu802M", SerieFK=4},
-               new Temporadas {ID=13, Numero=4,Nome="The100S04",Foto="The100S04.jpg",Trailer="https://www.youtube.com/watch?v=JQi2MAfpACI", SerieFK=4},
-               new Temporadas {ID=14, Numero=5,Nome="The100S05",Foto="The100S05.jpg",Trailer="https://www.youtube.com/watch?v=7LNTrcguDaw", SerieFK=4},
-               new Temporadas {ID=15, Numero=6,Nome="The100S06",Foto="The100S06.jpg",Trailer="https://www.youtube.com/watch?v=l4GiE-8-LWo", SerieFK=4},
+               new Temporadas {ID=10, Numero=1,Nome="The100S01",Foto="The100S01.jpg",Trailer="ia1Fbg96vL0", SerieFK=4},
+               new Temporadas {ID=11, Numero=2,Nome="The100S02",Foto="The100S02.jpg",Trailer="IW7_ZzFZF-o", SerieFK=4},
+               new Temporadas {ID=12, Numero=3,Nome="The100S03",Foto="The100S03.jpg",Trailer="uwxwHTu802M", SerieFK=4},
+               new Temporadas {ID=13, Numero=4,Nome="The100S04",Foto="The100S04.jpg",Trailer="JQi2MAfpACI", SerieFK=4},
+               new Temporadas {ID=14, Numero=5,Nome="The100S05",Foto="The100S05.jpg",Trailer="7LNTrcguDaw", SerieFK=4},
+               new Temporadas {ID=15, Numero=6,Nome="The100S06",Foto="The100S06.jpg",Trailer="l4GiE-8-LWo", SerieFK=4},
                //Game of Thrones
-               new Temporadas {ID=16, Numero=1,Nome="GameOfThronesS01",Foto="GameOfThronesS01.jpg",Trailer="https://www.youtube.com/watch?v=gcTkNV5Vg1E", SerieFK=5},
-               new Temporadas {ID=17, Numero=2,Nome="GameOfThronesS02",Foto="GameOfThronesS02.jpg",Trailer="https://www.youtube.com/watch?v=XuKfFzk1uQs", SerieFK=5},
-               new Temporadas {ID=18, Numero=3,Nome="GameOfThronesS03",Foto="GameOfThronesS03.jpg",Trailer="https://www.youtube.com/watch?v=wBtkdje5OfY", SerieFK=5},
-               new Temporadas {ID=19, Numero=4,Nome="GameOfThronesS04",Foto="GameOfThronesS04.jpg",Trailer="https://www.youtube.com/watch?v=xZY43QSx3Fk", SerieFK=5},
-               new Temporadas {ID=20, Numero=5,Nome="GameOfThronesS05",Foto="GameOfThronesS05.jpg",Trailer="https://www.youtube.com/watch?v=A0pLbTXPHng", SerieFK=5},
-               new Temporadas {ID=21, Numero=6,Nome="GameOfThronesS06",Foto="GameOfThronesS06.jpg",Trailer="https://www.youtube.com/watch?v=yu8eRaq1FUM", SerieFK=5},
-               new Temporadas {ID=22, Numero=7,Nome="GameOfThronesS07",Foto="GameOfThronesS07.jpg",Trailer="https://www.youtube.com/watch?v=giYeaKsXnsI", SerieFK=5},
-               new Temporadas {ID=23, Numero=8,Nome="GameOfThronesS08",Foto="GameOfThronesS08.jpg",Trailer="https://www.youtube.com/watch?v=rlR4PJn8b8I", SerieFK=5},
+               new Temporadas {ID=16, Numero=1,Nome="GameOfThronesS01",Foto="GameOfThronesS01.jpg",Trailer="gcTkNV5Vg1E", SerieFK=5},
+               new Temporadas {ID=17, Numero=2,Nome="GameOfThronesS02",Foto="GameOfThronesS02.jpg",Trailer="XuKfFzk1uQs", SerieFK=5},
+               new Temporadas {ID=18, Numero=3,Nome="GameOfThronesS03",Foto="GameOfThronesS03.jpg",Trailer="wBtkdje5OfY", SerieFK=5},
+               new Temporadas {ID=19, Numero=4,Nome="GameOfThronesS04",Foto="GameOfThronesS04.jpg",Trailer="xZY43QSx3Fk", SerieFK=5},
+               new Temporadas {ID=20, Numero=5,Nome="GameOfThronesS05",Foto="GameOfThronesS05.jpg",Trailer="A0pLbTXPHng", SerieFK=5},
+               new Temporadas {ID=21, Numero=6,Nome="GameOfThronesS06",Foto="GameOfThronesS06.jpg",Trailer="yu8eRaq1FUM", SerieFK=5},
+               new Temporadas {ID=22, Numero=7,Nome="GameOfThronesS07",Foto="GameOfThronesS07.jpg",Trailer="giYeaKsXnsI", SerieFK=5},
+               new Temporadas {ID=23, Numero=8,Nome="GameOfThronesS08",Foto="GameOfThronesS08.jpg",Trailer="rlR4PJn8b8I", SerieFK=5},
 
             };
             temporadas.ForEach(tt => context.Temporadas.AddOrUpdate(t => t.Nome, tt));
