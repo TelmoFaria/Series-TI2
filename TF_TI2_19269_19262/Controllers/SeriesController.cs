@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using TF_TI2_19269_19262.Models;
@@ -36,6 +37,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             return View(series);
         }
+        
 
         // GET: Series/Create
         public ActionResult Create()
