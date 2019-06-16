@@ -35,21 +35,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             return View(temporadas);
         }
-        // GET: Series/Temporadas/5
-        public ActionResult Temporadas(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var temporadas = db.Temporadas.Where(t => t.SerieFK == id);
-            var varSerie = db.Series;
-            if (temporadas == null)
-            {
-                return HttpNotFound();
-            }
-            return View(temporadas);
-        }
+       
 
         // GET: Temporadas/Create
         public ActionResult Create()
