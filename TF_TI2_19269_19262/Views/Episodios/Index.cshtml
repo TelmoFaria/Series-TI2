@@ -4,69 +4,75 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div style="text-align:center">
+    <h2 style="padding:20px 0px 20px 0px">
+        Lista De Episodios
+    </h2>
+    <div style="padding:20px 0px 20px 0px">
+        <button>
+            @Html.ActionLink("Criar Novo Episodio", "Create")
+        </button>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Temporadas.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Numero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sinopse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trailer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Classificacao)
-        </th>
-        <th></th>
-    </tr>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Temporadas.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Numero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sinopse)
-        </td>
-        <td>
-            @*  @Html.DisplayFor(modelItem => item.Foto)*@
-            <a href="~/Imagens/@item.Foto" target="_blank">
-                <img src="~/Imagens/@item.Foto" width="74" height="100" />
-            </a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trailer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Classificacao)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<div>
+    @foreach (var item in Model)
+    {
+        <div style="border: 2px solid black;width: 100%;height: 400px;overflow: hidden;text-align: center;margin: 20px;display:flex;flex-direction:row">
+            <div style="padding-right:20px">
+                <a href="~/Imagens/@item.Foto" target="_blank">
+                    <img src="~/Imagens/@item.Foto" width="400" height="400" />
+                </a>
+            </div>
+            <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
+                <div style="padding-bottom:20px;padding-top:20px;display:flex;flex-direction:row;margin:auto">
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Temporada:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Temporadas.Numero)
+                        </p>
+                    </div>
 
-</table>
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Episódio:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Numero)
+                        </p>
+                    </div>
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Episódio:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </p>
+                    </div>
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Nome do Episódio:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Classificacao)
+                        </p>
+                    </div>
+                </div>
+                <div style="padding-bottom:10px;overflow:hidden">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Sinopse)
+                    </p>
+                </div>
+
+                <p style="padding-bottom:20px">
+                    @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
+                </p>
+            </div>
+        </div>
+    }
+</div>

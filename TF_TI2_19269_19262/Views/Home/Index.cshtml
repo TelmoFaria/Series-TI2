@@ -6,16 +6,24 @@
 
 <link href="~/CSS/startbootstrap-the-big-picture-gh-pages/css/the-big-picture.css" rel="stylesheet" />
 
-<h1 style="color:white">Series4All</h1>
-<p class="lead" style="color:white; font-size:40px">O seu site de análise de séries!</p>
 
+<div style="text-align:center;color:white">
+    <h1 style="padding:20px 0px 20px 0px">
+        Series4All
+    </h1>
+    <div style="padding:0px 0px 30px 0px">
+        <p class="lead" style="color:white; font-size:40px">
+            O seu site de análise de séries!
+        </p>
+    </div>
 
+</div>
 
 <div style="display: flex;justify-content: space-evenly;">
 
-    <div style="font-size: 75px;background: #201c29;border: 1px solid #312d3c;box-shadow: 0 4px 80px #000;border-radius: 8px;padding: 2rem;margin-right: 1rem;overflow: hidden;position: relative;flex: 1;width: 33.33%;display: flex;flex-direction: column;">
+    <div style="font-size: 75px;background: #201c29;border: 1px solid #312d3c;box-shadow: 0 4px 80px #000;border-radius: 8px;padding: 2rem;margin-right: 1rem;overflow: hidden;position: relative;flex: 1;width: 33.33%;display: flex;flex-direction: column;    ">
 
-        <p style="text-align:center">@Html.ActionLink("Series", "Index", "Series",null, new { @class = "navbar-brand" })</p>
+        <p style="text-align:center;margin: auto;">@Html.ActionLink("Series", "Index", "Series",null, new { @class = "navbar-brand" })</p>
 </div>
 
 
@@ -24,7 +32,7 @@
 
 
 
-<p style="text-align:center">@Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "navbar-brand"})</p>
+<p style="text-align:center;margin: auto;">@Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "navbar-brand"})</p>
 </div>
 
 
@@ -35,7 +43,7 @@
 
 
 
-<p style="text-align:center">@Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "navbar-brand" })</p>
+<p style="text-align:center;margin: auto;">@Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "navbar-brand" })</p>
 
 
 
