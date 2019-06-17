@@ -15,10 +15,13 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Temporadas
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var temporadas = db.Temporadas.Include(t => t.Series);
-            return View(temporadas.ToList());
+            var temp = from t in db.Temporadas
+                       where t.SerieFK == id
+                         select t;
+            return View(temp.ToList());
         }
         // GET: Temporadas/select{id}
         public ActionResult Temp(int id)

@@ -15,11 +15,16 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Episodios
-        public ActionResult Index()
+        public ActionResult Index(int?id)
         {
             var episodios = db.Episodios.Include(e => e.Temporadas);
-            return View(episodios.ToList());
+            var ep = from p in db.Episodios
+                       where p.TemporadaFK == id
+                       select p;
+            return View(ep.ToList());
         }
+
+
 
         // GET: Episodios/Details/5
         public ActionResult Details(int? id)
