@@ -65,17 +65,21 @@
 </div>
 
 
+<div>
+    <button>
+        @Html.ActionLink("Ver Temporadas", "Index","Temporadas", new { id = Model.ID },null)
+    </button>
+</div>
 
 
-
-<div style="float:right;display:flex;flex-direction:row">
-    <div style="float:left">
+<div style="display:flex;flex-direction:row;justify-content:space-evenly">
+    <div >
         <p>
             @Html.ActionLink("Editar Serie", "Edit", new { id = Model.ID }) |
             @Html.ActionLink("Eliminar Serie", "Delete", new { id = Model.ID })
         </p>
     </div>
-    <div style="float:left">
+    <div >
         <button>
             @Html.ActionLink("Voltar á Lista de Series", "../Series/Index")
         </button>

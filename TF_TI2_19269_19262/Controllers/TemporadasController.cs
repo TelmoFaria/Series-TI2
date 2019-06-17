@@ -20,6 +20,15 @@ namespace TF_TI2_19269_19262.Controllers
             var temporadas = db.Temporadas.Include(t => t.Series);
             return View(temporadas.ToList());
         }
+        // GET: Temporadas/select{id}
+        public ActionResult Temp(int id)
+        {
+            
+            var result = from r in db.Temporadas
+                         where r.SerieFK == id
+                         select r;
+            return View(result);
+        }
 
         // GET: Temporadas/Details/5
         public ActionResult Details(int? id)
