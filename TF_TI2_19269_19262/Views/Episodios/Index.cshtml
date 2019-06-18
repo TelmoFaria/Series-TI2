@@ -77,5 +77,8 @@
     }
 </div>
 <button>
-    @Html.ActionLink("Voltar á Lista de Temporadas", "../Temporadas/Index")
+
+    @Html.ActionLink("Voltar á Lista de Temporadas", "Index", "Temporadas", new { id =ViewBag.TemporadaID },null)
+
+
 </button>

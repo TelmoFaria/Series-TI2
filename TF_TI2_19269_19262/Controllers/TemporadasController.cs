@@ -10,17 +10,31 @@ using TF_TI2_19269_19262.Models;
 
 namespace TF_TI2_19269_19262.Controllers
 {
+   
+
     public class TemporadasController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Temporadas
         public ActionResult Index(int? id)
         {
+            //int tempor=0;
+            //if (id.HasValue)
+            //{
+            //    tempor = id.Value;
+            //}
+            if (id == null)
+            {
+                return Redirect("/");
+            }
+
+           
             var temporadas = db.Temporadas.Include(t => t.Series);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id
-                         select t;
+                       select t;
             return View(temp.ToList());
         }
         // GET: Temporadas/select{id}
@@ -30,7 +44,7 @@ namespace TF_TI2_19269_19262.Controllers
             var result = from r in db.Temporadas
                          where r.SerieFK == id
                          select r;
-            return View(result);
+            return View(result.ToList());
         }
 
         // GET: Temporadas/Details/5
