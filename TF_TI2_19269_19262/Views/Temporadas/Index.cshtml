@@ -4,54 +4,77 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div style="text-align:center">
+    <h2 style="padding:20px 0px 20px 0px">
+        Lista De Temporadas
+    </h2>
+    <div style="padding:20px 0px 20px 0px">
+        <button >
+            @Html.ActionLink("Criar Nova Temporada", "Create")
+        </button>
+    </div>
+    
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Series.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Numero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trailer)
-        </th>
-        <th></th>
-    </tr>
+<div>
+    @foreach (var item in Model)
+    {
+        <div style="    border: 2px solid black;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    text-align: center;margin: 20px;display:flex;flex-direction:row">
+            <div style="padding-right:20px">
+                <a href="~/Imagens/@item.Foto" target="_blank">
+                    <img src="~/Imagens/@item.Foto" width="400" height="400" />
+                </a>
+            </div>
+            <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
+                <div style="padding-bottom:20px;padding-top:20px;display:flex;flex-direction:row;margin:auto">
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Serie:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Series.Nome)
+                        </p>
+                    </div>
+                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
+                        <p>
+                            Temporada:
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Numero)
+                        </p>
+                    </div>
+                </div>
+                
+                
+                <p style="padding-bottom:20px;">
+                    <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
+                </p>
+                <div style="padding-bottom:10px;">
+                    <button>
+                        @Html.ActionLink("Episodios", "../Episodios/Index", new { id = item.ID })
+                    </button>
+                </div>
+                
+                <p style="padding-bottom:20px">
+                    @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
+                </p>
+            </div>
+        </div>
+    }
+    </div>
+<button>
+    @Html.ActionLink("Voltar á Lista de Series", "../Series/Index")
+</button>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Series.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Numero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Foto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trailer)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+
+
+
+

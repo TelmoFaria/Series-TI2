@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using TF_TI2_19269_19262.Models;
@@ -36,7 +37,24 @@ namespace TF_TI2_19269_19262.Controllers
             }
             return View(series);
         }
-
+        //------------------------------------------------------------------------------------
+        //                             Tentar ir para a pagina Temporadas 
+        // GET: Series/Temporadas/5
+        public ActionResult Temporadas(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var temporadas = db.Temporadas.Where(t => t.SerieFK == id);
+            var varSerie = db.Series;
+            if (temporadas == null)
+            {
+                return HttpNotFound();
+            }
+            return View(temporadas);
+        }
+        //------------------------------------------------------------------------------------
         // GET: Series/Create
         [Authorize(Roles = "Administrador")]
         public ActionResult Create()
