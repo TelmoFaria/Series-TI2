@@ -5,10 +5,11 @@
 }
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Administrador")) { 
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -35,41 +36,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Editora.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genero)
-        </td>
-        <td>
-            <a href="~/Imagens/@item.Foto" target="_blank">
-                <img src="~/Imagens/@item.Foto" width="74" height="100" />
-            </a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sinopse)
-        </td>
-        <td>
-             
-             
-            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Video)" allowfullscreen></iframe>
-                    
-                    
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Classificacao)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editora.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                <a href="~/Imagens/@item.Foto" target="_blank">
+                    <img src="~/Imagens/@item.Foto" width="74" height="100" />
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sinopse)
+            </td>
+            <td>
+
+
+                <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Video)" allowfullscreen></iframe>
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Classificacao)
+            </td>
+            <td>
+                @if (User.IsInRole("Administrador"))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID });
+                    @Html.Raw("   "); 
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.ID });
+                    @Html.Raw("   ");
+                }
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ID })
+
+            </td>
+        </tr>
+    }
 
 </table>
