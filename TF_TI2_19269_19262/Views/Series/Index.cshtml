@@ -4,14 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+
 <div style="text-align:center">
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Series
     </h2>
     <div style="padding:0px 0px 30px 0px">
+      @if (User.IsInRole("Administrador")) {
         <button>
             @Html.ActionLink("Adicionar Serie", "Create")
         </button>
+      }
     </div>
 
 </div>
@@ -26,6 +29,7 @@
     }
 
 </div>
+
 
 <button>
     @Html.ActionLink("Voltar á Página Inicial", "../Home/Index")
