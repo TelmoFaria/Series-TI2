@@ -57,7 +57,7 @@
             Trailer:
         </p>
         <p>
-            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen, width="800", height="400"></iframe>
         </p>
         
     </div>
@@ -75,9 +75,13 @@
 <div style="display:flex;flex-direction:row;justify-content:space-evenly">
     <div >
         <p>
-            @Html.ActionLink("Editar Serie", "Edit", new { id = Model.ID }) |
-            @Html.ActionLink("Eliminar Serie", "Delete", new { id = Model.ID })
-        </p>
+            @if (User.IsInRole("Administrador"))
+            {
+                @Html.ActionLink("Editar Serie", "Edit", new { id = Model.ID });
+                @Html.Raw("|");
+                @Html.ActionLink("Eliminar Serie", "Delete", new { id = Model.ID })
+            }
+            </p>
     </div>
     <div >
         <button>

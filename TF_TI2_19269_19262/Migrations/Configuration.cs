@@ -288,7 +288,7 @@
             pessoas.ForEach(pp => context.Pessoas.AddOrUpdate(p => p.Nome, pp));
             context.SaveChanges();
 
-            var utilizadores = new List<Utilizadores>
+           var utilizadores = new List<Utilizadores>
             {
                new Utilizadores {ID=1, Nome="João Alves", UserName="joao@teste.pt", Email="joao@teste.pt"},
                new Utilizadores {ID=2, Nome="Telmo Faria", UserName="telmo@teste.pt", Email="telmo@teste.pt"},
@@ -301,11 +301,8 @@
             //*********************************************************************
             //            // adiciona Comentarios
             var comentarios = new List<Comentarios> {
-               new Comentarios {ID=1,Assunto="Não gostei",Texto="Não gostei muito deste episódio",EpisodioFK=1, UtilizadorFK=2},
-               new Comentarios {ID=2,Assunto="Gostei",Texto="Gostei muito",EpisodioFK=2, UtilizadorFK=3},
-               new Comentarios {ID=3,Assunto="Adorei",Texto="Adorei este episódio, foi o melhor de sempre",EpisodioFK=3, UtilizadorFK=2},
-               new Comentarios {ID=4,Assunto="Detestei",Texto="Detestei este episódio",EpisodioFK=4, UtilizadorFK=1},
-               new Comentarios {ID=5,Assunto="Horrivel",Texto="O pior episódio desta série",EpisodioFK=5, UtilizadorFK=3},
+               new Comentarios {ID=1,Assunto="Não gostei",Texto="Não gostei muito deste episódio",EpisodioFK=1, UtilizadorFK=1},
+               new Comentarios {ID=2,Assunto="Gostei",Texto="Gostei muito",EpisodioFK=2, UtilizadorFK=1},
             };
             comentarios.ForEach(cc => context.Comentarios.AddOrUpdate(c => c.Assunto, cc));
             context.SaveChanges();

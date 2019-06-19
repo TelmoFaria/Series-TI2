@@ -64,6 +64,10 @@ namespace TF_TI2_19269_19262.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!!")]
+        [Display(Name = "Name")]
+        public string Nome { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +83,8 @@ namespace TF_TI2_19269_19262.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public Utilizadores Utilizador { get; set; }
     }
 
     public class ResetPasswordViewModel

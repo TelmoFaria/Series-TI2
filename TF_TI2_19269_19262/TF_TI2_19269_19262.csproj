@@ -179,6 +179,7 @@
     <Compile Include="Controllers\SeriesController.cs" />
     <Compile Include="Controllers\TemporadasController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\UtilizadoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -367,6 +368,11 @@
     <Content Include="Views\PessoasEpisodios\Details.cshtml" />
     <Content Include="Views\PessoasEpisodios\Edit.cshtml" />
     <Content Include="Views\PessoasEpisodios\Index.cshtml" />
+    <Content Include="Views\Utilizadores\Create.cshtml" />
+    <Content Include="Views\Utilizadores\Delete.cshtml" />
+    <Content Include="Views\Utilizadores\Details.cshtml" />
+    <Content Include="Views\Utilizadores\Edit.cshtml" />
+    <Content Include="Views\Utilizadores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

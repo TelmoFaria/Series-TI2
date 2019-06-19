@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System;
 
 namespace TF_TI2_19269_19262.Controllers
 {
@@ -153,11 +154,40 @@ namespace TF_TI2_19269_19262.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    try
+                    {
+                       // int idUt;
+                        ApplicationDbContext db = new ApplicationDbContext();
+                       // idUt = db.Utilizadores.Max(a => a.ID) + 1;
+
+
+
+                        /// se houve sucesso com a criação de um utilizador
+                        /// tenho de guardar os dados do utilizador que se registou
+                        Utilizadores utilizador = new Utilizadores();
+
+                        // associar estes dados com o utilizador q se registou
+                       // utilizador.ID = idUt;
+                        utilizador.UserName = user.UserName;
+                        utilizador.Email = user.UserName;
+                        utilizador.Nome = model.Nome;
+                        // guardar os dados na base de dados
+
+                        db.Utilizadores.Add(utilizador);
+                        db.SaveChanges();
+
+                        //atribui a role ao utilizador criado.
+                        var result1 = UserManager.AddToRole(user.Id, "Utilizador");
+                    }
+                    catch (Exception ex)
+                    {
+                        int i = 0;
+                    }
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }

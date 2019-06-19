@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
 using TF_TI2_19269_19262.Models;
 using System.Linq;
+using System.Data.Entity.Migrations;
 
 namespace TF_TI2_19269_19262
 {
@@ -37,14 +38,6 @@ namespace TF_TI2_19269_19262
                 roleManager.Create(role);
             }
 
-            if (!roleManager.RoleExists("Moderador"))
-            {
-                // não existe a 'role'
-                // então, criar essa role
-                var role = new IdentityRole();
-                role.Name = "Moderador";
-                roleManager.Create(role);
-            }
 
             if (!roleManager.RoleExists("Administrador"))
             {
@@ -61,9 +54,10 @@ namespace TF_TI2_19269_19262
             user.UserName = "telmo@teste.pt";
             user.Email = "telmo@teste.pt";
             string userPWD = "123_Asd";
-            var chkUser = userManager.Create(user, userPWD);
+            var chkUser = userManager.Create(user, userPWD);   
             var getall = db.Utilizadores.ToList();
-
+            /*db.Utilizadores.AddOrUpdate(u => u.Nome, new Utilizadores { Email=user.UserName, Nome="Telmo Faria", UserName=user.UserName});
+            db.SaveChanges();*/
             //Adicionar o Utilizador à respetiva Role-Utilizador-
             if (chkUser.Succeeded)
             {
@@ -77,6 +71,7 @@ namespace TF_TI2_19269_19262
             userPWD = "123_Asd";
             chkUser = userManager.Create(user, userPWD);
             getall = db.Utilizadores.ToList();
+            //getall = db.Utilizadores.ToList();
 
             //Adicionar o Utilizador à respetiva Role-Utilizador-
             if (chkUser.Succeeded)
@@ -89,8 +84,8 @@ namespace TF_TI2_19269_19262
             user.Email = "admin@teste.pt";
             userPWD = "123_Asd";
             chkUser = userManager.Create(user, userPWD);
-
             getall = db.Utilizadores.ToList();
+            //     getall = db.Utilizadores.ToList();
 
             //Adicionar o Utilizador à respetiva Role-Utilizador-
             if (chkUser.Succeeded)
