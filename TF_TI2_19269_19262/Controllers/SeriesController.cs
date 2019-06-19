@@ -38,6 +38,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome");
@@ -49,6 +50,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,Classificacao,EditoraFK")] Series series, HttpPostedFileBase uploadFoto)
         {
             int idNovaSerie = db.Series.Max(e => e.ID) + 1;
@@ -93,6 +95,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -113,6 +116,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,Classificacao,EditoraFK")] Series serie, HttpPostedFileBase editFoto)
         {
             string novoNome = "";
@@ -149,6 +153,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +171,7 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Series/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Series serie = db.Series.Find(id);
