@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Editora.Nome)
+            @Html.DisplayNameFor(model => model.EditoraFK)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -47,7 +47,6 @@
             @Html.DisplayFor(modelItem => item.Genero)
         </td>
         <td>
-            @*  @Html.DisplayFor(modelItem => item.Foto)*@
             <a href="~/Imagens/@item.Foto" target="_blank">
                 <img src="~/Imagens/@item.Foto" width="74" height="100" />
             </a>

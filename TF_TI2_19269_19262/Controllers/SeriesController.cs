@@ -99,13 +99,13 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Series series = db.Series.Find(id);
-            if (series == null)
+            Series serie = db.Series.Find(id);
+            if (serie == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", series.EditoraFK);
-            return View(series);
+            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
+            return View(serie);
         }
 
         // POST: Series/Edit/5
@@ -113,16 +113,39 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,Classificacao,EditoraFK")] Series series)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,Classificacao,EditoraFK")] Series serie, HttpPostedFileBase editFoto)
         {
+            string novoNome = "";
+            string nomeAntigo = "";
+            bool haFotoNova = false;
+
             if (ModelState.IsValid)
             {
-                db.Entry(series).State = EntityState.Modified;
+                 try
+                 {
+                if (editFoto != null)
+                {
+                    nomeAntigo = serie.Foto;
+                    novoNome = "Serie_" + serie.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(editFoto.FileName).ToLower();
+                    serie.Foto = novoNome;
+                    haFotoNova = true;
+                }
+                db.Entry(serie).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (haFotoNova)
+                {
+                    System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens"), nomeAntigo));
+                    editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens"), novoNome));
+                }
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da serie {0}", serie.Nome));
+                }
             }
-            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", series.EditoraFK);
-            return View(series);
+            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
+            return RedirectToAction("Index");
+
         }
 
         // GET: Series/Delete/5
@@ -145,10 +168,17 @@ namespace TF_TI2_19269_19262.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Series series = db.Series.Find(id);
-            db.Series.Remove(series);
+            Series serie = db.Series.Find(id);
+            try { 
+            db.Series.Remove(serie);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associadas"));
+            }
+            return View(serie);
         }
 
         protected override void Dispose(bool disposing)
