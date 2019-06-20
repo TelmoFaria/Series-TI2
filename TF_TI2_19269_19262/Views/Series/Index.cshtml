@@ -9,14 +9,16 @@
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Series
     </h2>
-    <div style="padding:0px 0px 30px 0px">
-      @if (User.IsInRole("Administrador")) {
-        <button>
-            @Html.ActionLink("Adicionar Serie", "Create")
-        </button>
-      }
-    </div>
+    @if (User.IsInRole("Administrador"))
+    {
+        <div style="padding:0px 0px 30px 0px">
 
+            <button>
+                @Html.ActionLink("Adicionar Serie", "Create")
+            </button>
+    
+        </div>
+    }
 </div>
 <div style="display: flex;flex-direction: row;flex-wrap: wrap;padding:20px;">
     @foreach (var item in Model)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -42,6 +43,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Episodios/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome");
@@ -53,20 +55,43 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodios)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
+            int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
+
+            string nomeFoto = "Episodio_" + idNovoEpisodio + ".jpg";
+
+            string path = "";
+
+            if (uploadFoto != null)
+            {
+                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                //guardar nome do file na bd
+                episodio.Foto = nomeFoto;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+                ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+
+                return View(episodio);
+            }
             if (ModelState.IsValid)
             {
-                db.Episodios.Add(episodios);
+                db.Episodios.Add(episodio);
                 db.SaveChanges();
+                uploadFoto.SaveAs(path);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodios.TemporadaFK);
-            return View(episodios);
+            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+            return View(episodio);
         }
 
         // GET: Episodios/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,19 +112,48 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodios)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase editFoto)
         {
+            string novoNome = "";
+            string nomeAntigo = "";
+            bool haFotoNova = false;
+            string caminhoCompleto = "";
+
             if (ModelState.IsValid)
             {
-                db.Entry(episodios).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (editFoto != null)
+                    {
+                        nomeAntigo = episodio.Foto;
+                        novoNome = "Episodio_" + episodio.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(editFoto.FileName).ToLower();
+                        episodio.Foto = novoNome;
+                        haFotoNova = true;
+
+                    }
+                    db.Entry(episodio).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (haFotoNova)
+                    {
+                        caminhoCompleto = (Path.Combine(Server.MapPath("~/Imagens/"), nomeAntigo));
+                        System.IO.File.Delete(caminhoCompleto);
+                        editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens/"), novoNome));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição do episodio {0}", episodio.Nome));
+                }
+
             }
-            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodios.TemporadaFK);
-            return View(episodios);
+            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+            return RedirectToAction("Index");
         }
 
         // GET: Episodios/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,12 +171,21 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Episodios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Episodios episodios = db.Episodios.Find(id);
-            db.Episodios.Remove(episodios);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Episodios episodio = db.Episodios.Find(id);
+            try
+            {
+                db.Episodios.Remove(episodio);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", string.Format("Não é possível apagar este episodio pois existem comentários a ele associados"));
+            }
+            return View(episodio);
         }
 
         protected override void Dispose(bool disposing)

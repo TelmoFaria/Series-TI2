@@ -69,12 +69,12 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,Classificacao,EditoraFK")] Series series, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,Classificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
         {
-            int idNovaSerie = db.Series.Max(e => e.ID) + 1;
-            series.ID = idNovaSerie;
+            int idNovaSerie = db.Series.Max(s => s.ID) + 1;
+            serie.ID = idNovaSerie;
 
-            string nomeFoto = "Serie_" + idNovaSerie + ".png";
+            string nomeFoto = "Serie_" + idNovaSerie + ".jpg";
 
             string path = "";
 
@@ -89,27 +89,27 @@ namespace TF_TI2_19269_19262.Controllers
                 path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
 
                 //guardar nome do file na bd
-                series.Foto = nomeFoto;
+                serie.Foto = nomeFoto;
             }
             else
             {
                 ModelState.AddModelError("", "Não foi fornecida uma imagem...");
-                ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", series.EditoraFK);
+                ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
 
-                return View(series);
+                return View(serie);
             }
 
 
             if (ModelState.IsValid)
             {
-                db.Series.Add(series);
+                db.Series.Add(serie);
                 db.SaveChanges();
                 uploadFoto.SaveAs(path);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", series.EditoraFK);
-            return View(series);
+            ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
+            return View(serie);
         }
 
         // GET: Series/Edit/5
@@ -200,7 +200,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associadas"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associados"));
             }
             return View(serie);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Temporadas
         public ActionResult Index(int? id)
         {
-            var temporadas = db.Temporadas.Include(t => t.Series);
+            var temporada = db.Temporadas.Include(t => t.Series);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id
                          select t;
@@ -40,16 +41,17 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Temporadas temporadas = db.Temporadas.Find(id);
-            if (temporadas == null)
+            Temporadas temporada = db.Temporadas.Find(id);
+            if (temporada == null)
             {
                 return HttpNotFound();
             }
-            return View(temporadas);
+            return View(temporada);
         }
-       
+
 
         // GET: Temporadas/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome");
@@ -61,33 +63,56 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Foto,Trailer,SerieFK")] Temporadas temporadas)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Trailer,SerieFK")] Temporadas temporada, HttpPostedFileBase uploadFoto)
         {
+            int idNovaTemporada = db.Temporadas.Max(t => t.ID) + 1 ;
+
+            string nomeFoto = "Temporada_" + idNovaTemporada + ".jpg";
+
+            string path = "";
+
+            if (uploadFoto != null)
+            {
+                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                //guardar nome do file na bd
+                temporada.Foto = nomeFoto;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+                ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
+
+                return View(temporada);
+            }
             if (ModelState.IsValid)
             {
-                db.Temporadas.Add(temporadas);
+                db.Temporadas.Add(temporada);
                 db.SaveChanges();
+                uploadFoto.SaveAs(path);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporadas.SerieFK);
-            return View(temporadas);
+            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
+            return View(temporada);
         }
 
         // GET: Temporadas/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Temporadas temporadas = db.Temporadas.Find(id);
-            if (temporadas == null)
+            Temporadas temporada = db.Temporadas.Find(id);
+            if (temporada == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporadas.SerieFK);
-            return View(temporadas);
+            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
+            return View(temporada);
         }
 
         // POST: Temporadas/Edit/5
@@ -95,19 +120,46 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Foto,Trailer,SerieFK")] Temporadas temporadas)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Foto,Trailer,SerieFK")] Temporadas temporada, HttpPostedFileBase editFoto)
         {
+            string novoNome = "";
+            string nomeAntigo = "";
+            bool haFotoNova = false;
+            string caminhoCompleto = "";
+
             if (ModelState.IsValid)
             {
-                db.Entry(temporadas).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (editFoto != null)
+                    {
+                        nomeAntigo = temporada.Foto;
+                        novoNome = "Temporada_" + temporada.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(editFoto.FileName).ToLower();
+                        temporada.Foto = novoNome;
+                        haFotoNova = true;
+
+                    }
+                    db.Entry(temporada).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (haFotoNova) {
+                        caminhoCompleto = (Path.Combine(Server.MapPath("~/Imagens/"), nomeAntigo));
+                        System.IO.File.Delete(caminhoCompleto);
+                        editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens/"), novoNome));
+                    }
+                } catch (Exception ex)
+                {
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da temporada {0}", temporada.Nome));
+                }
+
             }
-            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporadas.SerieFK);
-            return View(temporadas);
+            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
+            return RedirectToAction("Index");
         }
 
         // GET: Temporadas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -125,12 +177,21 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Temporadas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Temporadas temporadas = db.Temporadas.Find(id);
-            db.Temporadas.Remove(temporadas);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Temporadas temporada = db.Temporadas.Find(id);
+            try
+            {
+                db.Temporadas.Remove(temporada);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", string.Format("Não é possível apagar esta temporada pois existem episódios a ela associados"));
+            }
+            return View(temporada);
         }
 
         protected override void Dispose(bool disposing)

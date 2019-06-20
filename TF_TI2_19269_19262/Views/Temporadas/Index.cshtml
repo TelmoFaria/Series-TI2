@@ -8,13 +8,17 @@
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Temporadas
     </h2>
-    <div style="padding:20px 0px 20px 0px">
-        <button >
-            @Html.ActionLink("Criar Nova Temporada", "Create")
-        </button>
+    @if (User.IsInRole("Administrador"))
+    {
+        <div style="padding:20px 0px 20px 0px">
+            <button>
+
+                @Html.ActionLink("Criar Nova Temporada", "Create")
+                
+            </button>
+        </div>
+    }
     </div>
-    
-</div>
 
 <div>
     @foreach (var item in Model)
@@ -60,8 +64,12 @@
                 </div>
                 
                 <p style="padding-bottom:20px">
-                    @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID }) 
+                        @Html.Raw("|")
+                        @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
+                    }
                 </p>
             </div>
         </div>
