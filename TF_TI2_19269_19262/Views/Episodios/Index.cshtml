@@ -7,22 +7,26 @@
 <div style="text-align:center">
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Episodios
-    </h2>
-    <div style="padding:20px 0px 20px 0px">
-        <button>
-            @Html.ActionLink("Criar Novo Episodio", "Create")
-        </button>
-    </div>
+    </h2> 
+    @if (User.IsInRole("Administrador"))
+    {
+        <div style="padding:20px 0px 20px 0px">
 
-</div>
+            <button>
+                @Html.ActionLink("Criar Novo Episodio", "Create")
+            </button>
+
+        </div>
+    }
+    </div>
 
 <div>
     @foreach (var item in Model)
     {
-        <div style="border: 2px solid black;width: 100%;height: 400px;overflow: hidden;text-align: center;margin: 20px;display:flex;flex-direction:row">
+        <div style="border: 2px solid black;width: 100%;height: 500px;overflow: hidden;text-align: center;margin: 20px;display:flex;flex-direction:row">
             <div style="padding-right:20px">
                 <a href="~/Imagens/@item.Foto" target="_blank">
-                    <img src="~/Imagens/@item.Foto" width="400" height="400" />
+                    <img src="~/Imagens/@item.Foto" width="400" height="500" />
                 </a>
             </div>
             <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
@@ -66,13 +70,22 @@
                         @Html.DisplayFor(modelItem => item.Sinopse)
                     </p>
                 </div>
+                @if (System.IO.File.Exists(item.Trailer))
+                {
+                    <div>
+                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
+                    </div>
+                }
 
-                <p style="padding-bottom:20px">
-                    @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
-                </p>
-            </div>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <p style="padding-bottom:20px">
+                        @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
+                    </p>
+                }
+                </div>
         </div>
     }
 </div>
