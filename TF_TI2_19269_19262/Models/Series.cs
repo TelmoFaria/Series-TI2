@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace TF_TI2_19269_19262.Models
         public virtual ICollection<Temporadas> Temporadas { get; set; }
 
         [ForeignKey("Editora")]
+        [DisplayName ("Editora")]
         public int EditoraFK { get; set; }
         public virtual Editora Editora { get; set; }
 

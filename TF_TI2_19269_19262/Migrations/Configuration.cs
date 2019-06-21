@@ -290,10 +290,9 @@
 
             var utilizadores = new List<Utilizadores>
             {
-               new Utilizadores {ID=1, Nome="John Doe", UserName="JohnDoe", Email="johndoe@teste.com", Nacionalidade="Taiwanesa"},
-               new Utilizadores {ID=2, Nome="João Alves", UserName="joaorga", Email="joao@teste.com", Nacionalidade="Portuguesa"},
-               new Utilizadores {ID=3, Nome="Telmo Faria", UserName="telmofaria", Email="telmo@teste.com", Nacionalidade="Portuguesa"},
-
+               new Utilizadores {ID=1, Nome="João Alves", UserName="joao@teste.pt", Email="joao@teste.pt"},
+               new Utilizadores {ID=2, Nome="Telmo Faria", UserName="telmo@teste.pt", Email="telmo@teste.pt"},
+               new Utilizadores {ID=3, Nome="John Doe", UserName="admin@teste.pt", Email="admin@teste.pt"},
 
             };
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.Nome, uu));
