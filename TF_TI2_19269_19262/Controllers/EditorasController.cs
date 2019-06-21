@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,6 +37,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Editoras/Create
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             return View();
@@ -46,12 +48,33 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Logo")] Editora editora)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Create([Bind(Include = "ID,Nome,Logo")] Editora editora, HttpPostedFileBase uploadLogo)
         {
+            int idNovaEditora = db.Editora.Max(t => t.ID) + 1;
+
+            string nomeFoto = "Editora_" + idNovaEditora + ".jpg";
+
+            string path = "";
+
+            if (uploadLogo != null)
+            {
+                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                //guardar nome do file na bd
+                editora.Logo = nomeFoto;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+
+                return View(editora);
+            }
             if (ModelState.IsValid)
             {
                 db.Editora.Add(editora);
                 db.SaveChanges();
+                uploadLogo.SaveAs(path);
                 return RedirectToAction("Index");
             }
 
@@ -59,6 +82,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Editoras/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,18 +102,48 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Logo")] Editora editora)
+        [Authorize(Roles = "Administrador")]
+        public ActionResult Edit([Bind(Include = "ID,Nome,Logo")] Editora editora, HttpPostedFileBase editLogo)
         {
+            string novoNome = "";
+            string nomeAntigo = "";
+            bool haFotoNova = false;
+            string caminhoCompleto = "";
+
             if (ModelState.IsValid)
             {
-                db.Entry(editora).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (editLogo != null)
+                    {
+                        nomeAntigo = editora.Logo;
+                        novoNome = "Editora_" + editora.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(editLogo.FileName).ToLower();
+                        editora.Logo = novoNome;
+                        haFotoNova = true;
+
+                    }
+                    db.Entry(editora).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (haFotoNova)
+                    {
+                        caminhoCompleto = (Path.Combine(Server.MapPath("~/Imagens/"), nomeAntigo));
+                        System.IO.File.Delete(caminhoCompleto);
+                        editLogo.SaveAs(Path.Combine(Server.MapPath("~/Imagens/"), novoNome));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da editora {0}", editora.Nome));
+                }
+
             }
-            return View(editora);
+            return RedirectToAction("Index");
         }
 
+
         // GET: Editoras/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +161,7 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Editoras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Editora editora = db.Editora.Find(id);

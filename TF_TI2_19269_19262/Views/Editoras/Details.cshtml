@@ -23,12 +23,16 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Logo)
+            <img src="~/Imagens/@Html.DisplayFor(item => item.Logo)" width="74" height="100" />
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Administrador"))
+    {
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID })
+        @Html.Raw("|")
+    }
+@Html.ActionLink("Voltar à lista das editoras", "Index")
 </p>

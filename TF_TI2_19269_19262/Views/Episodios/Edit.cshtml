@@ -46,6 +46,7 @@
             @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" accept=".jpg" name="editFoto" />
+                <img src="~/Imagens/@Model.Foto" width="74" height="100" />
                 @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
             </div>
         </div>
