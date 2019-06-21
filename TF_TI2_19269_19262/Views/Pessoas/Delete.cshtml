@@ -11,6 +11,7 @@
     <h4>Pessoas</h4>
     <hr />
     <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -24,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Foto)
+            <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
         </dd>
 
     </dl>
