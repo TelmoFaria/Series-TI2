@@ -77,6 +77,19 @@
                     </div>
                 }
 
+                <div>
+                    <p>Comentários</p>
+                    <div style="display: flex; flex-direction: row;justify-content: center;">
+                        
+                        <input class="form-control" id="StudentName" name="StudentName" type="text" value="" placeholder="Insira aqui o seu comentário"/>
+                        <button>➕</button>
+                    </div>
+                    <div>
+
+                    </div>
+                    
+                </div>
+
                 @if (User.IsInRole("Administrador"))
                 {
                     <p style="padding-bottom:20px">
@@ -90,5 +103,5 @@
     }
 </div>
 <button>
-    @Html.ActionLink("Voltar á Lista de Temporadas", "../Temporadas/Index")
+    @Html.ActionLink("Voltar á Lista de Temporadas", "Index", "Temporadas", new { id = 1}, null)
 </button>
