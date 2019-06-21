@@ -309,12 +309,12 @@
 
             var pessoasepisodios = new List<PessoasEpisodios>
             {
-               new PessoasEpisodios {ID=1,Papel="Ator",EpisodioFK=21,PessoaFK=1},
-               new PessoasEpisodios {ID=2,Papel="Ator",EpisodioFK=22,PessoaFK=1},
-               new PessoasEpisodios {ID=3,Papel="Ator",EpisodioFK=23,PessoaFK=1},
-               new PessoasEpisodios {ID=4,Papel="Ator",EpisodioFK=6,PessoaFK=14},
-               new PessoasEpisodios {ID=5,Papel="Ator",EpisodioFK=6,PessoaFK=15},
-               new PessoasEpisodios {ID=6,Papel="Ator",EpisodioFK=6,PessoaFK=16},
+               new PessoasEpisodios {ID=1,Papel=(0),EpisodioFK=21,PessoaFK=1},
+               new PessoasEpisodios {ID=2,Papel=(0),EpisodioFK=22,PessoaFK=1},
+               new PessoasEpisodios {ID=3,Papel=(0),EpisodioFK=23,PessoaFK=1},
+               new PessoasEpisodios {ID=4,Papel=(0),EpisodioFK=6,PessoaFK=14},
+               new PessoasEpisodios {ID=5,Papel=(0),EpisodioFK=6,PessoaFK=15},
+               new PessoasEpisodios {ID=6,Papel=(0),EpisodioFK=6,PessoaFK=16},
 
 
             };

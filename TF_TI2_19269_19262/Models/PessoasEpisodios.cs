@@ -12,8 +12,16 @@ namespace TF_TI2_19269_19262.Models
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
-        public string Papel { get; set; }
+
+
+
+        public enum TipoDePapel
+        {
+            Ator,
+            Realizador,
+        };
+
+        public TipoDePapel Papel {get; set;}
 
         [ForeignKey("Pessoas")]
         public int PessoaFK { get; set; }
@@ -22,6 +30,8 @@ namespace TF_TI2_19269_19262.Models
         [ForeignKey("Episodios")]
         public int EpisodioFK { get; set; }
         public virtual Episodios Episodios { get; set; }
+
+
 
     }
 }
