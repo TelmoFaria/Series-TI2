@@ -25,7 +25,17 @@
         <dd>
             <img src="~/Imagens/@Model.Foto" width="148" height="200" />
         </dd>
-
+           @foreach(var pap in Model.PessoasEpisodios)
+           {
+               <div class="row">
+                   <div class="col-md-12">
+                       <div>
+                           @Html.DisplayFor(a => pap.Episodios.Nome)
+                           @Html.DisplayFor(a => pap.Papel)
+                       </div>
+                   </div>
+               </div>
+           }
 
 
     </dl>
