@@ -301,10 +301,10 @@
             //*********************************************************************
             //            // adiciona Comentarios
             var comentarios = new List<Comentarios> {
-               new Comentarios {ID=1,Assunto="Não gostei",Texto="Não gostei muito deste episódio",EpisodioFK=1, UtilizadorFK=1},
-               new Comentarios {ID=2,Assunto="Gostei",Texto="Gostei muito",EpisodioFK=2, UtilizadorFK=1},
+               new Comentarios {ID=1,Texto="Não gostei muito deste episódio",EpisodioFK=1, UtilizadorFK=1},
+               new Comentarios {ID=2,Texto="Gostei muito",EpisodioFK=2, UtilizadorFK=1},
             };
-            comentarios.ForEach(cc => context.Comentarios.AddOrUpdate(c => c.Assunto, cc));
+            comentarios.ForEach(cc => context.Comentarios.AddOrUpdate(c => c.Texto, cc));
             context.SaveChanges();
 
             var pessoasepisodios = new List<PessoasEpisodios>

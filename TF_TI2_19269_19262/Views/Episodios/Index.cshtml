@@ -70,12 +70,12 @@
                         @Html.DisplayFor(modelItem => item.Sinopse)
                     </p>
                 </div>
-                @if (System.IO.File.Exists(item.Trailer))
-                {
-                    <div>
-                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
-                    </div>
-                }
+                  @if (System.IO.File.Exists(item.Trailer))
+                  {
+                <div>
+                    <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
+                </div>
+
 
                 <div>
                     <p>Comentários</p>
@@ -90,6 +90,7 @@
                     
                 </div>
 
+
                 @if (User.IsInRole("Administrador"))
                 {
                     <p style="padding-bottom:20px">
@@ -98,7 +99,7 @@
                         @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
                     </p>
                 }
-                </div>
+            </div>
         </div>
     }
 </div>

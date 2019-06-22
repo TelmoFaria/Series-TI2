@@ -34,12 +34,15 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Episodios episodios = db.Episodios.Find(id);
-            if (episodios == null)
+            Episodios episodio = db.Episodios.Find(id);
+            if (episodio == null)
             {
                 return HttpNotFound();
             }
-            return View(episodios);
+            var coment = episodio.ListaDeComentarios.ToList();
+            ViewBag.coment = coment;
+
+            return View(episodio);
         }
 
         // GET: Episodios/Create

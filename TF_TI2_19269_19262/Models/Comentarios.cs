@@ -12,10 +12,6 @@ namespace TF_TI2_19269_19262.Models
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
-        public string Assunto { get; set; }
-
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Texto { get; set; }
 
         [ForeignKey("Episodios")]
