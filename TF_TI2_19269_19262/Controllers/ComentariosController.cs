@@ -51,23 +51,23 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Create([Bind(Include = "ID,Texto,EpisodioFK")] Comentarios comentario, Episodios episodio, string coment)
         {
-            comentario.ID= db.Comentarios.Max(t => t.ID) + 1;
+            //comentario.ID= db.Comentarios.Max(t => t.ID) + 1;
             var Ut = db.Utilizadores.Where(
                 uti => uti.UserName
                 .Equals(User.Identity.Name)).FirstOrDefault();
 
             comentario.UtilizadorFK = Ut.ID;
 
-            coment = comentario.Texto;
+            comentario.Texto= coment ;
 
-            episodio.ID = comentario.EpisodioFK;
+            comentario.EpisodioFK= episodio.ID ;
 
 
             if (ModelState.IsValid)
             {
                 db.Comentarios.Add(comentario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             var errors = ModelState.Values.SelectMany(v => v.Errors);
             ViewBag.UtilizadorFK = new SelectList(db.Utilizadores, "ID", "UserName", comentario.UtilizadorFK);

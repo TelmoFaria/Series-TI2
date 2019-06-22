@@ -18,6 +18,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Episodios
         public ActionResult Index(int?id)
         {
+            ViewBag.TemporadaID = id;
             var episodios = db.Episodios.Include(e => e.Temporadas);
             var ep = from p in db.Episodios
                        where p.TemporadaFK == id

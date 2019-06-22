@@ -55,7 +55,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trailer)
+
+            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
         </dd>
 
         <dt>
@@ -68,6 +69,52 @@
 
     </dl>
 </div>
+
+@*----------------------------------------------*@
+<div>
+    <h2>
+        Comentários
+    </h2>
+    @foreach (var comentario in Model.ListaDeComentarios)
+    {
+        <div class="row">
+            <div class="col-md-12" style="background-color:lightgray; margin-left:5px; font-family:Arial;height:100px; margin-top:15px;">
+                @*Texto do comentário*@
+                <div>
+                    @Html.DisplayFor(a => comentario.Utilizadores.Nome)
+
+                </div>
+                <div style="padding-top:10px;">
+                    <b>@Html.DisplayFor(a => comentario.Texto)</b>
+                    <a href="~/Comentarios/Delete/@comentario.ID">
+                        <p>X</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    }
+    <br />
+    <form action="/Comentarios/Create" method="post" novalidate="novalidate" enctype="multipart/form-data">
+        
+        @Html.AntiForgeryToken()
+        <h3>Insira um comentário</h3>
+        <div class="hide">
+
+            @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+        @Html.TextArea("coment", "", new { placeholder = "insira um comentário", style = "width: 900px; max-width:900px" })
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+        </form>
+</div>
+
+@*----------------------------------------------*@
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

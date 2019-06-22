@@ -18,6 +18,10 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Temporadas
         public ActionResult Index(int? id)
         {
+            if (id == null)
+            {
+                return Redirect("/");
+            }
             var temporada = db.Temporadas.Include(t => t.Series);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id

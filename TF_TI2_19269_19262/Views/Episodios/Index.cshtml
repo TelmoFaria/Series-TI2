@@ -75,34 +75,29 @@
                 <div>
                     <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
                 </div>
+                  }
 
 
-                <div>
-                    <p>Comentários</p>
-                    <div style="display: flex; flex-direction: row;justify-content: center;">
-                        
-                        <input class="form-control" id="StudentName" name="StudentName" type="text" value="" placeholder="Insira aqui o seu comentário"/>
-                        <button>➕</button>
-                    </div>
-                    <div>
-
-                    </div>
-                    
-                </div>
 
 
-                @if (User.IsInRole("Administrador"))
-                {
-                    <p style="padding-bottom:20px">
-                        @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID }) |
+
+               
+                <p style="padding-bottom:20px">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID })
+                        @Html.Raw("|")
                         @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
-                    </p>
-                }
+                        @Html.Raw("|")
+                    }
+                    @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID })
+                </p>
+                
             </div>
         </div>
     }
+                  
 </div>
 <button>
-    @Html.ActionLink("Voltar á Lista de Temporadas", "Index", "Temporadas", new { id = 1}, null)
+    @Html.ActionLink("Voltar á Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.TemporadaID }, null)
 </button>
