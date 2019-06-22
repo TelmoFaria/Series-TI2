@@ -373,6 +373,7 @@
     <Content Include="Views\PessoasEpisodios\Details.cshtml" />
     <Content Include="Views\PessoasEpisodios\Edit.cshtml" />
     <Content Include="Views\PessoasEpisodios\Index.cshtml" />
+    <Content Include="Views\PaginaErro\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
