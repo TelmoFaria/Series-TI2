@@ -59,6 +59,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Utilizadores/Edit/5
+        [Authorize(Roles = "Restrito")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +79,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Restrito")]
         public ActionResult Edit([Bind(Include = "ID,Email,Nome,UserName")] Utilizadores utilizadores)
         {
             if (ModelState.IsValid)
@@ -90,6 +92,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Utilizadores/Delete/5
+        [Authorize(Roles = "Restrito")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +110,7 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Utilizadores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Restrito")]
         public ActionResult DeleteConfirmed(int id)
         {
             Utilizadores utilizadores = db.Utilizadores.Find(id);

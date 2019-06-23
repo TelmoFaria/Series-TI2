@@ -18,11 +18,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Series", "Index", "Series")</li>
                     <li>@Html.ActionLink("Pessoas", "Index", "Pessoas")</li>
+                    <li>@Html.ActionLink("Editoras", "Index", "Editoras")</li>
 
                     @if (User.IsInRole("Administrador"))
                     {
                         <li>@Html.ActionLink("Comentarios", "Index", "Comentarios")</li>
-                        <li>@Html.ActionLink("Utilizadores", "index", "Utilizadores")</li>
                     }
 
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
