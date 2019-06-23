@@ -48,6 +48,15 @@ namespace TF_TI2_19269_19262
                 roleManager.Create(role);
             }
 
+            if (!roleManager.RoleExists("Restrito"))
+            {
+                // não existe a 'role'
+                // então, criar essa role
+                var role = new IdentityRole();
+                role.Name = "Restrito";
+                roleManager.Create(role);
+            }
+
 
             // criar um utilizador 'Utilizador'
             var user = new ApplicationUser();
