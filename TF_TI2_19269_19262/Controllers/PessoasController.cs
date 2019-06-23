@@ -33,6 +33,9 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return HttpNotFound();
             }
+            var pap = pessoas.PessoasEpisodios.ToList();
+            ViewBag.pap = pap;
+
             return View(pessoas);
         }
 

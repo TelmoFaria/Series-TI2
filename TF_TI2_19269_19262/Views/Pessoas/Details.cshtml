@@ -25,48 +25,55 @@
         <dd>
             <img src="~/Imagens/@Model.Foto" width="148" height="200" />
         </dd>
-        @foreach (var pap in Model.PessoasEpisodios)
-        {
+
             
                 <div class="row">
                     <div class="col-md-12">
                         <div>
-                            <table class="tabela">
+                            <table class="table">
+                                @foreach (var pap in Model.PessoasEpisodios)
+                                {
+
+                                    <tr>
+                                        <th>
+                                            @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Series.Nome)*@
+                                            @Html.LabelFor(a => pap.Episodios.Temporadas.Series.Nome, "Nome Série")
+
+                                        </th>
+                                        <th>
+                                            @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")*@
+                                            @Html.LabelFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(a => pap.Episodios.Nome)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(a => pap.Papel)
+                                        </th>
+                                    </tr>
+                                
+
                                 <tr>
-                                    <th class="nomes">
-                                        @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Series.Nome)*@
-                                        @Html.LabelFor(a => pap.Episodios.Temporadas.Series.Nome, "Nome Série")
-                                    </th>
-                                    <th class="nomes">
-                                       @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")*@
-                                        @Html.LabelFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")
-                                    </th>
-                                    <th class="nomes">
-                                        @Html.DisplayNameFor(a => pap.Episodios.Nome)
-                                    </th>
-                                    <th class="nomes">
-                                        @Html.DisplayNameFor(a => pap.Papel)
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="valores">                                    
+                                    <td>
                                         @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
                                     </td>
-                                    <td class="valores">
+                                    <td>
                                         @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
                                     </td>
-                                    <td class="valores">
+                                    <td>
                                         @Html.DisplayFor(a => pap.Episodios.Nome)
                                     </td>
-                                    <td class="valores"> 
+                                    <td>
                                         @Html.DisplayFor(a => pap.Papel)
                                     </td>
                                 </tr>
+                                }
+
                             </table>
                         </div>
                    </div>
                </div>
-           }
+         
 
 
     </dl>
