@@ -33,7 +33,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Episodios episodio = db.Episodios.Find(id);
             if (episodio == null)
@@ -100,7 +100,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Episodios episodios = db.Episodios.Find(id);
             if (episodios == null)
@@ -162,7 +162,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Episodios episodios = db.Episodios.Find(id);
             if (episodios == null)

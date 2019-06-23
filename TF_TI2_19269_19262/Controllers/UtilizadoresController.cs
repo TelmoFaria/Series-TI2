@@ -25,7 +25,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)
@@ -64,7 +64,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)
@@ -97,7 +97,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)

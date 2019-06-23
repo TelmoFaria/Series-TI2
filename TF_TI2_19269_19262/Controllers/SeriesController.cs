@@ -28,7 +28,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Series series = db.Series.Find(id);
             if (series == null)
@@ -44,7 +44,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             var temporadas = db.Temporadas.Where(t => t.SerieFK == id);
             var varSerie = db.Series;
@@ -118,7 +118,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Series serie = db.Series.Find(id);
             if (serie == null)
@@ -176,7 +176,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Series series = db.Series.Find(id);
             if (series == null)
