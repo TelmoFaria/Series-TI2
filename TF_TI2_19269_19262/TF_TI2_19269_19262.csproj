@@ -221,6 +221,7 @@
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\vendor\jquery\jquery.min.js" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\vendor\jquery\jquery.slim.js" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="CSS\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

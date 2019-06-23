@@ -15,6 +15,7 @@ namespace TF_TI2_19269_19262.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
+        [DisplayName ("Nome Série")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]

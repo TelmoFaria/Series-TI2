@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace TF_TI2_19269_19262.Models
         public int Numero { get; set; }
 
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
+        [DisplayName("Nome Temporada")]
         public string Nome { get; set; }
 
 
