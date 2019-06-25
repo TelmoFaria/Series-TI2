@@ -62,6 +62,8 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
+            episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
+
             int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
 
             string nomeFoto = "Episodio_" + idNovoEpisodio + ".jpg";
@@ -108,9 +110,6 @@ namespace TF_TI2_19269_19262.Controllers
                 return HttpNotFound();
             }
 
-            // recuperar os dados do AuxClassificacao
-            episodios.AuxClassificacao = episodios.Classificacao+"";
-
 
             ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodios.TemporadaFK);
             return View(episodios);
@@ -122,7 +121,7 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase editFoto)
+        public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase editFoto)
         {
             string novoNome = "";
             string nomeAntigo = "";

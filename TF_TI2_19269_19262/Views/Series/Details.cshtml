@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2 style="text-align:center;font-size:40px">Detalhes da Serie @Html.DisplayFor(item => item.Nome)</h2>
+<h2 style="text-align:center;font-size:40px">Detalhes da Série @Html.DisplayFor(item => item.Nome)</h2>
 
 
 <div style="padding:30px;text-align:center;font-size:30px">
@@ -14,7 +14,7 @@
     </div>
     <div style="padding:30px">
         <p>
-            Serie:
+            Série:
         </p>
         <p>
             @Html.DisplayFor(item => item.Nome)
@@ -30,7 +30,7 @@
     </div>
     <div style="padding:30px">
         <p>
-            Genero:
+            Género:
         </p>
         <p>
             @Html.DisplayFor(item => item.Genero)
@@ -77,15 +77,15 @@
         <p>
             @if (User.IsInRole("Administrador"))
             {
-                @Html.ActionLink("Editar Serie", "Edit", new { id = Model.ID });
+                @Html.ActionLink("Editar Série", "Edit", new { id = Model.ID });
                 @Html.Raw("|");
-                @Html.ActionLink("Eliminar Serie", "Delete", new { id = Model.ID })
+                @Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })
             }
             </p>
     </div>
     <div >
         <button>
-            @Html.ActionLink("Voltar á Lista de Series", "../Series/Index")
+            @Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")
         </button>
     </div>
 

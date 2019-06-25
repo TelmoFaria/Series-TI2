@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cirar Novo Utilizador", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,12 +37,12 @@
         <td>
             @if (User.IsInRole("Restrito"))
             {
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID })
                 @Html.Raw("|")
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
                 @Html.Raw("|")
             }
-                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ID })
             </td>
     </tr>
 }

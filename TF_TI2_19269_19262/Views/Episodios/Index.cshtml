@@ -24,9 +24,10 @@
     @foreach (var item in Model)
     {
         <div style="border: 2px solid black;width: 100%;height: 500px;overflow: hidden;text-align: center;margin: 20px;display:flex;flex-direction:row">
-            <div style="padding-right:20px">
+            <div style="padding-right:20px;display:flex;  align-items: center;
+  justify-content: center;margin-left:20px">
                 <a href="~/Imagens/@item.Foto" target="_blank">
-                    <img src="~/Imagens/@item.Foto" width="400" height="500" />
+                    <img src="~/Imagens/@item.Foto" width="400" />
                 </a>
             </div>
             <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
@@ -85,12 +86,12 @@
                 <p style="padding-bottom:20px">
                     @if (User.IsInRole("Administrador"))
                     {
-                        @Html.ActionLink("Editar Episodio", "Edit", new { id = item.ID })
+                        @Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })
                         @Html.Raw("|")
-                        @Html.ActionLink("Eliminar Episodio", "Delete", new { id = item.ID })
+                        @Html.ActionLink("Eliminar Episódio", "Delete", new { id = item.ID })
                         @Html.Raw("|")
                     }
-                    @Html.ActionLink("Detalhes Do Episodio", "Details", new { id = item.ID })
+                    @Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })
                 </p>
                 
             </div>
@@ -99,7 +100,7 @@
                   
 </div>
 <button>
-    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)
+    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK}, null)
 </button>
 
 @*Model.FirstOrDefault().TemporadaFK = @Model.FirstOrDefault().TemporadaFK*@

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
 
 <form action="/Episodios/Create" method="post" novalidate="novalidate" enctype="multipart/form-data">
@@ -58,8 +58,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Classificacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Classificacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Classificacao, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.AuxClassificacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuxClassificacao, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -80,7 +80,7 @@
     </form>
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar à Lista", "Index")
     </div>
 
     @section Scripts {
