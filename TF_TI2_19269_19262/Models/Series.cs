@@ -29,6 +29,11 @@ namespace TF_TI2_19269_19262.Models
 
         public string Video { get; set; }
 
+        [NotMapped]
+        [RegularExpression ("[0-9](,[0-9])?|10",ErrorMessage =("A Classificação que introduziu não é válida"))]
+        public string AuxClassificacao { get; set; }
+
+
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
         public double Classificacao { get; set; }
 
