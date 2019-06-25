@@ -69,8 +69,10 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,Classificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
         {
+
+            serie.Classificacao= Convert.ToDouble(serie.AuxClassificacao);
             int idNovaSerie = db.Series.Max(s => s.ID) + 1;
             serie.ID = idNovaSerie;
 
@@ -125,7 +127,9 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return HttpNotFound();
             }
+         
             ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
+
             return View(serie);
         }
 
@@ -135,8 +139,11 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,Classificacao,EditoraFK")] Series serie, HttpPostedFileBase editFoto)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase editFoto)
         {
+          serie.Classificacao=Convert.ToDouble(serie.AuxClassificacao);
+      
+
             string novoNome = "";
             string nomeAntigo = "";
             bool haFotoNova = false;

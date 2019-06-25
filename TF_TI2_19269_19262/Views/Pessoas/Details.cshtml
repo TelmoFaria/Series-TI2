@@ -33,28 +33,28 @@
                             <table class="table">
 
                                 <h3>Papeis que desempenhou :</h3>
+
+
+                                <tr>
+                                    <th>
+                                        @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Series.Nome)*@
+                                        @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Series.Nome, "Nome Série")
+
+                                    </th>
+                                    <th>
+                                        @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")*@
+                                        @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Nome, "Nome Temporada")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodios.Nome)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Papel)
+                                    </th>
+                                </tr>
+
                                 @foreach (var pap in Model.PessoasEpisodios)
                                 {
-
-                                    <tr>
-                                        <th>
-                                            @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Series.Nome)*@
-                                            @Html.LabelFor(a => pap.Episodios.Temporadas.Series.Nome, "Nome Série")
-
-                                        </th>
-                                        <th>
-                                            @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")*@
-                                            @Html.LabelFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(a => pap.Episodios.Nome)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(a => pap.Papel)
-                                        </th>
-                                    </tr>
-
-
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
