@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
     <h4>Pessoas</h4>
@@ -31,6 +31,8 @@
                     <div class="col-md-12">
                         <div>
                             <table class="table">
+
+                                <h3>Papeis que desempenhou :</h3>
                                 @foreach (var pap in Model.PessoasEpisodios)
                                 {
 
@@ -51,22 +53,22 @@
                                             @Html.DisplayNameFor(a => pap.Papel)
                                         </th>
                                     </tr>
-                                
 
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(a => pap.Episodios.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(a => pap.Papel)
-                                    </td>
-                                </tr>
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(a => pap.Episodios.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(a => pap.Papel)
+                                        </td>
+                                    </tr>
                                 }
 
                             </table>
