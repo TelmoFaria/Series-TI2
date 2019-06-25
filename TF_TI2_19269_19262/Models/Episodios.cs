@@ -24,6 +24,9 @@ namespace TF_TI2_19269_19262.Models
 
         public string Trailer { get; set; }
 
+        [NotMapped] // atributo nao aparece na BD
+        [RegularExpression("([0-9](,[0-9])?|10)", ErrorMessage ="escrever msg correta")]
+        public string AuxClassificacao { get; set; }
 
         public double Classificacao { get; set; }
 

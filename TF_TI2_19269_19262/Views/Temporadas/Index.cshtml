@@ -14,11 +14,11 @@
             <button>
 
                 @Html.ActionLink("Criar Nova Temporada", "Create")
-                
+
             </button>
         </div>
     }
-    </div>
+</div>
 
 <div>
     @foreach (var item in Model)
@@ -52,8 +52,8 @@
                         </p>
                     </div>
                 </div>
-                
-                
+
+
                 <p style="padding-bottom:20px;">
                     <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
                 </p>
@@ -62,25 +62,24 @@
                         @Html.ActionLink("Episodios", "../Episodios/Index", new { id = item.ID })
                     </button>
                 </div>
-                
+
                 <p style="padding-bottom:20px">
                     @if (User.IsInRole("Administrador"))
-                    {
-                        @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID }) 
-                        @Html.Raw("|")
-                        @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
-                    }
+                    {<text>
+                            @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })
+                            @Html.Raw("|")
+                            @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
+                    </text>
+                }
                 </p>
             </div>
         </div>
     }
-    </div>
-<button>
-    @Html.ActionLink("Voltar á Lista de Series", "../Series/Index")
-</button>
+</div>
 
 
-
+@Html.ActionLink("Voltar à Lista de Series", "Index", "Series")
+@*,null,new{class="button "}*@
 
 
 

@@ -60,7 +60,7 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,Classificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
             int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
 
@@ -107,6 +107,11 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return HttpNotFound();
             }
+
+            // recuperar os dados do AuxClassificacao
+            episodios.AuxClassificacao = episodios.Classificacao+"";
+
+
             ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodios.TemporadaFK);
             return View(episodios);
         }
