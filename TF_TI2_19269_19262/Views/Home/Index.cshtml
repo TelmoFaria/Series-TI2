@@ -7,31 +7,35 @@
 <link href="~/CSS/startbootstrap-the-big-picture-gh-pages/css/the-big-picture.css" rel="stylesheet" />
 <link href="~/CSS/MyCSS/MyStyleSheet.css" rel="stylesheet" />
 
+<link href="https://fonts.googleapis.com/css?family=Concert+One|Just+Another+Hand|Permanent+Marker|Orbitron|Pacifico&display=swap" rel="stylesheet">
+
+
+
 
 <div style="text-align:center;padding-bottom:30px">
     <h1 style="padding:20px 0px 20px 0px; color:#ff0000;font-weight:bold;font-size:150px;text-shadow: 5px 5px black;">
         Series4All
     </h1>
     <div style="padding:0px 0px 30px 0px;font-weight:bold;color:#ff0000;text-shadow: 3px 3px black;">
-        <p class="lead" style=" font-size:60px">
+        <p class="lead">
             O seu site de análise de séries!
         </p>
     </div>
 
 </div>
 
-<div style="display: flex;justify-content: space-evenly;">
+<div class="homePage_btn_wrapper">
 
-    <div class="HomeBtn">
-        @Html.ActionLink("Séries", "Index", "Series", null, new { @class = "HomeButn1" })
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Séries", "Index", "Series", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
     </div>
 
-    <div class="HomeBtn">
-        @Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "HomeButn1" })
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
     </div>
 
-    <div class="HomeBtn">
-        @Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "HomeButn1" })
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
     </div>
 </div>
 

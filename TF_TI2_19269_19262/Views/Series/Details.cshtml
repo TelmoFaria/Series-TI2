@@ -3,90 +3,72 @@
 @{
     ViewBag.Title = "Details";
 }
+<link href="~/CSS/MyCSS/seriesDetailscss.css" rel="stylesheet" />
 
-<h2 style="text-align:center;font-size:40px">Detalhes da Série @Html.DisplayFor(item => item.Nome)</h2>
+<h2>Detalhes da Série @Html.DisplayFor(item => item.Nome)</h2>
 
 
-<div style="padding:30px;text-align:center;font-size:30px">
+<div id="cenas" class="wrapper">
+    <div class="content_wrapper">
+        <div class="content_wrapper_img">
+            <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
+        </div>
+        <div class="content_wrapper_info">
+            <div class="content_wrapper_info_detail">
+                <p class="blue">
+                    Série: <span>@Html.DisplayFor(item => item.Nome)</span>
+                </p>
+            </div>
+            <div class="content_wrapper_info_detail">
+                <p class="dark-blue">
+                    Editora: @Html.DisplayFor(item => item.Editora.Nome)
+                </p>
 
-    <div style="padding:30px">
-        <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
-    </div>
-    <div style="padding:30px">
-        <p>
-            Série:
-        </p>
-        <p>
-            @Html.DisplayFor(item => item.Nome)
-        </p>
-    </div>
-    <div style="padding:30px">
-        <p>
-            Editora:
-        </p>
-        <p>
-            @Html.DisplayFor(item => item.Editora.Nome)
-        </p>
-    </div>
-    <div style="padding:30px">
-        <p>
-            Género:
-        </p>
-        <p>
-            @Html.DisplayFor(item => item.Genero)
-        </p>
-    </div>
-    <div style="padding:30px">
-        <p>
-            Classificação:
-        </p>
-        <p>
-            @Html.DisplayFor(item => item.Classificacao)
-        </p>
-    </div>
-    <div style="padding:30px">
-        <p>
-            Sinopse:
-        </p>
-        <p>
-            @Html.DisplayFor(item => item.Sinopse)
-        </p>
-    </div>
-    <div style="padding:30px">
-        <p>
-            Trailer:
-        </p>
-        <p>
-            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen, width="800", height="400"></iframe>
-        </p>
-        
+            </div>
+            <div class="content_wrapper_info_detail">
+
+                <p>
+                    Género: @Html.DisplayFor(item => item.Genero)
+                </p>
+            </div>
+            <div class="content_wrapper_info_detail">
+                <p>
+                    Classificação: @Html.DisplayFor(item => item.Classificacao)
+                </p>
+            </div>
+            <div class="content_wrapper_info_detail content_wrapper_sinopse">
+                <p>
+                    Sinopse:
+                </p>
+                <p>
+                    @Html.DisplayFor(item => item.Sinopse)
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
+    <fieldset class="content_wrapper_trailer">
+
+        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen, width="100%" , height="400"></iframe>
+
+    </fieldset>
+
+
+    <div class="sidebar_nav">
+        @Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")
+        @Html.ActionLink("Ver Temporadas", "Index", "Temporadas", new { id = Model.ID }, null)
+        @if (User.IsInRole("Administrador"))
+        {
+            @Html.ActionLink("Editar Série", "Edit", new { id = Model.ID });
+            @Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })
+        }
+    </div>
 </div>
 
 
-<div>
-    <button>
-        @Html.ActionLink("Ver Temporadas", "Index","Temporadas", new { id = Model.ID },null)
-    </button>
-</div>
 
-
-<div style="display:flex;flex-direction:row;justify-content:space-evenly">
-    <div >
-        <p>
-            @if (User.IsInRole("Administrador"))
-            {
-                @Html.ActionLink("Editar Série", "Edit", new { id = Model.ID });
-                @Html.Raw("|");
-                @Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })
-            }
-            </p>
-    </div>
-    <div >
-        <button>
-            @Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")
-        </button>
-    </div>
-
-</div>
+<script >
+    
+</script>

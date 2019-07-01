@@ -1,0 +1,90 @@
+﻿body {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 16px;
+    box-shadow: 2px -2px #888888;
+    position:relative;
+}
+
+.content_wrapper {
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    margin-bottom: 24px;
+}
+.content_wrapper_img {
+    width:33.33%;
+    max-height: 350px;
+}
+.content_wrapper_img img{
+    width:100%;
+    height: 100%;
+}
+
+.content_wrapper_info {
+    width: 66.66%;  
+    
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+    flex-shrink:0;
+}
+    .content_wrapper_info p {
+        padding: 8px 0 24px 8px;
+        width: 100%;
+    }
+    .content_wrapper_info p:last-child{
+        margin-bottom:0;
+        padding-bottom: 0;
+    }
+    .content_wrapper_info p span {
+        font-weight: bold;
+    }
+
+.content_wrapper_info_detail{
+
+}
+.content_wrapper_sinopse{
+
+}
+
+.content_wrapper_trailer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+.sidebar_nav{
+    position:absolute;
+    top:0;
+    right:0;
+    width:40px;
+    height:100%;
+
+
+}
+.sidebar_nav:hover {
+    background: red;
+}
+
+.sidebar_nav a{
+    opacity: 0;
+}
+
+    .sidebar_nav:hover a {
+        opacity: 1;
+    }
+
+    .blue{
+        background-color: blue
+    }
+
+.dark-blue {
+    background-color: dodgerblue
+}
