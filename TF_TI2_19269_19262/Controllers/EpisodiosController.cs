@@ -18,6 +18,10 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Episodios
         public ActionResult Index(int?id)
         {
+            if (id == null)
+            {
+                return Redirect("/");
+            }
             //ViewBag.SerieID = db.Temporadas.Find(id).SerieFK;
             //var episodios = db.Episodios.Include(e => e.Temporadas);
             var ep = from p in db.Episodios
@@ -62,7 +66,7 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
-            
+            episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
 
             int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
 
@@ -79,7 +83,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+                ModelState.AddModelError("", "Não foi fornecida uma imagem.");
                 ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
 
                 return View(episodio);
@@ -90,7 +94,7 @@ namespace TF_TI2_19269_19262.Controllers
                 db.SaveChanges();
                 uploadFoto.SaveAs(path);
                 //tenho de passar para aqui o id que uso
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = episodio.TemporadaFK});
             }
 
             ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);

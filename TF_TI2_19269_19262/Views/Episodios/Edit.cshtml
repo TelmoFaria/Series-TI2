@@ -62,7 +62,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Classificacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-<input type="text" value="@Model.Classificacao" name="AuxClassificacao"/>
+                <input type="text" value="@Model.Classificacao" name="AuxClassificacao"/>
                 @Html.ValidationMessageFor(model => model.AuxClassificacao, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -84,7 +84,7 @@
     </form>
 
     <div>
-        @Html.ActionLink("Voltar à Lista", "Index")
+        @Html.ActionLink("Voltar à Lista", "Index", "Episodios" , new { id = Model.TemporadaFK }, null)
     </div>
 
     @section Scripts {
