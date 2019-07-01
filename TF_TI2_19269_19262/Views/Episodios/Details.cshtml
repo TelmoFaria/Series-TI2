@@ -49,16 +49,19 @@
         <dd>
             <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
         </dd>
+        @if (!String.IsNullOrEmpty(@Model.Trailer))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Trailer)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Trailer)
-        </dt>
-
-        <dd>
-
-            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
+        <dd>           
+            <div>
+                <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
+            </div>
+            
         </dd>
-
+        }
         <dt>
             @Html.DisplayNameFor(model => model.Classificacao)
         </dt>

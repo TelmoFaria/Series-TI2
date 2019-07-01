@@ -51,18 +51,25 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Trailer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @if (!String.IsNullOrEmpty(Model.Trailer))
+        {
 
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Trailer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
+                </div>
+            </div> 
+            <div class="form-group">
+                <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => Model.Trailer)" allowfullscreen></iframe>
+            </div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.Classificacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" value="@Model.Classificacao" name="AuxClassificacao"/>
+                <input type="text" value="@Model.Classificacao" name="AuxClassificacao" />
                 @Html.ValidationMessageFor(model => model.AuxClassificacao, "", new { @class = "text-danger" })
             </div>
         </div>

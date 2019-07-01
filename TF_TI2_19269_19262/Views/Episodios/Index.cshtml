@@ -71,7 +71,7 @@
                         @Html.DisplayFor(modelItem => item.Sinopse)
                     </p>
                 </div>
-                @if (System.IO.File.Exists(item.Trailer))
+                @if (!String.IsNullOrEmpty(item.Trailer))
                 {
                     <div>
                         <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
