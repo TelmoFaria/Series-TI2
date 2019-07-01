@@ -19,6 +19,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Series
         public ActionResult Index()
         {
+
             var series = db.Series.Include(s => s.Editora);
             return View(series.ToList());
         }
@@ -26,16 +27,17 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Series/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
-            Series series = db.Series.Find(id);
-            if (series == null)
+            Series serie = db.Series.Find(id);
+            if (serie == null)
             {
                 return HttpNotFound();
             }
-            return View(series);
+            return View(serie);
         }
         //------------------------------------------------------------------------------------
         //                             Tentar ir para a pagina Temporadas 
