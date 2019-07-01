@@ -5,7 +5,7 @@
 }
 <link href="~/CSS/MyCSS/seriesDetailscss.css" rel="stylesheet" />
 
-<h2>Detalhes da Série @Html.DisplayFor(item => item.Nome)</h2>
+<h2 id="seriesDelailsH2">Detalhes da Série @Html.DisplayFor(item => item.Nome)</h2>
 
 
 <div id="cenas" class="wrapper">
@@ -27,20 +27,20 @@
             </div>
             <div class="content_wrapper_info_detail">
 
-                <p>
+                <p class="blue">
                     Género: @Html.DisplayFor(item => item.Genero)
                 </p>
             </div>
             <div class="content_wrapper_info_detail">
-                <p>
+                <p class="dark-blue">
                     Classificação: @Html.DisplayFor(item => item.Classificacao)
                 </p>
             </div>
             <div class="content_wrapper_info_detail content_wrapper_sinopse">
-                <p>
+                <p class="blue aux">
                     Sinopse:
-                </p>
-                <p>
+                    <br />
+                    <br />
                     @Html.DisplayFor(item => item.Sinopse)
                 </p>
             </div>
@@ -51,18 +51,20 @@
 
     <fieldset class="content_wrapper_trailer">
 
-        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen, width="100%" , height="400"></iframe>
+        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Video)" allowfullscreen, width="100%" , height="550"></iframe>
 
     </fieldset>
 
 
     <div class="sidebar_nav">
-        @Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")
-        @Html.ActionLink("Ver Temporadas", "Index", "Temporadas", new { id = Model.ID }, null)
+        <span>@Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")</span>
+        <span>@Html.ActionLink("Ver Temporadas", "Index", "Temporadas", new { id = Model.ID }, null)</span>
+        
         @if (User.IsInRole("Administrador"))
         {
-            @Html.ActionLink("Editar Série", "Edit", new { id = Model.ID });
-            @Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })
+        <span>@Html.ActionLink("Editar Série", "Edit", new { id = Model.ID })</span>
+        <span>@Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })</span>
+            
         }
     </div>
 </div>
