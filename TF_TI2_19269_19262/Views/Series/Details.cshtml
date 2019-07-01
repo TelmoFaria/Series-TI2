@@ -75,10 +75,11 @@
 
 <script >
     var isClicked = false;
-    var opt = document.getElementById("options");
-    opt.addEventListener("click", handleClick(evt));
+    var opts = document.getElementById("options");
+    opts.addEventListener("click", handleClick(evt));
     function handleClick(evt) {
-        if (isClicked) {
+        isClicked != isClicked;
+        if (isClicked==true) {
             document.getElementClassName("sidebar_nav").style.width = "150px";
             document.getElementClassName("sidebar_nav").backgroundColor= "rgba(0, 0, 0, 0.9)";
             document.getElementClassName("sidebar_nav").borderRadius= "5px";
