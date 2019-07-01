@@ -3,41 +3,36 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<link href="~/CSS/MyCSS/PessoasIndex.css" rel="stylesheet" />
+
 <div style="text-align:center">
-    <h2 style="padding:20px 0px 20px 0px">
-        Lista De Pessoas
+    <h2 id="pessoas_index_titulo">
+        Lista de Pessoas
     </h2>
     @if (User.IsInRole("Administrador"))
     {
-    <div style="padding:0px 0px 30px 0px">
-
-        @Html.ActionLink("Adicionar Pessoa", "Create")
-        @Html.ActionLink("Adicionar Papel", "Create", "PessoasEpisodios")
-
+    <div class="pessoas_index_links">
+        <span>@Html.ActionLink("Adicionar Pessoa", "Create")</span>
+        <span>@Html.ActionLink("Adicionar Papel", "Create", "PessoasEpisodios")</span>
     </div>
-
     }
 
 </div>
-<div style="display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    text-align: center;">
+<div class="pessoas_index_wrapper">
     @foreach (var item in Model)
     {
-    <div style="padding: 30px;">
-        <div style="padding:20px">
-
-            <img src="~/Imagens/@item.Foto" width="74" height="100" />
-
+    <div class="pessoas_index_content_wrapper" >
+        <div class="pessoas_index_content_img">
+            <img src="~/Imagens/@item.Foto" width="200" height="200"  />
         </div>
-        <div style="padding:20px">
+        <div class="pessoas_index_content_nome">
             @Html.ActionLink(item.Nome, "Details", new { id = item.ID })
 
         </div>
         @if (User.IsInRole("Administrador"))
         {
-            <div style="padding:20px">
+            <div class="pessoas_index_content_linksEdit">
                 <p>
                     @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
@@ -47,9 +42,9 @@
         </div>
     }
 </div>
-<button>
+
     @Html.ActionLink("Voltar à Página Inicial", "../Home/Index")
-</button>
+
 
 
 
