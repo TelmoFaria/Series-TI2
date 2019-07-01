@@ -18,8 +18,8 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Episodios
         public ActionResult Index(int?id)
         {
-            ViewBag.TemporadaID = id;
-            var episodios = db.Episodios.Include(e => e.Temporadas);
+            //ViewBag.SerieID = db.Temporadas.Find(id).SerieFK;
+            //var episodios = db.Episodios.Include(e => e.Temporadas);
             var ep = from p in db.Episodios
                        where p.TemporadaFK == id
                        select p;
@@ -62,7 +62,7 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
-            episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
+            
 
             int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
 
@@ -89,6 +89,7 @@ namespace TF_TI2_19269_19262.Controllers
                 db.Episodios.Add(episodio);
                 db.SaveChanges();
                 uploadFoto.SaveAs(path);
+                //tenho de passar para aqui o id que uso
                 return RedirectToAction("Index");
             }
 
@@ -123,6 +124,7 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase editFoto)
         {
+            episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
             string novoNome = "";
             string nomeAntigo = "";
             bool haFotoNova = false;

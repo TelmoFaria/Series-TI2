@@ -7,7 +7,7 @@
 <div style="text-align:center">
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Episodios
-    </h2> 
+    </h2>
     @if (User.IsInRole("Administrador"))
     {
         <div style="padding:20px 0px 20px 0px">
@@ -18,7 +18,7 @@
 
         </div>
     }
-    </div>
+</div>
 
 <div>
     @foreach (var item in Model)
@@ -71,18 +71,18 @@
                         @Html.DisplayFor(modelItem => item.Sinopse)
                     </p>
                 </div>
-                  @if (System.IO.File.Exists(item.Trailer))
-                  {
-                <div>
-                    <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
-                </div>
-                  }
+                @if (System.IO.File.Exists(item.Trailer))
+                {
+                    <div>
+                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
+                    </div>
+                }
 
 
 
 
 
-               
+
                 <p style="padding-bottom:20px">
                     @if (User.IsInRole("Administrador"))
                     {
@@ -93,16 +93,16 @@
                     }
                     @Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })
                 </p>
-                
+
             </div>
         </div>
     }
-                  
+
 </div>
 <button>
-    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK}, null)
+    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)
 </button>
 
 @*Model.FirstOrDefault().TemporadaFK = @Model.FirstOrDefault().TemporadaFK*@
-
+@*@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)*@
 
