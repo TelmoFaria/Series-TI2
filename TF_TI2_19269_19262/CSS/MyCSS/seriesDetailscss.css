@@ -109,3 +109,8 @@
 .aux{
     margin-bottom:0;
 }
+
+#opt{
+    width:fit-content;
+    height:fit-content;
+}

@@ -205,6 +205,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\MyCSS\MyStyleSheet.css" />
+    <Content Include="CSS\MyCSS\PessoasIndex.css" />
     <Content Include="CSS\MyCSS\seriesDetailscss.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\css\the-big-picture.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\gulpfile.js" />
@@ -240,6 +241,7 @@
     <Content Include="Imagens\Mr.RobotS02.jpg" />
     <Content Include="Imagens\Mr.RobotS03.jpg" />
     <Content Include="Imagens\NoUser.jpg" />
+    <Content Include="Imagens\options.png" />
     <Content Include="Imagens\Serie1.jpg" />
     <Content Include="Imagens\Serie2.jpg" />
     <Content Include="Imagens\Serie3.jpg" />
