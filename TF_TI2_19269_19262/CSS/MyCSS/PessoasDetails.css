@@ -1,0 +1,50 @@
+﻿.pessoas_details_wrapper{
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    
+}
+
+.pessoas_details_action{
+    text-align:center;
+    margin:24px;
+}
+
+.pessoas_details_content_wrapper {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    box-shadow: 3px 3px black;
+    border-radius: 5px;
+    padding: 16px;
+}
+
+.pessoas_details_img{
+    width:33.33%;
+}
+    .pessoas_details_img img{
+        width:100%;
+    }
+
+    .pessoas_details_content_info_wrapper {
+        padding-left:16px;
+        width:66.66%;
+    }
+
+.pessoas_details_content_nome{
+    padding-top:10px;
+   font-size:20px;
+}
+    .pessoas_details_content_nome:first-child {
+        font-weight: bold;
+    }
+
+    .pessoas_details_content_nome:last-child {
+        padding-left: 24px;
+    }
+
+
+
+.pessoas_details_content_info {
+
+}

@@ -3,83 +3,66 @@
 @{
     ViewBag.Title = "Details";
 }
+<link href="~/CSS/MyCSS/PessoasDetails.css" rel="stylesheet" />
 
-<h2>Detalhes</h2>
+<div class="pessoas_details_wrapper">
 
-<div>
-    <h4>Pessoas</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+    <div class="pessoas_details_action">
+        <h2>Detalhes</h2>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+    <div class="pessoas_details_content_wrapper">
+        <div class="pessoas_details_img">
+            <img src="~/Imagens/@Model.Foto" width="400"/>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
+        <div class="pessoas_details_content_info_wrapper">
+            <div class="pessoas_details_content_nome">
+                <span>Nome: </span>
+                <span>@Html.DisplayFor(model => model.Nome)</span>    
+            </div>
+            <div class="pessoas_details_content_info">
+                <table class="table">
+                    <h3>Papeis que desempenhou :</h3>
+                    <tr>
+                        <th>
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Series.Nome, "Nome Série")
+                        </th>
+                        <th>
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Nome, "Nome Temporada")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodios.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Papel)
+                        </th>
+                    </tr>
 
-        <dd>
-            <img src="~/Imagens/@Model.Foto" width="148" height="200" />
-        </dd>
+                    @foreach (var pap in Model.PessoasEpisodios)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(a => pap.Episodios.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(a => pap.Papel)
+                            </td>
+                        </tr>
+                    }
 
-            
-                <div class="row">
-                    <div class="col-md-12">
-                        <div>
-                            <table class="table">
-
-                                <h3>Papeis que desempenhou :</h3>
-
-
-                                <tr>
-                                    <th>
-                                        @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Series.Nome)*@
-                                        @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Series.Nome, "Nome Série")
-
-                                    </th>
-                                    <th>
-                                        @* @Html.DisplayNameFor(a => pap.Episodios.Temporadas.Nome, "Nome Temporada")*@
-                                        @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Nome, "Nome Temporada")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodios.Nome)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Papel)
-                                    </th>
-                                </tr>
-
-                                @foreach (var pap in Model.PessoasEpisodios)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(a => pap.Episodios.Nome)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(a => pap.Papel)
-                                        </td>
-                                    </tr>
-                                }
-
-                            </table>
-                        </div>
-                   </div>
-               </div>
-         
-
-
-    </dl>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <p>
     @if (User.IsInRole("Administrador"))
