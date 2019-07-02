@@ -46,9 +46,7 @@
             </div>
 
         </div>
-        <div id="opt">
-            <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20"/>
-        </div>
+
     </div>
 
     <fieldset class="content_wrapper_trailer">
@@ -58,33 +56,21 @@
     </fieldset>
 
 
-    <div class="sidebar_nav">
-        <span>@Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")</span>
-        <span>@Html.ActionLink("Ver Temporadas", "Index", "Temporadas", new { id = Model.ID }, null)</span>
-        
-        @if (User.IsInRole("Administrador"))
-        {
+
+</div>
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Lista de Séries", "../Series/Index")</span>
+    <span>@Html.ActionLink("Ver Temporadas", "Index", "Temporadas", new { id = Model.ID }, null)</span>
+
+    @if (User.IsInRole("Administrador"))
+    {
         <span>@Html.ActionLink("Editar Série", "Edit", new { id = Model.ID })</span>
         <span>@Html.ActionLink("Eliminar Série", "Delete", new { id = Model.ID })</span>
-            
-        }
-    </div>
+
+    }
 </div>
 
 
-
-<script >
-    var isClicked = false;
-    var opts = document.getElementById("options");
-    opts.addEventListener("click", handleClick(evt));
-    function handleClick(evt) {
-        isClicked != isClicked;
-        if (isClicked==true) {
-            document.getElementClassName("sidebar_nav").style.width = "150px";
-            document.getElementClassName("sidebar_nav").backgroundColor= "rgba(0, 0, 0, 0.9)";
-            document.getElementClassName("sidebar_nav").borderRadius= "5px";
-        } else {
-            document.getElementClassName("sidebar_nav").style.width = "0";
-        }
-    }
-</script>

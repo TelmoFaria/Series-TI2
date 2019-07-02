@@ -6,10 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="~/Scripts/sidebar.js"></script>
+    <link href="~/CSS/MyCSS/sidebar.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#201c29">
+    <div id="topHat" class="navbar navbar-inverse navbar-fixed-top" style="background-color:#201c29">
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("Series4All", "Index", "Home", null, new { @class = "navbar-brand" })
@@ -44,3 +46,10 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        
+
+    });
+</script>

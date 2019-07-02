@@ -204,9 +204,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS\MyCSS\editorasIndex.css" />
     <Content Include="CSS\MyCSS\MyStyleSheet.css" />
+    <Content Include="CSS\MyCSS\PessoasDetails.css" />
     <Content Include="CSS\MyCSS\PessoasIndex.css" />
     <Content Include="CSS\MyCSS\seriesDetailscss.css" />
+    <Content Include="CSS\MyCSS\seriesIndex.css" />
+    <Content Include="CSS\MyCSS\sidebar.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\css\the-big-picture.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\gulpfile.js" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\index.html" />
@@ -290,6 +294,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sidebar.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

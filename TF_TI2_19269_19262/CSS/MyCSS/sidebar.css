@@ -1,0 +1,32 @@
+﻿.sidebar_nav {
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    -webkit-transition: width 1s; /* Safari prior 6.1 */
+    transition: width 1s;
+    background-color: rgba(0, 0, 0,0.9);
+}
+
+    .sidebar_nav span {
+        padding: 10px 10px;
+    }
+
+
+.sidebar-is-open {
+    width: 150px;
+    opacity: 1;
+}
+
+#opt {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 20px;
+    z-index: 9999999;
+}
+
+

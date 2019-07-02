@@ -3,37 +3,45 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/CSS/MyCSS/seriesIndex.css" rel="stylesheet" />
 
+<div class="series_index_wrapper container">
+    <div class="series_index_action">
+        <h2>Lista De Séries</h2>
+    </div>
+    <div class="series_index_content_wrapper col-md-12">
 
-<div style="text-align:center">
-    <h2 style="padding:20px 0px 20px 0px">
-        Lista De Séries
-    </h2>
+        @foreach (var item in Model)
+        {<div class="col-md-4">
+                <div class="series_index_content_card ">
+                    <div class="series_index_content_img">
+                        <a class="ax" href="~/Series/Details/@item.ID">
+                            <img src="~/Imagens/@item.Foto" />
+                        </a>
+                    </div>
+
+                    <div class="series_index_content_nome">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
+
     @if (User.IsInRole("Administrador"))
     {
-        <div style="padding:0px 0px 30px 0px">
-
-            <button>
-                @Html.ActionLink("Adicionar Série", "Create")
-            </button>
-    
-        </div>
+    <span>@Html.ActionLink("Adicionar Série", "Create")</span>
     }
 </div>
-<div style="display: flex;flex-direction: row;flex-wrap: wrap;padding:20px;">
-    @foreach (var item in Model)
-    {        
-    <div style="padding:50px">
-        <a href="~/Series/Details/@item.ID">
-            <img src="~/Imagens/@item.Foto" width="300" height="300" />
-        </a>
-    </div>   
-    }
-
-</div>
 
 
-<button>
-    @Html.ActionLink("Voltar à Página Inicial", "../Home/Index")
-</button>
-      
+
+
+

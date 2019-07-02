@@ -10,43 +10,45 @@
     <h2 id="pessoas_index_titulo">
         Lista de Pessoas
     </h2>
-    @if (User.IsInRole("Administrador"))
-    {
-    <div class="pessoas_index_links">
-        <span>@Html.ActionLink("Adicionar Pessoa", "Create")</span>
-        <span>@Html.ActionLink("Adicionar Papel", "Create", "PessoasEpisodios")</span>
-    </div>
-    }
+    
 
 </div>
 <div class="pessoas_index_wrapper">
     @foreach (var item in Model)
     {
-    <div class="pessoas_index_content_wrapper" >
-        <div class="pessoas_index_content_img">
-            <img src="~/Imagens/@item.Foto" width="200" height="200"  />
-        </div>
-        <div class="pessoas_index_content_nome">
-            @Html.ActionLink(item.Nome, "Details", new { id = item.ID })
-
-        </div>
-        @if (User.IsInRole("Administrador"))
-        {
-            <div class="pessoas_index_content_linksEdit">
-                <p>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
-                </p>
+        <div class="pessoas_index_content_wrapper">
+            <div class="pessoas_index_content_img">
+                <img src="~/Imagens/@item.Foto" width="200" height="200" />
             </div>
-        }
+            <div class="pessoas_index_content_nome">
+                @Html.ActionLink(item.Nome, "Details", new { id = item.ID })
+
+            </div>
+            @if (User.IsInRole("Administrador"))
+            {
+                <div class="pessoas_index_content_linksEdit">
+                    <p>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+                    </p>
+                </div>
+            }
         </div>
     }
 </div>
 
-    @Html.ActionLink("Voltar à Página Inicial", "../Home/Index")
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
+
+    @if (User.IsInRole("Administrador"))
+    {
+    <span>@Html.ActionLink("Adicionar Pessoa", "Create")</span>
+    <span>@Html.ActionLink("Adicionar Papel", "Create", "PessoasEpisodios")</span>
+
+    }
+</div>
 
 
-
-
-
-    
