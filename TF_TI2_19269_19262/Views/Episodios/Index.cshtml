@@ -4,105 +4,67 @@
     ViewBag.Title = "Index";
 }
 
-<div style="text-align:center">
-    <h2 style="padding:20px 0px 20px 0px">
-        Lista De Episodios
-    </h2>
-    @if (User.IsInRole("Administrador"))
-    {
-        <div style="padding:20px 0px 20px 0px">
+<link href="~/CSS/MyCSS/episodiosIndex.css" rel="stylesheet" />
 
-            <button>
-                @Html.ActionLink("Criar Novo Episodio", "Create")
-            </button>
-
-        </div>
-    }
-</div>
-
-<div>
-    @foreach (var item in Model)
-    {
-        <div style="border: 2px solid black;width: 100%;height: 500px;overflow: hidden;text-align: center;margin: 20px;display:flex;flex-direction:row">
-            <div style="padding-right:20px;display:flex;  align-items: center;
-  justify-content: center;margin-left:20px">
+<div class="episodios_index_wrapper">
+    <div class="episodios_index_action">
+        <h2>Lista De Episodios</h2>
+    </div>
+    <div class="episodios_index_content_wrapper">
+        @foreach (var item in Model)
+        {
+        <div class="episodios_index_content_info_wrapper">
+            <div class="episodios_index_content_info_img">
                 <a href="~/Imagens/@item.Foto" target="_blank">
-                    <img src="~/Imagens/@item.Foto" width="400" />
+                    <img src="~/Imagens/@item.Foto" />
                 </a>
             </div>
-            <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
-                <div style="padding-bottom:20px;padding-top:20px;display:flex;flex-direction:row;margin:auto">
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Temporada:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Temporadas.Numero)
-                        </p>
-                    </div>
-
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Episódio:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Numero)
-                        </p>
-                    </div>
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Episódio:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </p>
-                    </div>
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Nome do Episódio:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Classificacao)
-                        </p>
-                    </div>
+            <div class="episodios_index_content_info">
+                <div class="episodios_index_content_info_coisas">
+                    <p>Temporada:</p>
+                    <p>@Html.DisplayFor(modelItem => item.Temporadas.Numero)</p>
                 </div>
-                <div style="padding-bottom:10px;overflow:hidden">
-                    <p>
-                        @Html.DisplayFor(modelItem => item.Sinopse)
-                    </p>
+                <div class="episodios_index_content_info_coisas">
+                    <p>Episódio:</p>
+                    <p>@Html.DisplayFor(modelItem => item.Numero)</p>
                 </div>
-                @if (System.IO.File.Exists(item.Trailer))
+                <div class="episodios_index_content_info_coisas">
+                    <p>Nome do Episódio:</p>
+                    <p>@Html.DisplayFor(modelItem => item.Nome) </p>
+                </div>
+                <div class="episodios_index_content_info_coisas">
+                    <p>Classificação:</p>
+                    <p> @Html.DisplayFor(modelItem => item.Classificacao)</p>
+                </div>
+            </div>
+            <div class="episodios_index_content_info_sinopse">
+                <span>@Html.DisplayFor(modelItem => item.Sinopse)</span>
+            </div>
+            <div class="episodios_index_content_info_links">
+                @if (User.IsInRole("Administrador"))
                 {
-                    <div>
-                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
-                    </div>
+                <span>@Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })</span>
+                <span>@Html.Raw("|")</span>
+                <span>@Html.ActionLink("Eliminar Episódio", "Delete", new { id = item.ID })</span>
+                <span>@Html.Raw("|")</span>
                 }
-
-
-
-
-
-
-                <p style="padding-bottom:20px">
-                    @if (User.IsInRole("Administrador"))
-                    {
-                        @Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })
-                        @Html.Raw("|")
-                        @Html.ActionLink("Eliminar Episódio", "Delete", new { id = item.ID })
-                        @Html.Raw("|")
-                    }
-                    @Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })
-                </p>
-
+                <span>@Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })</span>
+                
             </div>
         </div>
-    }
-
+        }
+        </div>
 </div>
-<button>
-    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)
-</button>
 
-@*Model.FirstOrDefault().TemporadaFK = @Model.FirstOrDefault().TemporadaFK*@
-@*@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)*@
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)</span>
+
+    @if (User.IsInRole("Administrador"))
+    {
+    <span>@Html.ActionLink("Criar Novo Episodio", "Create")</span>
+    }
+</div>
 

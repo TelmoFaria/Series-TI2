@@ -8,16 +8,6 @@
     <h2 style="padding:20px 0px 20px 0px">
         Lista De Temporadas
     </h2>
-    @if (User.IsInRole("Administrador"))
-    {
-        <div style="padding:20px 0px 20px 0px">
-            <button>
-
-                @Html.ActionLink("Criar Nova Temporada", "Create")
-
-            </button>
-        </div>
-    }
 </div>
 
 <div>
@@ -58,9 +48,7 @@
                     <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
                 </p>
                 <div style="padding-bottom:10px;">
-                    <button>
                         @Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })
-                    </button>
                 </div>
 
                 <p style="padding-bottom:20px">
@@ -76,10 +64,18 @@
         </div>
     }
 </div>
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
 
+    @if (User.IsInRole("Administrador"))
+    {
+    <span>@Html.ActionLink("Criar Nova Temporada", "Create")</span>
+    }
+</div>
 
-@Html.ActionLink("Voltar à Lista de Séries", "Index", "Series")
-@*,null,new{class="button "}*@
 
 
 

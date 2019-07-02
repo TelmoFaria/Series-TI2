@@ -1,0 +1,40 @@
+﻿.episodios_index_wrapper{
+    display:flex;
+    flex-direction:column;
+}
+
+.episodios_index_action{
+
+}
+
+.episodios_index_content_wrapper {
+    display:flex;
+    flex-direction: row;
+}
+
+.episodios_index_content_info_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.episodios_index_content_info_img{
+
+}
+
+.episodios_index_content_info{
+
+}
+
+.episodios_index_content_info_coisas {
+
+}
+
+.episodios_index_content_info_sinopse{
+
+}
+
+.episodios_index_content_info_links{
+
+}
+
+
