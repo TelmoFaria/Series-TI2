@@ -36,13 +36,19 @@
                     </div>
 
                     <div class="temporadas_index_info_links">
-                        <span>@Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })</span>
-                        @if (User.IsInRole("Administrador"))
-                        {
+                        <div class="episodio_botao">
+                            <span>@Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })</span>
+                        </div>
+                        <div class="resto_dos_botoes">
+                            @if (User.IsInRole("Administrador"))
+                            {
                                 <span>@Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })</span>
                                 <span>@Html.Raw("|")</span>
                                 <span>@Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })</span>
-                    }
+                            }
+                            </div>
+                        
+                    
                    </div>
                 </div>
             </div>

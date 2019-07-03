@@ -212,6 +212,7 @@
     <Content Include="CSS\MyCSS\seriesDetailscss.css" />
     <Content Include="CSS\MyCSS\seriesIndex.css" />
     <Content Include="CSS\MyCSS\sidebar.css" />
+    <Content Include="CSS\MyCSS\temporadasIndex.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\css\the-big-picture.css" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\gulpfile.js" />
     <Content Include="CSS\startbootstrap-the-big-picture-gh-pages\index.html" />
