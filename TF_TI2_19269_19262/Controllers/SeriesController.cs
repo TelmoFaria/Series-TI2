@@ -35,7 +35,7 @@ namespace TF_TI2_19269_19262.Controllers
             Series serie = db.Series.Find(id);
             if (serie == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(serie);
         }
@@ -52,7 +52,7 @@ namespace TF_TI2_19269_19262.Controllers
             var varSerie = db.Series;
             if (temporadas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(temporadas);
         }
@@ -127,7 +127,7 @@ namespace TF_TI2_19269_19262.Controllers
             Series serie = db.Series.Find(id);
             if (serie == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
          
             ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
@@ -190,7 +190,7 @@ namespace TF_TI2_19269_19262.Controllers
             Series series = db.Series.Find(id);
             if (series == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(series);
         }

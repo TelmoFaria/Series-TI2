@@ -43,12 +43,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Temporadas temporada = db.Temporadas.Find(id);
             if (temporada == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
             return View(temporada);
         }
@@ -108,12 +108,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Temporadas temporada = db.Temporadas.Find(id);
             if (temporada == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
             ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
             return View(temporada);
@@ -168,12 +168,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Temporadas temporadas = db.Temporadas.Find(id);
             if (temporadas == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
             return View(temporadas);
         }

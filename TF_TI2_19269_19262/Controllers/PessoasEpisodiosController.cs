@@ -31,7 +31,7 @@ namespace TF_TI2_19269_19262.Controllers
             PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);
             if (pessoasEpisodios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(pessoasEpisodios);
         }
@@ -73,7 +73,7 @@ namespace TF_TI2_19269_19262.Controllers
             PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);
             if (pessoasEpisodios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", pessoasEpisodios.EpisodioFK);
             ViewBag.PessoaFK = new SelectList(db.Pessoas, "ID", "Nome", pessoasEpisodios.PessoaFK);
@@ -108,7 +108,7 @@ namespace TF_TI2_19269_19262.Controllers
             PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);
             if (pessoasEpisodios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(pessoasEpisodios);
         }

@@ -37,12 +37,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Episodios episodio = db.Episodios.Find(id);
             if (episodio == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
             var coment = episodio.ListaDeComentarios.ToList();
             ViewBag.coment = coment;
@@ -107,12 +107,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Episodios episodios = db.Episodios.Find(id);
             if (episodios == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
 
 
@@ -172,12 +172,12 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return Redirect("/");
             }
             Episodios episodios = db.Episodios.Find(id);
             if (episodios == null)
             {
-                return HttpNotFound();
+                return Redirect("/");
             }
             return View(episodios);
         }
