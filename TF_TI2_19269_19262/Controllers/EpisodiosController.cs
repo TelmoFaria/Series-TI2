@@ -22,7 +22,7 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return Redirect("/");
             }
-            //ViewBag.SerieID = db.Temporadas.Find(id).SerieFK;
+            ViewBag.SerieID = db.Temporadas.Find(id).SerieFK;
             //var episodios = db.Episodios.Include(e => e.Temporadas);
             var ep = from p in db.Episodios
                        where p.TemporadaFK == id

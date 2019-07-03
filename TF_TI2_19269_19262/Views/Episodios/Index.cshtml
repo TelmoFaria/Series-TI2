@@ -100,9 +100,9 @@
 
 </div>
 <button>
-    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)
+    @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)
+    @*@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.Temporada.SerieFK }, null)*@
 </button>
 
-@*Model.FirstOrDefault().TemporadaFK = @Model.FirstOrDefault().TemporadaFK*@
-@*@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)*@
+
 
