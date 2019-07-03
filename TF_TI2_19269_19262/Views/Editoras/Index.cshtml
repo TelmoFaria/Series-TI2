@@ -15,21 +15,27 @@
         @foreach (var item in Model)
         {
             <div class="editora_index_content_wrapper col-md-4">
-                <div class="editora_index_content_img">
-                    <img src="~/Imagens/@item.Logo" width="200" height="200" />
-                </div>
-                <div class="editora_index_content_nome">
-                    @Html.ActionLink(item.Nome, "Details", new { id = item.ID })
-                </div>
-                <div class="editora_index_links">
-                    @if (User.IsInRole("Administrador"))
-                    {
-                        <span>@Html.ActionLink("Editar", "Edit", new { id = item.ID })</span>
-                        <span>@Html.Raw("|")</span>
-                        <span>@Html.ActionLink("Eliminar", "Delete", new { id = item.ID })</span>
+                <div class="size_saver">
+                    <div class="editora_index_content_img">
+                        <img src="~/Imagens/@item.Logo" />
+                    </div>
+                    <div class="editora_index_content_nome">
+                        @Html.DisplayFor(modelitem => item.Nome)
+                    </div>
+                    @*<div class="editora_index_content_nome">
+            @Html.ActionLink(item.Nome, "Details", new { id = item.ID })
+        </div>*@
+                    <div class="editora_index_links">
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <span>@Html.ActionLink("Editar", "Edit", new { id = item.ID })</span>
+                            <span>@Html.Raw("|")</span>
+                            <span>@Html.ActionLink("Eliminar", "Delete", new { id = item.ID })</span>
 
-                    }
+                        }
+                    </div>
                 </div>
+                
             </div>
         }
     </div>
