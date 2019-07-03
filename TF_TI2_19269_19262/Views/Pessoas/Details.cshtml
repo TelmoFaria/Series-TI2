@@ -13,13 +13,12 @@
 
     <div class="pessoas_details_content_wrapper">
         <div class="pessoas_details_img">
-            <img src="~/Imagens/@Model.Foto" width="400"/>
+            <img src="~/Imagens/@Model.Foto" width="400" />
         </div>
 
         <div class="pessoas_details_content_info_wrapper">
             <div class="pessoas_details_content_nome">
-                <span>Nome: </span>
-                <span>@Html.DisplayFor(model => model.Nome)</span>    
+                <span>@Html.DisplayFor(model => model.Nome)</span>
             </div>
             <div class="pessoas_details_content_info">
                 <table class="table">
@@ -63,13 +62,14 @@
     </div>
 </div>
 
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Lista", "Index")</span>
 
-<p>
     @if (User.IsInRole("Administrador"))
     {
-        @Html.ActionLink("Editar ", "Edit", new { id = Model.ID })
-        @Html.Raw("|")
+    <span>@Html.ActionLink("Editar ", "Edit", new { id = Model.ID })</span>
     }
-        @Html.ActionLink("Voltar à Lista", "Index")
-</p>
-        
+</div>

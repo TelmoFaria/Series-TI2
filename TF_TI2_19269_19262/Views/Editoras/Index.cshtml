@@ -11,10 +11,10 @@
         <h2>Lista De Editoras</h2>
     </div>
 
-    <div class="editora_index_info_wrapper">
+    <div class="editora_index_info_wrapper col-md-12">
         @foreach (var item in Model)
         {
-            <div class="editora_index_content_wrapper">
+            <div class="editora_index_content_wrapper col-md-4">
                 <div class="editora_index_content_img">
                     <img src="~/Imagens/@item.Logo" width="200" height="200" />
                 </div>
@@ -24,24 +24,29 @@
                 <div class="editora_index_links">
                     @if (User.IsInRole("Administrador"))
                     {
-                    <span>@Html.ActionLink("Editar", "Edit", new { id = item.ID })</span>
-                    <span>@Html.Raw("|")</span>
-                    <span>@Html.ActionLink("Eliminar", "Delete", new { id = item.ID })</span>
+                        <span>@Html.ActionLink("Editar", "Edit", new { id = item.ID })</span>
+                        <span>@Html.Raw("|")</span>
+                        <span>@Html.ActionLink("Eliminar", "Delete", new { id = item.ID })</span>
 
                     }
                 </div>
             </div>
         }
     </div>
-    <div>
-        @if (User.IsInRole("Administrador"))
-        {
-            @Html.ActionLink("Adicionar Editora", "Create")
-        }
-        @Html.ActionLink("Voltar à Página Inicial", "../Home/Index")
-    </div>
+</div>
+
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
+
+    @if (User.IsInRole("Administrador"))
+    {
+    <span>@Html.ActionLink("Adicionar Editora", "Create")</span>
+    }
 </div>
 
 
 
-    
+
