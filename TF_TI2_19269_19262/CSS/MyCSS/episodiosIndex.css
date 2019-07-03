@@ -42,15 +42,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    height: 20%;
+    height: 30%;
     
 }
 
 .episodios_index_content_info_coisas {
     display:flex;
-    flex-direction:column;
-    
-    
+    height:100%;
+    flex-direction:column;    
 }
 
 .episodios_index_content_info_sinopse{
@@ -61,7 +60,7 @@
 
 .episodios_index_content_info_links{
     text-align:center;
-    height:15%;
+    height:10%;
     padding-top:10px;
 }
 

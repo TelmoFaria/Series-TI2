@@ -5,7 +5,7 @@
 }
 
 .series_index_action{
-    margin:24px;
+    margin:32px;
     text-align:center;
 }
 
@@ -21,6 +21,7 @@
     flex-direction:column;
     justify-content:center;
     height:300px;
+    width:240px;
     background-color: #173F5F;
     padding: 16px;
     border: 1px solid black;
@@ -47,4 +48,10 @@
     font-size:20px;
     padding-top: 20px;
     height: 20%;
+}
+
+.size_saver{
+    width:33.33%;
+    display:flex;
+    justify-content:center;
 }

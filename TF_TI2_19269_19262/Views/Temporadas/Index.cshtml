@@ -3,69 +3,55 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/CSS/MyCSS/temporadasIndex.css" rel="stylesheet" />
 
-<div style="text-align:center">
-    <h2 style="padding:20px 0px 20px 0px">
-        Lista De Temporadas
-    </h2>
+<div class="temporadas_index_wrapper">
+    <div class="temporadas_index_action">
+        <h2>Lista De Temporadas</h2>
+    </div>
+
+    <div class="temporadas_index_content">
+        @foreach (var item in Model)
+        {
+            <div class="temporadas_index_content_wrapper">
+                <div class="temporadas_index_content_img">
+                    <a href="~/Imagens/@item.Foto" target="_blank">
+                        <img src="~/Imagens/@item.Foto" />
+                    </a>
+                </div>
+                <div class="temporadas_index_info_wrapper">
+                    <div class="temporadas_index_info">
+                        <div class="temporadas_index_info_text">
+                            <p>Série:</p>
+                            <p>@Html.DisplayFor(modelItem => item.Series.Nome)</p>
+                        </div>
+                        <div class="temporadas_index_info_text">
+                            <p>Temporada:</p>
+                            <p>@Html.DisplayFor(modelItem => item.Numero)</p>
+                        </div>
+                    </div>
+
+                    <div class="temporadas_index_info_trailler">
+                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen width="400" height="300"></iframe>
+                    </div>
+
+                    <div class="temporadas_index_info_links">
+                        <span>@Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })</span>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                                <span>@Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })</span>
+                                <span>@Html.Raw("|")</span>
+                                <span>@Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })</span>
+                    }
+                   </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
-<div>
-    @foreach (var item in Model)
-    {
-        <div style="    border: 2px solid black;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    text-align: center;margin: 20px;display:flex;flex-direction:row">
-            <div style="padding-right:20px">
-                <a href="~/Imagens/@item.Foto" target="_blank">
-                    <img src="~/Imagens/@item.Foto" width="400" height="400" />
-                </a>
-            </div>
-            <div style="display:flex;flex-direction:column;padding-right:20px;padding-top:20px;margin:auto">
-                <div style="padding-bottom:20px;padding-top:20px;display:flex;flex-direction:row;margin:auto">
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Série:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Series.Nome)
-                        </p>
-                    </div>
-                    <div style="padding:10px 20px 10px 20px;display:flex;flex-direction:column">
-                        <p>
-                            Temporada:
-                        </p>
-                        <p>
-                            @Html.DisplayFor(modelItem => item.Numero)
-                        </p>
-                    </div>
-                </div>
-
-
-                <p style="padding-bottom:20px;">
-                    <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen></iframe>
-                </p>
-                <div style="padding-bottom:10px;">
-                        @Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })
-                </div>
-
-                <p style="padding-bottom:20px">
-                    @if (User.IsInRole("Administrador"))
-                    {<text>
-                            @Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })
-                            @Html.Raw("|")
-                            @Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })
-                    </text>
-                }
-                </p>
-            </div>
-        </div>
-    }
-</div>
 <div id="opt">
-    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+    <img id="options" src="~/Imagens/options.png" alt=""/>
 </div>
 <div class="sidebar_nav">
     <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
