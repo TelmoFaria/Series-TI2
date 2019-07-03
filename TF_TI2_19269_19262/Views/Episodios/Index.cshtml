@@ -19,52 +19,55 @@
                     <img src="~/Imagens/@item.Foto" />
                 </a>
             </div>
-            <div class="episodios_index_content_info">
-                <div class="episodios_index_content_info_coisas">
-                    <p>Temporada:</p>
-                    <p>@Html.DisplayFor(modelItem => item.Temporadas.Numero)</p>
+            <div class="episodios_index_separador_img_info">
+                <div class="episodios_index_content_info">
+                    <div class="episodios_index_content_info_coisas">
+                        <p>Temporada:</p>
+                        <p>@Html.DisplayFor(modelItem => item.Temporadas.Numero)</p>
+                    </div>
+                    <div class="episodios_index_content_info_coisas">
+                        <p>Episódio:</p>
+                        <p>@Html.DisplayFor(modelItem => item.Numero)</p>
+                    </div>
+                    <div class="episodios_index_content_info_coisas">
+                        <p>Nome do Episódio:</p>
+                        <p>@Html.DisplayFor(modelItem => item.Nome) </p>
+                    </div>
+                    <div class="episodios_index_content_info_coisas">
+                        <p>Classificação:</p>
+                        <p> @Html.DisplayFor(modelItem => item.Classificacao)</p>
+                    </div>
                 </div>
-                <div class="episodios_index_content_info_coisas">
-                    <p>Episódio:</p>
-                    <p>@Html.DisplayFor(modelItem => item.Numero)</p>
+                <div class="episodios_index_content_info_sinopse">
+                    <span>@Html.DisplayFor(modelItem => item.Sinopse)</span>
                 </div>
-                <div class="episodios_index_content_info_coisas">
-                    <p>Nome do Episódio:</p>
-                    <p>@Html.DisplayFor(modelItem => item.Nome) </p>
-                </div>
-                <div class="episodios_index_content_info_coisas">
-                    <p>Classificação:</p>
-                    <p> @Html.DisplayFor(modelItem => item.Classificacao)</p>
+                <div class="episodios_index_content_info_links">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <span>@Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })</span>
+                        <span>@Html.Raw("|")</span>
+                        <span>@Html.ActionLink("Eliminar Episódio", "Delete", new { id = item.ID })</span>
+                        <span>@Html.Raw("|")</span>
+                    }
+                    <span>@Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })</span>
+
                 </div>
             </div>
-            <div class="episodios_index_content_info_sinopse">
-                <span>@Html.DisplayFor(modelItem => item.Sinopse)</span>
-            </div>
-            <div class="episodios_index_content_info_links">
-                @if (User.IsInRole("Administrador"))
-                {
-                <span>@Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })</span>
-                <span>@Html.Raw("|")</span>
-                <span>@Html.ActionLink("Eliminar Episódio", "Delete", new { id = item.ID })</span>
-                <span>@Html.Raw("|")</span>
-                }
-                <span>@Html.ActionLink("Detalhes Do Episódio", "Details", new { id = item.ID })</span>
-                
-            </div>
+            
         </div>
         }
         </div>
 </div>
 
 <div id="opt">
-    <img id="options" src="~/Imagens/options.png" alt="" width="20" height="20" />
+    <img id="options" src="~/Imagens/options.png" alt=""/>
 </div>
 <div class="sidebar_nav">
     <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)</span>
 
     @if (User.IsInRole("Administrador"))
     {
-    <span>@Html.ActionLink("Criar Novo Episodio", "Create")</span>
+    <span>@Html.ActionLink("Criar Novo Episódio", "Create")</span>
     }
 </div>
 
