@@ -1,0 +1,77 @@
+﻿.episodios_index_wrapper{
+    display:flex;
+    flex-direction:column;
+    
+}
+
+.episodios_index_action{
+    text-align:center;
+    margin:16px 0;
+
+}
+
+.episodios_index_content_wrapper {
+    display:flex;
+    flex-direction: column;
+    
+}
+
+.episodios_index_content_info_wrapper {
+    display: flex;
+    flex-direction: row;
+    height:100%;
+    margin-top:24px;
+    border:1px solid black;
+    border-radius:8px;
+    box-shadow:3px 3px black;
+    padding:24px;
+}
+
+.episodios_index_content_info_img{
+    width:33.33%;
+    margin-right:24px;
+}
+    .episodios_index_content_info_img a {
+        width: 100%;
+    }
+.episodios_index_content_info_img a img{
+    width:100%;
+}
+
+.episodios_index_content_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 30%;
+    
+}
+
+.episodios_index_content_info_coisas {
+    display:flex;
+    height:100%;
+    flex-direction:column;    
+}
+
+.episodios_index_content_info_coisas p{
+    text-align:center;
+}
+
+.episodios_index_content_info_sinopse {
+    height: 60%;
+    overflow: hidden;
+    padding-top: 16px;
+}
+
+.episodios_index_content_info_links{
+    text-align:center;
+    height:10%;
+    padding-top:10px;
+}
+
+.episodios_index_separador_img_info{
+    display:flex;
+    flex-direction:column;
+    width:66.66%;
+}
+
+

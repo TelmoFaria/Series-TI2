@@ -4,121 +4,79 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalhes</h2>
 
-<div>
-    <h4>Episódios</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Temporadas.Nome)
-        </dt>
+<link href="~/CSS/MyCSS/episodiosDetails.css" rel="stylesheet" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Temporadas.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sinopse)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sinopse)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
-
-        <dd>
-            <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
-        </dd>
-        @if (!String.IsNullOrEmpty(@Model.Trailer))
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Trailer)
-            </dt>
-
-        <dd>           
-            <div>
-                <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
+<div class="episodios_details_wrapper">
+    <div class="episodios_details_action">
+        <h2>Detalhes</h2>
+    </div>
+    <div class="episodios_details_content_wrapper">
+        <div class="episodios_details_content">
+            <div class="episodios_details_content_img">
+                <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" />
             </div>
-            
-        </dd>
-        }
-        <dt>
-            @Html.DisplayNameFor(model => model.Classificacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Classificacao)
-        </dd>
-
-    </dl>
-</div>
-
-@*----------------------------------------------*@
-<div>
-    <h2>
-        Comentários
-    </h2>
-    @foreach (var comentario in Model.ListaDeComentarios)
-    {
-        <div class="row">
-            <div class="col-md-12" style="background-color:lightgray; margin-left:5px; font-family:Arial;height:100px; margin-top:15px;">
-                @*Texto do comentário*@
-                <div>
-                    @Html.DisplayFor(a => comentario.Utilizadores.Nome)
-
-                </div>
-                <div style="padding-top:10px;">
-                    <b>@Html.DisplayFor(a => comentario.Texto)</b>
-                    <a href="~/Comentarios/Delete/@comentario.ID">
-                        <p>X</p>
-                    </a>
-                </div>
+            <div class="episodios_details_content_info_wrapper">
+                <span>Temporada: @Html.DisplayFor(model => model.Temporadas.Nome)</span>
+                <span>Episódio @Html.DisplayFor(model => model.Numero) : @Html.DisplayFor(model => model.Nome)</span>
+                <span>Classificação: @Html.DisplayFor(model => model.Classificacao)</span>
+                <span>Sinopse: @Html.DisplayFor(model => model.Sinopse)</span>
 
             </div>
         </div>
-    }
-    <br />
-    <form action="/Comentarios/Create" method="post" novalidate="novalidate" enctype="multipart/form-data">
+    </div>
+    <div class="episodios_details_trailler">
+        <span>TRAILLER</span>
+        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
+    </div>
+    <div class="episodios_details_content_comentarios">
+        <span>Comentários</span>
         
-        @Html.AntiForgeryToken()
-        <h3>Insira um comentário</h3>
-        <div class="hide">
+            @foreach (var comentario in Model.ListaDeComentarios)
+            {
+                <div class="row ">
+                    <div class="col-md-12 episodios_details_content_comentarios_coment">
+                        @*Texto do comentário*@
+                        <div>
+                            @Html.DisplayFor(a => comentario.Utilizadores.Nome)
 
-            @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="comentario">
+                            <b>@Html.DisplayFor(a => comentario.Texto)</b>
+                            <a href="~/Comentarios/Delete/@comentario.ID">
+                                <p>X</p>
+                            </a>
+                        </div>
 
-        </div>
-        @Html.TextArea("coment", "", new { placeholder = "insira um comentário", style = "width: 900px; max-width:900px" })
-        <div class="form-group">
-            <div>
-                <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        
+        
+        <br />
+        <form action="/Comentarios/Create" method="post" novalidate="novalidate" enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+            <h3>Insira um comentário</h3>
+            <div class="hide">
+
+                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+
             </div>
-        </div>
+            @Html.TextArea("coment", "", new { placeholder = "insira um comentário", style = "width: 900px; max-width:900px" })
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Publicar" class="btn btn-default" />
+                </div>
+            </div>
         </form>
+    </div>
 </div>
 
-@*----------------------------------------------*@
-
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Voltar à Lista", "Index")
-</p>
+<div id="opt">
+    <img id="options" src="~/Imagens/options.png" alt="" />
+</div>
+<div class="sidebar_nav">
+    <span>@Html.ActionLink("Editar", "Edit", new { id = Model.ID })</span>
+    <span>@Html.ActionLink("Voltar à Lista", "Index")</span>
+</div>

@@ -5,48 +5,37 @@
 }
 
 <link href="~/CSS/startbootstrap-the-big-picture-gh-pages/css/the-big-picture.css" rel="stylesheet" />
+<link href="~/CSS/MyCSS/MyStyleSheet.css" rel="stylesheet" />
 
 
-<div style="text-align:center;color:white">
-    <h1 style="padding:20px 0px 20px 0px">
+
+
+
+
+<div style="text-align:center;padding-bottom:30px">
+    <h1 style="padding:20px 0px 20px 0px; color:#677876;font-weight:bold;font-size:100px;text-shadow: 5px 5px black;">
         Series4All
     </h1>
-    <div style="padding:0px 0px 30px 0px">
-        <p class="lead" style="color:white; font-size:40px">
+    <div style="padding:0px 0px 30px 0px;font-weight:bold;color:#3e81cf;text-shadow: 3px 3px black;">
+        <p class="lead">
             O seu site de análise de séries!
         </p>
     </div>
 
 </div>
 
-<div style="display: flex;justify-content: space-evenly;">
+<div class="homePage_btn_wrapper">
 
-    <div style="font-size: 75px;background: #201c29;border: 1px solid #312d3c;box-shadow: 0 4px 80px #000;border-radius: 8px;padding: 2rem;margin-right: 1rem;overflow: hidden;position: relative;flex: 1;width: 33.33%;display: flex;flex-direction: column;    ">
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Séries", "Index", "Series", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
+    </div>
 
-        <p style="text-align:center;margin: auto;">@Html.ActionLink("Séries", "Index", "Series",null, new { @class = "navbar-brand" })</p>
-</div>
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
+    </div>
 
-
-
-<div style="font-size: 75px;background: #201c29;border: 1px solid #312d3c;box-shadow: 0 4px 80px #000;border-radius: 8px;padding: 2rem;margin-right: 1rem;overflow: hidden;position: relative;flex: 1;width: 33.33%;display: flex;flex-direction: column;">
-
-
-
-<p style="text-align:center;margin: auto;">@Html.ActionLink("Pessoas", "Index", "Pessoas", null, new { @class = "navbar-brand"})</p>
-</div>
-
-
-
-
-<div style="font-size: 75px;background: #201c29;border: 1px solid #312d3c;box-shadow: 0 4px 80px #000;border-radius: 8px;padding: 2rem;margin-right: 1rem;overflow: hidden;position: relative;flex: 1;width: 33.33%;display: flex;flex-direction: column;">
-
-
-
-
-<p style="text-align:center;margin: auto;">@Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "navbar-brand" })</p>
-
-
-
-</div>
+    <div class="homePage_btn_wrapper__btnWrapper">
+        @Html.ActionLink("Editoras", "Index", "Editoras", null, new { @class = "homePage_btn_wrapper__btnWrapper__buton" })
+    </div>
 </div>
 

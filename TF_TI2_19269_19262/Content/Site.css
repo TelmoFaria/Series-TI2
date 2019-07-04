@@ -1,12 +1,20 @@
-﻿body {
+﻿
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    /*background:red;*/
+    font-size: 16px;
+}
+
+a, h1, h2, h3, h4, p, span, div {
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
