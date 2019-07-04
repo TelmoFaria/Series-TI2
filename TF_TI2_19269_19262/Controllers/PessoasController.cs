@@ -31,7 +31,7 @@ namespace TF_TI2_19269_19262.Controllers
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             var pap = pessoas.PessoasEpisodios.ToList();
             ViewBag.pap = pap;
@@ -104,7 +104,7 @@ namespace TF_TI2_19269_19262.Controllers
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(pessoas);
         }
@@ -159,7 +159,7 @@ namespace TF_TI2_19269_19262.Controllers
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(pessoas);
         }

@@ -19,6 +19,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Series
         public ActionResult Index()
         {
+
             var series = db.Series.Include(s => s.Editora);
             return View(series.ToList());
         }
@@ -26,16 +27,17 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Series/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
-            Series series = db.Series.Find(id);
-            if (series == null)
+            Series serie = db.Series.Find(id);
+            if (serie == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
-            return View(series);
+            return View(serie);
         }
         //------------------------------------------------------------------------------------
         //                             Tentar ir para a pagina Temporadas 
@@ -50,7 +52,7 @@ namespace TF_TI2_19269_19262.Controllers
             var varSerie = db.Series;
             if (temporadas == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(temporadas);
         }
@@ -125,7 +127,7 @@ namespace TF_TI2_19269_19262.Controllers
             Series serie = db.Series.Find(id);
             if (serie == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
          
             ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
@@ -188,7 +190,7 @@ namespace TF_TI2_19269_19262.Controllers
             Series series = db.Series.Find(id);
             if (series == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(series);
         }

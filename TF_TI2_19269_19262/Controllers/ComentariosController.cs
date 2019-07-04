@@ -31,7 +31,7 @@ namespace TF_TI2_19269_19262.Controllers
             Comentarios comentarios = db.Comentarios.Find(id);
             if (comentarios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(comentarios);
         }
@@ -152,7 +152,7 @@ namespace TF_TI2_19269_19262.Controllers
                     }
                     if (comentario == null)
                     {
-                        return HttpNotFound();
+                        return RedirectToAction("Index");
                     }
                     return View(comentario);
                 }

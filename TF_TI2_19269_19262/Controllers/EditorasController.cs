@@ -31,7 +31,7 @@ namespace TF_TI2_19269_19262.Controllers
             Editora editora = db.Editora.Find(id);
             if (editora == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(editora);
         }
@@ -92,7 +92,7 @@ namespace TF_TI2_19269_19262.Controllers
             Editora editora = db.Editora.Find(id);
             if (editora == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(editora);
         }
@@ -153,7 +153,7 @@ namespace TF_TI2_19269_19262.Controllers
             Editora editora = db.Editora.Find(id);
             if (editora == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(editora);
         }

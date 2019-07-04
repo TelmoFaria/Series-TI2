@@ -29,6 +29,7 @@
                         <p>Episódio:</p>
                         <p>@Html.DisplayFor(modelItem => item.Numero)</p>
                     </div>
+
                     <div class="episodios_index_content_info_coisas">
                         <p>Nome do Episódio:</p>
                         <p>@Html.DisplayFor(modelItem => item.Nome) </p>
@@ -36,12 +37,15 @@
                     <div class="episodios_index_content_info_coisas">
                         <p>Classificação:</p>
                         <p> @Html.DisplayFor(modelItem => item.Classificacao)</p>
+
                     </div>
                 </div>
                 <div class="episodios_index_content_info_sinopse">
                     <span>@Html.DisplayFor(modelItem => item.Sinopse)</span>
                 </div>
+
                 <div class="episodios_index_content_info_links">
+
                     @if (User.IsInRole("Administrador"))
                     {
                         <span>@Html.ActionLink("Editar Episódio", "Edit", new { id = item.ID })</span>
@@ -62,6 +66,7 @@
 <div id="opt">
     <img id="options" src="~/Imagens/options.png" alt=""/>
 </div>
+
 <div class="sidebar_nav">
     <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)</span>
 
@@ -70,4 +75,5 @@
     <span>@Html.ActionLink("Criar Novo Episódio", "Create")</span>
     }
 </div>
+
 
