@@ -52,10 +52,14 @@
     flex-direction:column;    
 }
 
-.episodios_index_content_info_sinopse{
-    height:60%;
-    overflow:hidden;
-    padding-top:16px;
+.episodios_index_content_info_coisas p{
+    text-align:center;
+}
+
+.episodios_index_content_info_sinopse {
+    height: 60%;
+    overflow: hidden;
+    padding-top: 16px;
 }
 
 .episodios_index_content_info_links{
