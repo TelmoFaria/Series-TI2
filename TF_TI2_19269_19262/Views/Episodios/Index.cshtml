@@ -68,7 +68,9 @@
 </div>
 
 <div class="sidebar_nav">
-    <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = Model.FirstOrDefault().Temporadas.SerieFK }, null)</span>
+    <span>
+        @Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)
+    </span>
 
     @if (User.IsInRole("Administrador"))
     {

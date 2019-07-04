@@ -26,6 +26,7 @@
                     @if (User.IsInRole("Administrador"))
                     {
                         <li>@Html.ActionLink("Comentários", "Index", "Comentarios")</li>
+                        <li>@Html.ActionLink("Papéis", "Index", "PessoasEpisodios")</li>
                     }
 
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))

@@ -25,34 +25,37 @@
             </div>
         </div>
     </div>
-    <div class="episodios_details_trailler">
-        <span>TRAILLER</span>
-        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
-    </div>
+    @if (!String.IsNullOrEmpty(@Model.Trailer))
+    {
+        <div class="episodios_details_trailler">
+            <span>TRAILLER</span>
+            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => @Model.Trailer)" allowfullscreen></iframe>
+        </div>
+    }
     <div class="episodios_details_content_comentarios">
         <span>Comentários</span>
-        
-            @foreach (var comentario in Model.ListaDeComentarios)
-            {
-                <div class="row ">
-                    <div class="col-md-12 episodios_details_content_comentarios_coment">
-                        @*Texto do comentário*@
-                        <div>
-                            @Html.DisplayFor(a => comentario.Utilizadores.Nome)
 
-                        </div>
-                        <div class="comentario">
-                            <b>@Html.DisplayFor(a => comentario.Texto)</b>
-                            <a href="~/Comentarios/Delete/@comentario.ID">
-                                <p>X</p>
-                            </a>
-                        </div>
+        @foreach (var comentario in Model.ListaDeComentarios)
+        {
+            <div class="row ">
+                <div class="col-md-12 episodios_details_content_comentarios_coment">
+                    @*Texto do comentário*@
+                    <div>
+                        @Html.DisplayFor(a => comentario.Utilizadores.Nome)
 
                     </div>
+                    <div class="comentario">
+                        <b>@Html.DisplayFor(a => comentario.Texto)</b>
+                        <a href="~/Comentarios/Delete/@comentario.ID">
+                            <p>X</p>
+                        </a>
+                    </div>
+
                 </div>
-            }
-        
-        
+            </div>
+        }
+
+
         <br />
         <form action="/Comentarios/Create" method="post" novalidate="novalidate" enctype="multipart/form-data">
 
@@ -78,5 +81,5 @@
 </div>
 <div class="sidebar_nav">
     <span>@Html.ActionLink("Editar", "Edit", new { id = Model.ID })</span>
-    <span>@Html.ActionLink("Voltar à Lista", "Index")</span>
+    <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)</span>
 </div>

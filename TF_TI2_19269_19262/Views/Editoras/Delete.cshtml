@@ -11,6 +11,7 @@
     <h4>Editora</h4>
     <hr />
     <dl class="dl-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>

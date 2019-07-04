@@ -165,9 +165,17 @@ namespace TF_TI2_19269_19262.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Editora editora = db.Editora.Find(id);
-            db.Editora.Remove(editora);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Editora.Remove(editora);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", string.Format("Não é possível apagar esta editora pois existem Séries a ela associados"));
+            }
+            return View(editora);
         }
 
         protected override void Dispose(bool disposing)
