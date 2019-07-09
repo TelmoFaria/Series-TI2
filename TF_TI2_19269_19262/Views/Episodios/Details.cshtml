@@ -17,7 +17,7 @@
                 <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" />
             </div>
             <div class="episodios_details_content_info_wrapper">
-                <span>Temporada: @Html.DisplayFor(model => model.Temporadas.Nome)</span>
+                <span>Temporada: @Html.DisplayFor(model => model.Temporada.Nome)</span>
                 <span>Episódio @Html.DisplayFor(model => model.Numero) : @Html.DisplayFor(model => model.Nome)</span>
                 <span>Classificação: @Html.DisplayFor(model => model.Classificacao)</span>
                 <span>Sinopse: @Html.DisplayFor(model => model.Sinopse)</span>
@@ -41,7 +41,7 @@
                 <div class="col-md-12 episodios_details_content_comentarios_coment">
                     @*Texto do comentário*@
                     <div>
-                        @Html.DisplayFor(a => comentario.Utilizadores.Nome)
+                        @Html.DisplayFor(a => comentario.Utilizador.Nome)
 
                     </div>
                     <div class="comentario">

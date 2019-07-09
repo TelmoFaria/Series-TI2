@@ -22,7 +22,7 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return Redirect("/");
             }
-            var temporada = db.Temporadas.Include(t => t.Series);
+            var temporada = db.Temporadas.Include(t => t.Serie);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id
                          select t;

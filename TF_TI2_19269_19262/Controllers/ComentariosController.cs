@@ -17,7 +17,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: Comentarios
         public ActionResult Index()
         {
-            var comentarios = db.Comentarios.Include(c => c.Episodios);
+            var comentarios = db.Comentarios.Include(c => c.Episodio);
             return View(comentarios.ToList());
         }
 

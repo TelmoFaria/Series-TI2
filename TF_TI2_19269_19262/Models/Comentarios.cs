@@ -12,15 +12,16 @@ namespace TF_TI2_19269_19262.Models
         [Key]
         public int ID { get; set; }
 
+
         public string Texto { get; set; }
 
-        [ForeignKey("Episodios")]
+        [ForeignKey("Episodio")]
         public int EpisodioFK { get; set; }
-        public virtual Episodios Episodios { get; set; }
+        public virtual Episodios Episodio { get; set; }
 
-        [ForeignKey("Utilizadores")]
+        [ForeignKey("Utilizador")]
         public int UtilizadorFK { get; set; }
-        public virtual Utilizadores Utilizadores { get; set; }
+        public virtual Utilizadores Utilizador { get; set; }
     }
 }
 

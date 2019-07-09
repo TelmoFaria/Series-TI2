@@ -24,9 +24,9 @@ namespace TF_TI2_19269_19262.Models
 
         public string Trailer { get; set; }
 
-        [ForeignKey("Series")]
+        [ForeignKey("Serie")]
         public int SerieFK { get; set; }
-        public virtual Series Series { get; set; }
+        public virtual Series Serie { get; set; }
 
         public virtual ICollection<Episodios> Episodios { get; set; }
 

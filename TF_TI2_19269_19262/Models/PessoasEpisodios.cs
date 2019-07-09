@@ -20,13 +20,13 @@ namespace TF_TI2_19269_19262.Models
 
         public TipoDePapel Papel {get; set;}
 
-        [ForeignKey("Pessoas")]
+        [ForeignKey("Pessoa")]
         public int PessoaFK { get; set; }
-        public virtual Pessoas Pessoas { get; set; }
+        public virtual Pessoas Pessoa { get; set; }
 
-        [ForeignKey("Episodios")]
+        [ForeignKey("Episodio")]
         public int EpisodioFK { get; set; }
-        public virtual Episodios Episodios { get; set; }
+        public virtual Episodios Episodio { get; set; }
     }
 }
 

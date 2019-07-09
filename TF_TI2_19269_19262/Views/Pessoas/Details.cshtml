@@ -25,13 +25,13 @@
                     <h3>Papeis que desempenhou :</h3>
                     <tr>
                         <th>
-                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Series.Nome, "Nome Série")
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Serie.Nome, "Nome Série")
                         </th>
                         <th>
-                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodios.Temporadas.Nome, "Nome Temporada")
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Nome, "Nome Temporada")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodios.Nome)
+                            @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodio.Nome)
                         </th>
                         <th>
                             @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Papel)
@@ -42,13 +42,13 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodios.Temporadas.Series.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Temporada.Serie.Nome)
                             </td>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodios.Temporadas.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Temporada.Nome)
                             </td>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodios.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Nome)
                             </td>
                             <td>
                                 @Html.DisplayFor(a => pap.Papel)

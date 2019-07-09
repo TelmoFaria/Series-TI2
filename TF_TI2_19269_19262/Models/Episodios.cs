@@ -30,9 +30,9 @@ namespace TF_TI2_19269_19262.Models
 
         public double Classificacao { get; set; }
 
-        [ForeignKey("Temporadas")]
+        [ForeignKey("Temporada")]
         public int TemporadaFK { get; set; }
-        public virtual Temporadas Temporadas { get; set; }
+        public virtual Temporadas Temporada { get; set; }
 
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
 

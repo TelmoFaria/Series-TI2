@@ -18,7 +18,7 @@ namespace TF_TI2_19269_19262.Controllers
         // GET: PessoasEpisodios
         public ActionResult Index()
         {
-            var pessoasEpisodios = db.PessoasEpisodios.Include(p => p.Episodios).Include(p => p.Pessoas);
+            var pessoasEpisodios = db.PessoasEpisodios.Include(p => p.Episodio).Include(p => p.Pessoa);
             return View(pessoasEpisodios.ToList());
         }
 
