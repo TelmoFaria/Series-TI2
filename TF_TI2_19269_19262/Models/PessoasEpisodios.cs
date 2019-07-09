@@ -12,9 +12,6 @@ namespace TF_TI2_19269_19262.Models
         [Key]
         public int ID { get; set; }
 
-
-
-
         public enum TipoDePapel
         {
             Ator,
@@ -30,8 +27,14 @@ namespace TF_TI2_19269_19262.Models
         [ForeignKey("Episodios")]
         public int EpisodioFK { get; set; }
         public virtual Episodios Episodios { get; set; }
-
-
-
     }
 }
+
+/*
+    Tabela PessoasEpisodios (papeis)
+            - Id : id do papel (int)
+            - tipoDePapel : uma pessoa ser ator ou realizador (enumerable)
+            - papel : representa 1 papel 
+            - PessoaFK : chave forasteira para a tabela Pessoas (int)
+            - EpisodioFk : chave forasteira para a tabela Episodios (int)
+*/

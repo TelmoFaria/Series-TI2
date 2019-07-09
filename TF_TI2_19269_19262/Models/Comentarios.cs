@@ -23,3 +23,11 @@ namespace TF_TI2_19269_19262.Models
         public virtual Utilizadores Utilizadores { get; set; }
     }
 }
+
+/*
+ Tabela Comentarios:
+        - id: id do comentário (int)
+        - Texto : texto do comentário (string)
+        - EpisodioFk : chave forasteira para a tabela Episodios (int)
+        - UtilizadorFK : chave forasteira para a tabela Utilizadores (int)
+*/

@@ -14,9 +14,16 @@ namespace TF_TI2_19269_19262.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Nome { get; set; }
 
-
         public string Foto { get; set; }
 
         public virtual ICollection<PessoasEpisodios> PessoasEpisodios { get; set; }
     }
 }
+
+/*
+    Tabela Pessoas:
+            - ID : id da pessoa (int)
+            - Nome : nome da pessoa (string)
+            - Foto : fotografia/imagem da pessoa (string)
+            - PessoasEpisodios : lista de papeis (ICollection)
+*/

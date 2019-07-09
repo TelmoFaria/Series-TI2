@@ -21,7 +21,6 @@ namespace TF_TI2_19269_19262.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Genero { get; set; }
 
-
         public string Foto { get; set; }
 
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
@@ -33,10 +32,8 @@ namespace TF_TI2_19269_19262.Models
         [RegularExpression ("[0-9](,[0-9])?|10",ErrorMessage =("A Classificação que introduziu não é válida"))]
         public string AuxClassificacao { get; set; }
 
-
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
         public double Classificacao { get; set; }
-
 
         public virtual ICollection<Temporadas> Temporadas { get; set; }
 
@@ -44,8 +41,18 @@ namespace TF_TI2_19269_19262.Models
         [DisplayName ("Editora")]
         public int EditoraFK { get; set; }
         public virtual Editora Editora { get; set; }
-
-
-
     }
 }
+
+/*
+    Tabela Series
+            - Id : id da série (int)
+            - Nome : nome da série (string)
+            - Genero : genero da série (string)
+            - Foto : fotografia/imagem da série (string)
+            - Sinopse : sinopse/descriçao da série (string)
+            - Video : trailler da série (string)
+            - AuxClassificacao : variavel auxiliar para introdução da classificação na bd (string)
+            - Classificacao : classificação da série (double)
+            - EditoraFK : chave forasteira para a tabela Editora (int)
+*/

@@ -14,7 +14,7 @@
     flex-direction:row;
    
 }
-/*#7E909A*/
+
 .pessoas_index_content_wrapper {
     display: flex;
     flex-direction: column;
@@ -25,9 +25,7 @@
     margin: 30px;
     height: 340px;
     width: 240px;
-    flex-shrink:3;
-
-    
+    flex-shrink:3;  
 }
 
 .pessoas_index_content_img {
@@ -39,7 +37,6 @@
     display: flex;
     height: 20%;
     justify-content: center;
-
 }
 
     .pessoas_index_content_nome a {
@@ -51,8 +48,7 @@
     }
 
 .pessoas_index_content_linksEdit {
-    height: 10%;
-    
+    height: 10%;    
 }
 
         .pessoas_index_content_linksEdit a {
