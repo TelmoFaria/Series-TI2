@@ -10,6 +10,7 @@ using TF_TI2_19269_19262.Models;
 
 namespace TF_TI2_19269_19262.Controllers
 {
+    //A Classe pessoasEpisodios representa os papeis de uma pessoa dado o episodio em que participam
     public class PessoasEpisodiosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -26,6 +27,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound 
                 return RedirectToAction("Index");
             }
             PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);
@@ -37,6 +39,8 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: PessoasEpisodios/Create
+        //Apenas os utilizadores do tipo "Administrador podem criar, editar ou eliminar Papeis
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome");
@@ -49,6 +53,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Papel,PessoaFK,EpisodioFK")] PessoasEpisodios pessoasEpisodios)
         {
             if (ModelState.IsValid)
@@ -64,6 +69,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: PessoasEpisodios/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,6 +91,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Papel,PessoaFK,EpisodioFK")] PessoasEpisodios pessoasEpisodios)
         {
             if (ModelState.IsValid)
@@ -99,6 +106,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: PessoasEpisodios/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -116,6 +124,7 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: PessoasEpisodios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);

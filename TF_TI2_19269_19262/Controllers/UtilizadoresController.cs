@@ -30,7 +30,7 @@ namespace TF_TI2_19269_19262.Controllers
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(utilizadores);
         }
@@ -69,7 +69,7 @@ namespace TF_TI2_19269_19262.Controllers
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(utilizadores);
         }
@@ -102,7 +102,7 @@ namespace TF_TI2_19269_19262.Controllers
             Utilizadores utilizadores = db.Utilizadores.Find(id);
             if (utilizadores == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(utilizadores);
         }

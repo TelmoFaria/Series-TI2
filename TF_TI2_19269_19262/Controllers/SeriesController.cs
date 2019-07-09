@@ -34,7 +34,7 @@ namespace TF_TI2_19269_19262.Controllers
 
             if (id == null)
             { 
-                //alterar as respostas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             Series serie = db.Series.Find(id);
@@ -51,6 +51,7 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
+                //evitar erros de BadRequest e NotFound
                 return RedirectToAction("Index");
             }
             var temporadas = db.Temporadas.Where(t => t.SerieFK == id);
@@ -76,7 +77,7 @@ namespace TF_TI2_19269_19262.Controllers
         // POST: Series/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //o parametro serie recolhe os dados referentes a uma serie (Nome, Genero, Sinopse, Video, AuxClassificacao (que mais tarde será substituido por classificacao e editora
+        //o parametro serie recolhe os dados referentes a uma serie (Nome, Genero, Sinopse, Video, AuxClassificacao (que mais tarde será substituido por classificacao e editoraFK
         //e o parametro fotografia representa a foto da serie
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -164,7 +165,7 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Nome,Genero,Foto,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase editFoto)
         {
-        //converter a variavel auxiliar para double
+        //converter o atributo auxiliar para double
           serie.Classificacao=Convert.ToDouble(serie.AuxClassificacao);
             // o ficheiro foi fornecido
             // validar se o que foi fornecido é uma imagem

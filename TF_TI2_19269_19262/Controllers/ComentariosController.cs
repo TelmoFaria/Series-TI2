@@ -48,10 +48,10 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Os utilizadores do tipo Utilizador e Administrador poderão criar comentários
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Create([Bind(Include = "ID,Texto,EpisodioFK")] Comentarios comentario, Episodios episodio, string coment)
         {
-            //comentario.ID= db.Comentarios.Max(t => t.ID) + 1;
             var Ut = db.Utilizadores.Where(
                 uti => uti.UserName
                 .Equals(User.Identity.Name)).FirstOrDefault();
@@ -65,6 +65,7 @@ namespace TF_TI2_19269_19262.Controllers
 
             if (ModelState.IsValid)
             {
+                //guarda os comentarios na BD
                 db.Comentarios.Add(comentario);
                 db.SaveChanges();
                 return Redirect(Request.UrlReferrer.ToString());
@@ -79,6 +80,7 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Edit(int? id)
         {
+            
             var Ut = db.Utilizadores.Where(
             uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
@@ -88,8 +90,9 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return RedirectToAction("Index");
             }
-            try { 
-            if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
+            try {
+                //ve se o coment pertence ao user ou se possui permissoes de admin
+                if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
                 {
 
                 ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", comentario.EpisodioFK);
@@ -136,8 +139,7 @@ namespace TF_TI2_19269_19262.Controllers
         public ActionResult Delete(int? id)
         { Comentarios comentario = db.Comentarios.Find(id);
             //um utilizador com a role Adim pode apagar qualquer comentario
-            //um moderador pode apagar qualquer comentario
-            //um utilizador pode apenas apager os seus comentarios   
+            //um utilizador pode apenas apagar os seus comentarios   
 
             //pesquisa na base de dados o utilizador que está autenticado
             var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();

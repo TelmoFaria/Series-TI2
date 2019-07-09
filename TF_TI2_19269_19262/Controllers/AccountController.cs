@@ -156,18 +156,13 @@ namespace TF_TI2_19269_19262.Controllers
                 {
                     try
                     {
-                       // int idUt;
                         ApplicationDbContext db = new ApplicationDbContext();
-                       // idUt = db.Utilizadores.Max(a => a.ID) + 1;
-
-
 
                         /// se houve sucesso com a criação de um utilizador
                         /// tenho de guardar os dados do utilizador que se registou
                         Utilizadores utilizador = new Utilizadores();
 
                         // associar estes dados com o utilizador q se registou
-                       // utilizador.ID = idUt;
                         utilizador.UserName = user.UserName;
                         utilizador.Email = user.UserName;
                         utilizador.Nome = model.Nome;

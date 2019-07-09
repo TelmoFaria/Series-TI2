@@ -26,11 +26,13 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             var pap = pessoas.PessoasEpisodios.ToList();
@@ -51,6 +53,7 @@ namespace TF_TI2_19269_19262.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //o parametro serie recolhe os dados referentes a uma pessoa (Nome e o parametro fotografia representa a foto da pessoa)
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "ID,Nome,Foto")] Pessoas pessoa,HttpPostedFileBase uploadFoto)
         {
@@ -61,12 +64,12 @@ namespace TF_TI2_19269_19262.Controllers
 
             string path = "";
 
+            //verificar se foi fornecido ficheiro
+            //Há ficheiro?
             if (uploadFoto != null)
             {
                 // o ficheiro foi fornecido
-                // validar se o q foi fornecido é uma imagem ----> fazer em casa
-                // formatar o tamanho da imagem
-
+                // validar se o q foi fornecido é uma imagem
                 // criar o caminho completo até ao sítio onde o ficheiro
                 // será guardado
                 path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
@@ -84,8 +87,13 @@ namespace TF_TI2_19269_19262.Controllers
 
             if (ModelState.IsValid)
             {
+                // valida se os dados fornecidos estão de acordo 
+                // com as regras definidas na especificação do Modelo
+                //adiciona nova pessoa ao Modelo
                 db.Pessoas.Add(pessoa);
+                //guarda os dados na bd
                 db.SaveChanges();
+                //guarda a foto no disco rigido
                 uploadFoto.SaveAs(path);
                 return RedirectToAction("Index");
             }
@@ -99,11 +107,13 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             return View(pessoas);
@@ -117,6 +127,9 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Nome,Foto")] Pessoas pessoa, HttpPostedFileBase editFoto)
         {
+            // o ficheiro foi fornecido
+            // validar se o que foi fornecido é uma imagem
+            // criar o caminho completo até ao sítio onde o ficheiro será guardado
             string novoNome = "";
             string nomeAntigo = "";
             bool haFotoNova = false;
@@ -127,7 +140,9 @@ namespace TF_TI2_19269_19262.Controllers
                 {
                     if (editFoto != null)
                     {
+                        //o nome antigo representa a foto na base de dados já inserida
                         nomeAntigo = pessoa.Foto;
+                        //o novo nome será guardado na bd se for inserida uma nova foto
                         novoNome = "Pessoa_" + pessoa.ID + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(editFoto.FileName).ToLower();
                         pessoa.Foto = novoNome;
                         haFotoNova = true;
@@ -136,6 +151,7 @@ namespace TF_TI2_19269_19262.Controllers
                     db.SaveChanges();
                     if (haFotoNova)
                     {
+                        // eliminar a foto antiga da bd e guardar a nova foto na bd
                         System.IO.File.Delete(Path.Combine(Server.MapPath("~/Imagens"), nomeAntigo));
                         editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens"), novoNome));
                     }
@@ -154,11 +170,13 @@ namespace TF_TI2_19269_19262.Controllers
         {
             if (id == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             Pessoas pessoas = db.Pessoas.Find(id);
             if (pessoas == null)
             {
+                //alterar as rotas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return RedirectToAction("Index");
             }
             return View(pessoas);
@@ -173,13 +191,15 @@ namespace TF_TI2_19269_19262.Controllers
             Pessoas pessoa = db.Pessoas.Find(id);
             try
             {
+                //Remover uma serie
+                //Caso haja papeos associados vai para a exceção
                 db.Pessoas.Remove(pessoa);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar esta pessoa pois existem papeis a ela associados"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar esta pessoa pois existem papéis a ela associados"));
             }
             return View(pessoa);
         }
