@@ -39,3 +39,18 @@ namespace TF_TI2_19269_19262.Models
         public virtual ICollection<PessoasEpisodios> PessoasEpisodios { get; set; }
     }
 }
+
+/*
+    Tabela Episodios
+            - ID : id do episódio (int)
+            - Numero : numero do episódio (int)
+            - Nome : nome do episódio (string)
+            - Sinopse : sinopse/descirção do episódio (string)
+            - Foto : fotografia/imagem do episódio (string)
+            - Trailer : trailer do episódio (string)
+            - AuxClassificacao : variavel auxiliar para introdução da classificação na bd (string)
+            - Classificacao : Classificação do episódio (double)
+            - TemporadaFK : chave forasteira para a tabela Temporadas (int)
+            - ListaDeComentarios : lista de comentários (ICollection)
+            - PessoasEpisodios : lista de papeis (ICollection)
+*/

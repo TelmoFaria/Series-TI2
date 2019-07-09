@@ -20,7 +20,6 @@ namespace TF_TI2_19269_19262.Models
         [DisplayName("Nome Temporada")]
         public string Nome { get; set; }
 
-
         public string Foto { get; set; }
 
         public string Trailer { get; set; }
@@ -33,3 +32,14 @@ namespace TF_TI2_19269_19262.Models
 
     }
 }
+
+/*
+    Tabela Temporadas
+            - Id : id da temporada (int)
+            - Numero : numeor da temporada (int)
+            - Nome : nome da temporada (string)
+            - Foto : fotografia/imagem da temporada (string)
+            - Trailer : trailler da temporada (string)
+            - SeriesFK : chave forasteira para a tabela Series (int)
+            - Episodios : lista de Episódios  (ICollection)
+*/

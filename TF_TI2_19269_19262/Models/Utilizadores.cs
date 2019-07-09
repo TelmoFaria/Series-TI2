@@ -41,3 +41,11 @@ namespace TF_TI2_19269_19262.Models
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
     }
 }
+
+/*
+       Tabela Utilizadores:
+                - Id : id do utilizador (int)
+                - Email : e-mail do utilizador (string)
+                - nome : nome do utilizador (string)
+                - userName : nick name do utilizador (string)
+*/

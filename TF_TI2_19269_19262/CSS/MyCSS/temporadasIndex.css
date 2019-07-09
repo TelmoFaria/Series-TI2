@@ -1,7 +1,6 @@
 ﻿.temporadas_index_wrapper{
     display:flex;
     flex-direction:column;
-
 }
 
 .temporadas_index_action{
@@ -11,7 +10,6 @@
 .temporadas_index_content{
     display:flex;
     flex-direction:column;
-
 }
 
 .temporadas_index_content_wrapper{
@@ -39,8 +37,7 @@
 .temporadas_index_info{
     display:flex;
     flex-direction:row;
-    justify-content:space-evenly;
-    
+    justify-content:space-evenly;    
 }
 
 .temporadas_index_info_text {
