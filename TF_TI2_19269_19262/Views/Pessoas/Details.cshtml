@@ -25,13 +25,13 @@
                     <h3>Papeis que desempenhou :</h3>
                     <tr>
                         <th>
-                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Serie.Nome, "Nome Série")
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Serie.Nome, "Nome da Série")
                         </th>
                         <th>
-                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Nome, "Nome Temporada")
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Temporada.Nome, "Nome da Temporada (Numero)")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Episodio.Nome)
+                            @Html.LabelFor(a => Model.PessoasEpisodios.First().Episodio.Nome , "Nome do Episódio (Numero)")
                         </th>
                         <th>
                             @Html.DisplayNameFor(a => Model.PessoasEpisodios.First().Papel)
@@ -42,13 +42,13 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodio.Temporada.Serie.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Temporada.Serie.Nome) 
                             </td>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodio.Temporada.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Temporada.Nome) (@Html.DisplayFor(a => pap.Episodio.Temporada.Numero))
                             </td>
                             <td>
-                                @Html.DisplayFor(a => pap.Episodio.Nome)
+                                @Html.DisplayFor(a => pap.Episodio.Nome) (@Html.DisplayFor(a => pap.Episodio.Numero))
                             </td>
                             <td>
                                 @Html.DisplayFor(a => pap.Papel)

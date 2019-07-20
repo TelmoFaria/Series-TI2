@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group"  style="display:none">
             @Html.LabelFor(model => model.SerieFK, "SerieFK", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("SerieFK", null, htmlAttributes: new { @class = "form-control" })
@@ -69,7 +69,7 @@
 </form>
 
     <div>
-        @Html.ActionLink("Voltar à lista das editoras", "Index")
+        @Html.ActionLink("Voltar à lista de Temporadas", "Index", new { id = ViewBag.SerieFK })
     </div>
 
     @section Scripts {

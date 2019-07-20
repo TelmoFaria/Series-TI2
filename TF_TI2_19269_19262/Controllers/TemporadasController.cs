@@ -22,10 +22,12 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 return Redirect("/");
             }
-            var temporada = db.Temporadas.Include(t => t.Serie);
+           // var temporada = db.Temporadas.Include(t => t.Serie);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id
                          select t;
+
+            ViewBag.SerieFK = id;
             return View(temp.ToList());
         }
         // GET: Temporadas/select{id}
@@ -52,13 +54,17 @@ namespace TF_TI2_19269_19262.Controllers
             }
             return View(temporada);
         }
-        
 
-        // GET: Temporadas/Create
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome");
+            ViewBag.SerieFK = id;
             return View();
         }
         //---
@@ -66,9 +72,8 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Trailer,SerieFK")] Temporadas temporada, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "Numero,Nome,Trailer,SerieFK")] Temporadas temporada, HttpPostedFileBase uploadFoto)
         {
-
             /*
              para fazer o post create de uma temporada , são recebidos os valores de ID, Numero.Nome,Trailer, SerieFK que representam uma temporada, e 1 foto
              */
@@ -94,7 +99,7 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 //caso contrário apresenta uma mensagem de erro
                 ModelState.AddModelError("", "Não foi fornecida uma imagem...");
-                ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
+                ViewBag.SerieFK = temporada.SerieFK;
 
                 return View(temporada);
             }
@@ -103,13 +108,24 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 //se o modelo for válido, adiciona 1 nova temporada á bd e guarda a foto
                 db.Temporadas.Add(temporada);
-                db.SaveChanges();
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    //caso contrário apresenta uma mensagem de erro
+                    ModelState.AddModelError("", "Não foi possivel guardar os dados. Por favor, tente novamente");
+                    ViewBag.SerieFK = temporada.SerieFK;
+                    return View(temporada);
+                }
                 uploadFoto.SaveAs(path);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id = temporada.SerieFK});
             }
             
             ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
-            return View(temporada);
+            return View("Index", new { id = temporada.SerieFK });
         }
 
 
@@ -182,7 +198,7 @@ namespace TF_TI2_19269_19262.Controllers
 
             }
             ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = temporada.SerieFK });
         }
 
         // GET: Temporadas/Delete/5
@@ -214,14 +230,14 @@ namespace TF_TI2_19269_19262.Controllers
                 //caso encontre e seja válida,remove o registo e guarda as alterações
                 db.Temporadas.Remove(temporada);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new {id=temporada.SerieFK });
             }
             //caso contrário apresenta uma mensagem de erro
             catch (Exception ex)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar esta temporada pois existem episódios a ela associados"));
             }
-            return View(temporada);
+            return View("Index", new { id = temporada.SerieFK });
         }
 
         protected override void Dispose(bool disposing)

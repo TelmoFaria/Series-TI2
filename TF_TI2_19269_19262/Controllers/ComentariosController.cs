@@ -37,15 +37,14 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Comentarios/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome");
             return View();
         }
 
         // POST: Comentarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         //Os utilizadores do tipo Utilizador e Administrador poderão criar comentários
@@ -55,15 +54,14 @@ namespace TF_TI2_19269_19262.Controllers
             var Ut = db.Utilizadores.Where(
                 uti => uti.UserName
                 .Equals(User.Identity.Name)).FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(comentario.Texto))
+            {
+                comentario.UtilizadorFK = Ut.ID;
 
-            comentario.UtilizadorFK = Ut.ID;
+                comentario.Texto= coment ;
 
-            comentario.Texto= coment ;
-
-            comentario.EpisodioFK= episodio.ID ;
-
-
-            if (ModelState.IsValid)
+                comentario.EpisodioFK= episodio.ID ;
+                if (ModelState.IsValid)
             {
                 //guarda os comentarios na BD
                 db.Comentarios.Add(comentario);
@@ -73,6 +71,8 @@ namespace TF_TI2_19269_19262.Controllers
             var errors = ModelState.Values.SelectMany(v => v.Errors);
             ViewBag.UtilizadorFK = new SelectList(db.Utilizadores, "ID", "UserName", comentario.UtilizadorFK);
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", comentario.EpisodioFK);
+            }
+            
             return Redirect(Request.UrlReferrer.ToString());
         }
 

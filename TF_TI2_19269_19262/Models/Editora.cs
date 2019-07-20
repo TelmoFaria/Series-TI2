@@ -7,14 +7,23 @@ using System.Web;
 
 namespace TF_TI2_19269_19262.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Editora
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Nome { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Logo { get; set; }
 
         public virtual ICollection<Series> Series { get; set; }

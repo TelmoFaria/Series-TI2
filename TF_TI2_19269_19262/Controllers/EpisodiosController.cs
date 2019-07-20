@@ -26,6 +26,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             //Procura os episodios referentes a uma temporada (dada o seu id) para apresentar apenas esses episodios
             ViewBag.SerieID = db.Temporadas.Find(id).SerieFK;
+            ViewBag.TemporadaID = id;
             var ep = from p in db.Episodios
                        where p.TemporadaFK == id
                        select p;
@@ -59,21 +60,19 @@ namespace TF_TI2_19269_19262.Controllers
         * Apenas os utilizadores do tipo "Administrador" poderão criar, editar ou eliminar series
         */
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome");
+            ViewBag.TemporadaFK = id;
             return View();
         }
 
         // POST: Episodios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         //o parametro serie recolhe os dados referentes a um episodio (Nome, Numero, Sinopse, Trailer, AuxClassificacao (que mais tarde será substituido por classificacao e temporadaFK
         //e o parametro fotografia representa a foto do episodio
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
             //Converter o AuxClassificacao para double
             episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
@@ -146,8 +145,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Episodios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -191,12 +189,12 @@ namespace TF_TI2_19269_19262.Controllers
                 catch (Exception ex)
                 {
                     //se houver um erro na edição apresenta este erro
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição do episodio {0}", episodio.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição do episódio {0}", episodio.Nome));
                 }
 
             }
-            ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
-            return RedirectToAction("Index");
+           // ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+            return RedirectToAction("Index", new { id = episodio.TemporadaFK });
         }
 
         // GET: Episodios/Delete/5

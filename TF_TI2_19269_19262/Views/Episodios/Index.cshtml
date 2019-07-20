@@ -74,7 +74,7 @@
 
     @if (User.IsInRole("Administrador"))
     {
-    <span>@Html.ActionLink("Criar Novo Episódio", "Create")</span>
+    <span>@Html.ActionLink("Criar Novo Episódio", "Create","Episodios",new { id = ViewBag.TemporadaID }, null)</span>
     }
 </div>
 

@@ -64,7 +64,7 @@
 
     @if (User.IsInRole("Administrador"))
     {
-    <span>@Html.ActionLink("Criar Nova Temporada", "Create")</span>
+    <span>@Html.ActionLink("Criar Nova Temporada", "Create",new { id= ViewBag.SerieFK})</span>
     }
 </div>
 
