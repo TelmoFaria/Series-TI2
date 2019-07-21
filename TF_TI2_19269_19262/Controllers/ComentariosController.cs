@@ -49,7 +49,7 @@ namespace TF_TI2_19269_19262.Controllers
         [ValidateAntiForgeryToken]
         //Os utilizadores do tipo Utilizador e Administrador poderão criar comentários
         [Authorize(Roles = "Utilizador,Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Texto,EpisodioFK")] Comentarios comentario, Episodios episodio, string coment)
+        public ActionResult Create([Bind(Include = "Texto,EpisodioFK")] Comentarios comentario)
         {
             var Ut = db.Utilizadores.Where(
                 uti => uti.UserName
@@ -57,10 +57,7 @@ namespace TF_TI2_19269_19262.Controllers
             if (!string.IsNullOrWhiteSpace(comentario.Texto))
             {
                 comentario.UtilizadorFK = Ut.ID;
-
-                comentario.Texto= coment ;
-
-                comentario.EpisodioFK= episodio.ID ;
+                
                 if (ModelState.IsValid)
             {
                 //guarda os comentarios na BD
@@ -101,7 +98,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch(Exception ex)
             {
-
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Editar o comentário"));
             }
             return RedirectToAction("Index");
         }
@@ -158,12 +155,13 @@ namespace TF_TI2_19269_19262.Controllers
                     }
                     return View(comentario);
                 }
-                return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
+                
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
+                ModelState.AddModelError("", string.Format("Ocorreu um erro "));
             }
+            return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
         }
         
 
@@ -182,7 +180,6 @@ namespace TF_TI2_19269_19262.Controllers
             {
                 db.Comentarios.Remove(comentario);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
             }
             return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
         }

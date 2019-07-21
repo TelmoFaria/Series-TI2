@@ -8,51 +8,68 @@
 
 <h3>Tem a certeza de que quer eliminar?</h3>
 <div>
-    <h4>Temporadas</h4>
     <hr />
     <dl class="dl-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div style="display:flex;flex-direction:row;margin-bottom:50px;">
+            <div style="display:flex;flex-direction:column;justify-content:space-between"">
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Numero)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Numero)
+                    </dd>
+                </div>
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+                </div>
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trailer)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+                    <dd>
+                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Trailer)" allowfullscreen></iframe>
+                    </dd>
+                </div>
+            </div>
+            <div>
+                <div style="margin-bottom:24px;">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Foto)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
-
-        <dd>
-            <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Trailer)
-        </dt>
-
-        <dd>
-            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Trailer)" allowfullscreen></iframe>
-        </dd>
-
+                    <dd>
+                        <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" />
+                    </dd>
+                </div>
+            </div>
+        </div>
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar à Lista", "Index",new { id= Model.SerieFK })
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar à Lista", "Index", new { id = Model.SerieFK })
         </div>
     }
 </div>
+
+
+<style>
+    .info dt, dd {
+        text-align: justify;
+        
+    }
+</style>

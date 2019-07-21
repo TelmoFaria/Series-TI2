@@ -8,75 +8,102 @@
 
 <h3>Tem a certeza de que quer eliminar?</h3>
 <div>
-    <h4>Episódios</h4>
     <hr />
     <dl class="dl-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <dt>
-            @Html.DisplayNameFor(model => model.Temporada.Nome)
-        </dt>
+        <div style="display:flex;flex-direction:row;margin-bottom:50px;">
+            <div style="display:flex;flex-direction:column;justify-content:space-evenly">
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Temporada.Nome)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Temporada.Nome)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Temporada.Nome)
+                    </dd>
+                </div>
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Numero)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Numero)
+                    </dd>
+                </div>
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+                </div>
+                
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Sinopse)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Sinopse)
+                    </dd>
+                </div>
+                
+                <div class="info">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Classificacao)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Classificacao)
+                    </dd>
+                </div>
+                
+                
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+            <div style="display:flex;flex-direction:column;justify-content:space-evenly">
+                <div>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Foto)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Sinopse)
-        </dt>
+                    <dd>
+                        <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="300" />
+                    </dd>
+                    @if (!String.IsNullOrEmpty(@Model.Trailer))
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Trailer)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Sinopse)
-        </dd>
+                        <dd>
+                            <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Trailer)" allowfullscreen></iframe>
+                        </dd>
+                    }
+                </div>
+                
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
+     
+        
 
-        <dd>
-            <img src="~/Imagens/@Html.DisplayFor(item => item.Foto)" width="500" height="500" />
-        </dd>
-        @if (!String.IsNullOrEmpty(@Model.Trailer))
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Trailer)
-            </dt>
 
-            <dd>
-                <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(model => model.Trailer)" allowfullscreen></iframe>
-            </dd>
-        }
-            <dt>
-                @Html.DisplayNameFor(model => model.Classificacao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Classificacao)
-            </dd>
-
-        </dl>
+    </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
+    <div class="form-actions no-color" style="margin-bottom:100px;">
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
         @Html.ActionLink("Voltar à Lista", "Index", "Episodios", new { id = Model.TemporadaFK }, null)
     </div>
     }
 </div>
+<style>
+    .info dt,dd{
+        text-align:justify;
+    }
+</style>

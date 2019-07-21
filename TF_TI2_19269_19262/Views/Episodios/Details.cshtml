@@ -63,10 +63,10 @@
             <h3>Insira um comentário</h3>
             <div class="hide">
 
-                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" ,Name = "EpisodioFK"} })
 
             </div>
-            @Html.TextArea("coment", "", new { placeholder = "insira um comentário", style = "width: 900px; max-width:900px" })
+            @Html.TextArea("Texto", "", new { placeholder = "insira um comentário", style = "width: 900px; max-width:900px" })
             <div class="form-group">
                 <div>
                     <input type="submit" value="Publicar" class="btn btn-default" />
@@ -81,5 +81,5 @@
 </div>
 <div class="sidebar_nav">
     <span>@Html.ActionLink("Editar", "Edit", new { id = Model.ID })</span>
-    <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", "Temporadas", new { id = ViewBag.SerieID }, null)</span>
+    <span>@Html.ActionLink("Voltar à Lista de Temporadas", "Index", new { id = Model.TemporadaFK })</span>
 </div>

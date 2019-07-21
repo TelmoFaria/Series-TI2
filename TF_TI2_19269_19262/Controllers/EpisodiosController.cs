@@ -228,14 +228,13 @@ namespace TF_TI2_19269_19262.Controllers
                 //Caso haja pessoas ou comentarios associadas vai para a exceção
                 db.Episodios.Remove(episodio);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
             //Se houver uma temporada associada à serie apresenta este erro.
             catch (Exception ex)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar este episodio pois existem comentários ou pessoas a ele associados"));
             }
-            return View(episodio);
+            return RedirectToAction("Index", new { id = episodio.TemporadaFK });
         }
 
         protected override void Dispose(bool disposing)

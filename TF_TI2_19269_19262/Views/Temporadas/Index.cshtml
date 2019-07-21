@@ -9,49 +9,48 @@
     <div class="temporadas_index_action">
         <h2>Lista De Temporadas</h2>
     </div>
-
     <div class="temporadas_index_content">
+        
         @foreach (var item in Model)
         {
-            <div class="temporadas_index_content_wrapper">
-                <div class="temporadas_index_content_img">
-                    <a href="~/Imagens/@item.Foto" target="_blank">
-                        <img src="~/Imagens/@item.Foto" />
-                    </a>
+            
+        <div class="temporadas_index_content_wrapper">
+            <div class="temporadas_index_content_img">
+                <a href="~/Imagens/@item.Foto" target="_blank">
+                    <img src="~/Imagens/@item.Foto" />
+                </a>
+            </div>
+            <div class="temporadas_index_info_wrapper">
+                <div class="temporadas_index_info">
+                    <div class="temporadas_index_info_text">
+                        <p>Série:</p>
+                        <p>@Html.DisplayFor(modelItem => item.Serie.Nome)</p>
+                    </div>
+                    <div class="temporadas_index_info_text">
+                        <p>Temporada:</p>
+                        <p>@Html.DisplayFor(modelItem => item.Numero)</p>
+                    </div>
                 </div>
-                <div class="temporadas_index_info_wrapper">
-                    <div class="temporadas_index_info">
-                        <div class="temporadas_index_info_text">
-                            <p>Série:</p>
-                            <p>@Html.DisplayFor(modelItem => item.Serie.Nome)</p>
-                        </div>
-                        <div class="temporadas_index_info_text">
-                            <p>Temporada:</p>
-                            <p>@Html.DisplayFor(modelItem => item.Numero)</p>
-                        </div>
-                    </div>
 
-                    <div class="temporadas_index_info_trailler">
-                        <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen width="400" height="300"></iframe>
-                    </div>
+                <div class="temporadas_index_info_trailler">
+                    <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => item.Trailer)" allowfullscreen width="400" height="300"></iframe>
+                </div>
 
-                    <div class="temporadas_index_info_links">
-                        <div class="episodio_botao">
-                            <span>@Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })</span>
-                        </div>
-                        <div class="resto_dos_botoes">
-                            @if (User.IsInRole("Administrador"))
-                            {
-                                <span>@Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })</span>
-                                <span>@Html.Raw("|")</span>
-                                <span>@Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })</span>
-                            }
-                            </div>
-                        
-                    
-                   </div>
+                <div class="temporadas_index_info_links">
+                    <div class="episodio_botao">
+                        <span>@Html.ActionLink("Episódios", "../Episodios/Index", new { id = item.ID })</span>
+                    </div>
+                    <div class="resto_dos_botoes">
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <span>@Html.ActionLink("Editar Temporada", "Edit", new { id = item.ID })</span>
+                            <span>@Html.Raw("|")</span>
+                            <span>@Html.ActionLink("Eliminar Temporada", "Delete", new { id = item.ID })</span>
+                        }
+                    </div>
                 </div>
             </div>
+        </div> 
         }
     </div>
 </div>
@@ -60,7 +59,7 @@
     <img id="options" src="~/Imagens/options.png" alt=""/>
 </div>
 <div class="sidebar_nav">
-    <span>@Html.ActionLink("Voltar à Página Inicial", "../Home/Index")</span>
+    <span>@Html.ActionLink("Voltar à Lista de Séries", "Index", "Series", new { id = ViewBag.SerieFK },null)</span>
 
     @if (User.IsInRole("Administrador"))
     {

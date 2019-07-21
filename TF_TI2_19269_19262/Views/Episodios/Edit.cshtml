@@ -37,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Sinopse, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Sinopse, new { htmlAttributes = new { @class = "form-control" } })
+                <textarea class="form-control" cols="20" id="Sinopse" name="Sinopse" rows="10">@Model.Sinopse</textarea>
                 @Html.ValidationMessageFor(model => model.Sinopse, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +60,7 @@
                     @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div  style="display:flex;align-items:flex-start;width:100%;">
+            <div  style="display: flex;width: fit-content;margin-left: 15%;">
                 <iframe src="https://www.youtube.com/embed/@Html.DisplayFor(modelItem => Model.Trailer)" allowfullscreen></iframe>
             </div>
         </div>
@@ -84,14 +84,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
     </form>
 
     <div>
-        @Html.ActionLink("Voltar à Lista","Index", new { id = ViewBag.TemporadaFK })
+        @Html.ActionLink("Voltar à Lista","Index", new { id = Model.TemporadaFK })
     </div>
 
     @section Scripts {
