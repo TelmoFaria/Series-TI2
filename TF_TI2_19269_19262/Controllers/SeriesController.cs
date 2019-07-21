@@ -81,7 +81,7 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Nome,Genero,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "Nome,Genero,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
         {
 
             try

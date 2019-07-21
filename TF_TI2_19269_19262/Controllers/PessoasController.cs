@@ -49,13 +49,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Pessoas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         //o parametro serie recolhe os dados referentes a uma pessoa (Nome e o parametro fotografia representa a foto da pessoa)
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Nome,Foto")] Pessoas pessoa,HttpPostedFileBase uploadFoto)
+        public ActionResult Create([Bind(Include = "Nome,Foto")] Pessoas pessoa,HttpPostedFileBase uploadFoto)
         {
             int idNovaPessoa = db.Pessoas.Max(s => s.ID) + 1;
             pessoa.ID = idNovaPessoa;
@@ -120,8 +118,6 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Pessoas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]

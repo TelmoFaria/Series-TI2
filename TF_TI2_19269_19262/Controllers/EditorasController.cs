@@ -48,7 +48,7 @@ namespace TF_TI2_19269_19262.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Nome,Logo")] Editora editora, HttpPostedFileBase uploadLogo)
+        public ActionResult Create([Bind(Include = "Nome,Logo")] Editora editora, HttpPostedFileBase uploadLogo)
         {
             //é fornecido uma editora , cujos atributos sao o id, o nome e o Logo , e ainda é fornecida uma foto
 

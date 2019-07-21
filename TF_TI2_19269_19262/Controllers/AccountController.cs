@@ -176,7 +176,7 @@ namespace TF_TI2_19269_19262.Controllers
                     }
                     catch (Exception ex)
                     {
-                        int i = 0;
+                        ModelState.AddModelError("", string.Format("Ocorreu um erro"));
                     }
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);

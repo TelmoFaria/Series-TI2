@@ -104,8 +104,6 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Comentarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Utilizador,Administrador")]

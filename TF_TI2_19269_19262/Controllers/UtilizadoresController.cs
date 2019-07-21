@@ -42,8 +42,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Utilizadores/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Email,Nome,UserName")] Utilizadores utilizadores)
@@ -75,8 +74,6 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Utilizadores/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Restrito")]

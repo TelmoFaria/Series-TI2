@@ -49,12 +49,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: PessoasEpisodios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Create([Bind(Include = "ID,Papel,PessoaFK,EpisodioFK")] PessoasEpisodios pessoasEpisodios)
+        public ActionResult Create([Bind(Include = "Papel,PessoaFK,EpisodioFK")] PessoasEpisodios pessoasEpisodios)
         {
             if (ModelState.IsValid)
             {
@@ -87,8 +86,7 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: PessoasEpisodios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
