@@ -74,50 +74,58 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Numero,Nome,Sinopse,Foto,Trailer,AuxClassificacao,TemporadaFK")] Episodios episodio, HttpPostedFileBase uploadFoto)
         {
-            //Converter o AuxClassificacao para double
-            episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
-
-            int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
-
-            string nomeFoto = "Episodio_" + idNovoEpisodio + ".jpg";
-
-            string path = "";
-
-            //verificar se foi fornecido ficheiro
-            //Há ficheiro?
-            if (uploadFoto != null)
+            try
             {
-                // o ficheiro foi fornecido
-                // validar se o que foi fornecido é uma imagem
-                // criar o caminho completo até ao sítio onde o ficheiro
-                // será guardado
-                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+                //Converter o AuxClassificacao para double
+                episodio.Classificacao = Convert.ToDouble(episodio.AuxClassificacao);
 
-                //guardar nome do file na bd
-                episodio.Foto = nomeFoto;
-            }
-            else
-            //Não havendo ficheiro (e sendo obrigatório) vamos ter de fornecer uma imagem
-            {
-                //avisar que nao foi fornecida qualquer imagem
-                ModelState.AddModelError("", "Não foi fornecida uma imagem.");
-                ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+                int idNovoEpisodio = db.Episodios.Max(t => t.ID) + 1;
 
-                return View(episodio);
+                string nomeFoto = "Episodio_" + idNovoEpisodio + ".jpg";
+
+                string path = "";
+
+                //verificar se foi fornecido ficheiro
+                //Há ficheiro?
+                if (uploadFoto != null)
+                {
+                    // o ficheiro foi fornecido
+                    // validar se o que foi fornecido é uma imagem
+                    // criar o caminho completo até ao sítio onde o ficheiro
+                    // será guardado
+                    path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                    //guardar nome do file na bd
+                    episodio.Foto = nomeFoto;
+                }
+                else
+                //Não havendo ficheiro (e sendo obrigatório) vamos ter de fornecer uma imagem
+                {
+                    //avisar que nao foi fornecida qualquer imagem
+                    ModelState.AddModelError("", "Não foi fornecida uma imagem.");
+                    ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
+
+                    return View(episodio);
+                }
+                if (ModelState.IsValid)
+                {
+                    // valida se os dados fornecidos estão de acordo 
+                    // com as regras definidas na especificação do Modelo
+                    //adiciona novo episodio ao Modelo
+                    db.Episodios.Add(episodio);
+                    //guarda os dados na bd
+                    db.SaveChanges();
+                    //guarda a foto no disco rigido
+                    uploadFoto.SaveAs(path);
+                    //tenho de passar para aqui o id que uso
+                    return RedirectToAction("Index", new { id = episodio.TemporadaFK});
+                }
             }
-            if (ModelState.IsValid)
+            catch
             {
-                // valida se os dados fornecidos estão de acordo 
-                // com as regras definidas na especificação do Modelo
-                //adiciona novo episodio ao Modelo
-                db.Episodios.Add(episodio);
-                //guarda os dados na bd
-                db.SaveChanges();
-                //guarda a foto no disco rigido
-                uploadFoto.SaveAs(path);
-                //tenho de passar para aqui o id que uso
-                return RedirectToAction("Index", new { id = episodio.TemporadaFK});
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar o Episódio"));
             }
+            
 
             ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
             return View(episodio);

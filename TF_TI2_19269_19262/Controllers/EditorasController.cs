@@ -50,42 +50,50 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Nome,Logo")] Editora editora, HttpPostedFileBase uploadLogo)
         {
-            //é fornecido uma editora , cujos atributos sao o id, o nome e o Logo , e ainda é fornecida uma foto
-
-            //é fornecido um novo id para a editora
-            int idNovaEditora = db.Editora.Max(t => t.ID) + 1;
-
-            // string com o nome da foto da editora
-            string nomeFoto = "Editora_" + idNovaEditora + ".jpg";
-
-            //string que guarda o caminho da foto
-            string path = "";
-
-            //caso haja foto
-            if (uploadLogo != null)
+            try
             {
-                //o caminho é definido
-                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+                //é fornecido uma editora , cujos atributos sao o id, o nome e o Logo , e ainda é fornecida uma foto
 
-                // e guardar nome do file na bd
-                editora.Logo = nomeFoto;
-            }
-            //caso nao haja, é enviada 1 mensagem de erro 
-            else
-            {
-                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+                //é fornecido um novo id para a editora
+                int idNovaEditora = db.Editora.Max(t => t.ID) + 1;
 
-                return View(editora);
+                // string com o nome da foto da editora
+                string nomeFoto = "Editora_" + idNovaEditora + ".jpg";
+
+                //string que guarda o caminho da foto
+                string path = "";
+
+                //caso haja foto
+                if (uploadLogo != null)
+                {
+                    //o caminho é definido
+                    path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                    // e guardar nome do file na bd
+                    editora.Logo = nomeFoto;
+                }
+                //caso nao haja, é enviada 1 mensagem de erro 
+                else
+                {
+                    ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+
+                    return View(editora);
+                }
+                //verifica se o modelo é válido
+                if (ModelState.IsValid)
+                {
+                    //se for guarda o registo na bd e guarda a foto na bd
+                    db.Editora.Add(editora);
+                    db.SaveChanges();
+                    uploadLogo.SaveAs(path);
+                    return RedirectToAction("Index");
+                }
             }
-            //verifica se o modelo é válido
-            if (ModelState.IsValid)
+            catch
             {
-                //se for guarda o registo na bd e guarda a foto na bd
-                db.Editora.Add(editora);
-                db.SaveChanges();
-                uploadLogo.SaveAs(path);
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar a Editora"));
             }
+            
 
             return View(editora);
         }

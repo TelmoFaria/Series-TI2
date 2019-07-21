@@ -51,7 +51,8 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Create([Bind(Include = "Texto,EpisodioFK")] Comentarios comentario)
         {
-            var Ut = db.Utilizadores.Where(
+            try{
+                var Ut = db.Utilizadores.Where(
                 uti => uti.UserName
                 .Equals(User.Identity.Name)).FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(comentario.Texto))
@@ -69,6 +70,12 @@ namespace TF_TI2_19269_19262.Controllers
             ViewBag.UtilizadorFK = new SelectList(db.Utilizadores, "ID", "UserName", comentario.UtilizadorFK);
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", comentario.EpisodioFK);
             }
+            }
+            catch(Exception)
+            {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar o comentário"));
+            }
+            
             
             return Redirect(Request.UrlReferrer.ToString());
         }
@@ -109,23 +116,29 @@ namespace TF_TI2_19269_19262.Controllers
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Edit([Bind(Include = "ID,Texto,EpisodioFK")] Comentarios comentario)
         {
+            try{
+                //um user com a role admin pode editar qualquer comentario, um utilizador com a role utilizador apenas pode editar o seu
+                var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
-            //um user com a role admin pode editar qualquer comentario, um utilizador com a role utilizador apenas pode editar o seu
-            var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-
-            //ve se o coment pertence ao user ou se possui permissoes de admin
-            if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
-            {
-                if (ModelState.IsValid) { 
-                comentario.UtilizadorFK = Ut.ID;
-                db.Entry(comentario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-                }
+                //ve se o coment pertence ao user ou se possui permissoes de admin
+                if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
+                {
+                    if (ModelState.IsValid) { 
+                    comentario.UtilizadorFK = Ut.ID;
+                    db.Entry(comentario).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    }
             
-            ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", comentario.EpisodioFK);
-            return View(comentario);
+                ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", comentario.EpisodioFK);
+                return View(comentario);
             }
+            }
+            catch
+            {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Editar o comentário"));
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -170,15 +183,24 @@ namespace TF_TI2_19269_19262.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comentarios comentario = db.Comentarios.Find(id);
-
-            var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-
-
-            if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
+            try
             {
-                db.Comentarios.Remove(comentario);
-                db.SaveChanges();
+                
+
+                var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+
+
+                if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
+                {
+                    db.Comentarios.Remove(comentario);
+                    db.SaveChanges();
+                }
             }
+            catch
+            {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Eliminar o comentário"));
+            }
+            
             return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
         }
 
