@@ -14,14 +14,22 @@ namespace TF_TI2_19269_19262.Controllers
     public class EditorasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        //Gets de dados da bd
         // GET: Editoras
+        /// <summary>
+        /// retorna uma lista de editoras vindas da bd
+        /// </summary>
+        /// <returns>lista de editoras</returns>
         public ActionResult Index()
         {
             return View(db.Editora.ToList());
         }
 
         // GET: Editoras/Details/5
+        /// <summary>
+        /// Devolve a editora cujo id foi o fornecido, e evita erros por a editora ter conteudo nulo ou o id fornecido ser nulo
+        /// </summary>
+        /// <param name="id">id da editora</param>
+        /// <returns> editora cujo id é o fornecido</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +45,10 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Editoras/Create
+        /// <summary>
+        /// Devolve a view de create
+        /// </summary>
+        /// <returns>view()</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
@@ -44,7 +56,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Editoras/Create
-        //apenas o utilizador Administrador pode efetuar esta operação
+        /// <summary>
+        /// cria 1 editora na bd e guarda a imagem da editora na bd e apresenta mensagem de erro caso erro aconteça 
+        /// </summary>
+        /// <param name="editora">editora (nome da editora e Logo)</param>
+        /// <param name="uploadLogo">Logo para upload do ficheiro</param>
+        /// <returns>retorna a editora</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -99,6 +116,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Editoras/Edit/5
+        /// <summary>
+        /// devolve a editora associada ao id fornecido
+        /// </summary>
+        /// <param name="id">id da editora</param>
+        /// <returns>editora</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -118,6 +140,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Editoras/Edit/5
+        /// <summary>
+        /// edita 1 registo de editora na bd guardando tb um ficheiro (logo). Em caso de erro devolve uma mensagem de erro
+        /// </summary>
+        /// <param name="editora">informações da editora (id,nome e logo)</param>
+        /// <param name="editLogo">ficheiro Logo</param>
+        /// <returns>redirect para a pagina Editoras/Index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -168,6 +196,11 @@ namespace TF_TI2_19269_19262.Controllers
 
 
         // GET: Editoras/Delete/5
+        /// <summary>
+        /// devolve a editora cujo id é o fornecido
+        /// </summary>
+        /// <param name="id">id da editora</param>
+        /// <returns>editora</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -184,6 +217,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Editoras/Delete/5
+        /// <summary>
+        /// confirma o eliminar da editora, eliminando o registo da db e returnando para a página Index.devolve mensagem de erro em caso de erro
+        /// </summary>
+        /// <param name="id">id da editora</param>
+        /// <returns>editora</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]

@@ -17,6 +17,11 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Episodios
+        /// <summary>
+        /// seleciona todos os episodios de 1 determinada temporada e devolve os dados
+        /// </summary>
+        /// <param name="id">id od episódio</param>
+        /// <returns> dados dos episódios de 1 temporada</returns>
         public ActionResult Index(int?id)
         {
             if (id == null)
@@ -36,6 +41,11 @@ namespace TF_TI2_19269_19262.Controllers
 
 
         // GET: Episodios/Details/5
+        /// <summary>
+        /// faz get dos dados de 1 episódio
+        /// </summary>
+        /// <param name="id">id do episódio</param>
+        /// <returns>episódio</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,6 +69,11 @@ namespace TF_TI2_19269_19262.Controllers
         /*
         * Apenas os utilizadores do tipo "Administrador" poderão criar, editar ou eliminar series
         */
+        /// <summary>
+        /// retorna a view create e envia para a view o temporadaFK do episódio em questão
+        /// </summary>
+        /// <param name="id">id o episódio</param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create(int id)
         {
@@ -67,8 +82,13 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Episodios/Create
-        //o parametro serie recolhe os dados referentes a um episodio (Nome, Numero, Sinopse, Trailer, AuxClassificacao (que mais tarde será substituido por classificacao e temporadaFK
-        //e o parametro fotografia representa a foto do episodio
+        /// <summary>
+        /// cria um episódio na bd e faz upload da sua imagem. envia mensagem de erro em caso de erro
+        /// </summary>
+        /// <param name="episodio">episodio(numero, nome, sinopse,foto,trailer,auxClassificacao e temporadaFk)</param>
+        /// <param name="uploadFoto">ficheiro da imagem</param>
+        /// <returns>episódio e viewbag com o temporadaFK</returns>
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -132,6 +152,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Episodios/Edit/5
+        /// <summary>
+        /// faz get dos dados do episódio
+        /// </summary>
+        /// <param name="id">id do episódio</param>
+        /// <returns>episódio e viewbag com temporadaFK</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -153,7 +178,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Episodios/Edit/5
-
+        /// <summary>
+        /// edita 1 registo de 1 episódio na bd e guarda a foto.em caso de erro devolve mensagem de erro
+        /// </summary>
+        /// <param name="episodio">episódio ( id,numero,nome,sinopse, foto, trailer, auxClassificacao e temporadaFK)</param>
+        /// <param name="editFoto">ficheiro da imagem</param>
+        /// <returns>redireciona para a página de index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -206,6 +236,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Episodios/Delete/5
+        /// <summary>
+        /// faz get dos dados do episódio
+        /// </summary>
+        /// <param name="id">id do episódio</param>
+        /// <returns>episódio</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -224,6 +259,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Episodios/Delete/5
+        /// <summary>
+        /// elimina 1 registo de episódio da bd. em caso de erro , envia 1 mensagem de erro
+        /// </summary>
+        /// <param name="id">id do episódio</param>
+        /// <returns>redirect para a página de Index</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]

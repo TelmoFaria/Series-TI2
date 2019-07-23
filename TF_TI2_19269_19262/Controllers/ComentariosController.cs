@@ -15,6 +15,10 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Comentarios
+        /// <summary>
+        /// recebe da bd os dados dos comentários e dos episódios
+        /// </summary>
+        /// <returns> retorna a lista de comentários com os episódios associados</returns>
         public ActionResult Index()
         {
             var comentarios = db.Comentarios.Include(c => c.Episodio);
@@ -22,6 +26,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Comentarios/Details/5
+        /// <summary>
+        /// devolve os comentarários associados ao id, e faz redirect para o Index em caso de erro 
+        /// </summary>
+        /// <param name="id"> recebe o id do comentário</param>
+        /// <returns> devolve o comentário associado ao id</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +46,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Comentarios/Create
+        /// <summary>
+        /// cria 1 viewbag com o id e nome do episódio associado ao comentário
+        /// </summary>
+        /// <param name="id"> recebe o id do comentário</param>
+        /// <returns>view()</returns>
         public ActionResult Create(int? id)
         {
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome");
@@ -44,7 +58,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Comentarios/Create
-
+        /// <summary>
+        /// cria um comentario na bd, em caso de erro mostra 1 messagem de erro
+        /// </summary>
+        /// <param name="comentario"> recebe um comentário com o texto e o episodioFK</param>
+        /// <returns> viewbags com utilizadorFK e episodioFK</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         //Os utilizadores do tipo Utilizador e Administrador poderão criar comentários
@@ -61,7 +79,7 @@ namespace TF_TI2_19269_19262.Controllers
                 
                 if (ModelState.IsValid)
             {
-                //guarda os comentarios na BD
+                //guarda os comentários na BD
                 db.Comentarios.Add(comentario);
                 db.SaveChanges();
                 return Redirect(Request.UrlReferrer.ToString());
@@ -81,6 +99,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Comentarios/Edit/5
+        /// <summary>
+        /// verifica qual é o utilizador e se tem permissões para editar 
+        /// </summary>
+        /// <param name="id"> recebe o id do cometário</param>
+        /// <returns>redirect para a view com os comentarios e viewbag com episodioFK</returns>
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -111,6 +134,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Comentarios/Edit/5
+        /// <summary>
+        /// edita o registo de comentário na bd
+        /// </summary>
+        /// <param name="comentario"> comentario (id, texto e episodioFK)</param>
+        /// <returns>mensagem de erro caso ocorra e viewbag com episodioFK e return para a view index caso sucesso</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Utilizador,Administrador")]
@@ -143,6 +171,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Comentarios/Delete/5
+        /// <summary>
+        /// verifica o utilizador que esta a tentar eliminar 
+        /// </summary>
+        /// <param name="id"> id do comentário</param>
+        /// <returns>retorna o comentário associado a 1 id, ou mensagem de erro caso ocorra, e caso sucesso volta para a página de detalhes do episódio</returns>
         [Authorize(Roles = "Administrador,Utilizador")]
         public ActionResult Delete(int? id)
         { Comentarios comentario = db.Comentarios.Find(id);
@@ -177,6 +210,11 @@ namespace TF_TI2_19269_19262.Controllers
         
 
         // POST: Comentarios/Delete/5
+        /// <summary>
+        /// confirma o eliminar do comentário , verificando o utilizador que o fez e se tem autorização,em caso de sucesso guarda as alterações na bd e se nao devolve uma mensagem de erro 
+        /// </summary>
+        /// <param name="id"> id do comentário</param>
+        /// <returns>volta para a página de detalhes do episódio</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Utilizador")]
@@ -185,10 +223,7 @@ namespace TF_TI2_19269_19262.Controllers
             Comentarios comentario = db.Comentarios.Find(id);
             try
             {
-                
-
-                var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-
+            var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
                 if (Ut.ID.Equals(comentario.UtilizadorFK) || User.IsInRole("Administrador"))
                 {

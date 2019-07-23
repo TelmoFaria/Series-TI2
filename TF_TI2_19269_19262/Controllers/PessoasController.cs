@@ -16,12 +16,21 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Pessoas
+        /// <summary>
+        /// faz get de todas as pessoas da bd
+        /// </summary>
+        /// <returns>pessoas</returns>
         public ActionResult Index()
         {
             return View(db.Pessoas.ToList());
         }
 
         // GET: Pessoas/Details/5
+        /// <summary>
+        /// faz get de da pessoa associada ao id fornecido
+        /// </summary>
+        /// <param name="id">id de 1 pessoa</param>
+        /// <returns>pessoa</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,6 +51,10 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Pessoas/Create
+        /// <summary>
+        /// retorna a view create
+        /// </summary>
+        /// <returns>view()</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
@@ -49,6 +62,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Pessoas/Create
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pessoa"></param>
+        /// <param name="uploadFoto"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         //o parametro serie recolhe os dados referentes a uma pessoa (Nome e o parametro fotografia representa a foto da pessoa)
