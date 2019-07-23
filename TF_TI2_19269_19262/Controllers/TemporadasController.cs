@@ -268,6 +268,8 @@ namespace TF_TI2_19269_19262.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar esta temporada pois existem episódios a ela associados."));
+                return View("Index");
+
             }
             return View("Index", new { id = temporada.SerieFK });
         }

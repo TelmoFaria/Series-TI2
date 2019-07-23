@@ -289,6 +289,7 @@ namespace TF_TI2_19269_19262.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar este episódio, pois existem comentários ou pessoas a ele associados."));
+                return View(episodio);
             }
             return RedirectToAction("Index", new { id = episodio.TemporadaFK });
         }
