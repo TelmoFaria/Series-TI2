@@ -19,7 +19,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// <summary>
         /// faz get de todas as pessoas da bd
         /// </summary>
-        /// <returns>pessoas</returns>
+        /// <returns>view index com os dados das pessoas</returns>
         public ActionResult Index()
         {
             return View(db.Pessoas.ToList());
@@ -30,7 +30,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// faz get de da pessoa associada ao id fornecido
         /// </summary>
         /// <param name="id">id de 1 pessoa</param>
-        /// <returns>pessoa</returns>
+        /// <returns>view details com os dados da pessoa</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -54,7 +54,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// <summary>
         /// retorna a view create
         /// </summary>
-        /// <returns>view()</returns>
+        /// <returns>view create</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
@@ -63,62 +63,73 @@ namespace TF_TI2_19269_19262.Controllers
 
         // POST: Pessoas/Create
         /// <summary>
-        /// 
+        /// Cria um registo de Pessoa na bd incluindo guardar a imagem .devolve mensagem de erro em caso de erro
         /// </summary>
-        /// <param name="pessoa"></param>
-        /// <param name="uploadFoto"></param>
-        /// <returns></returns>
+        /// <param name="pessoa">pessoa (nome e foto)</param>
+        /// <param name="uploadFoto">ficheiro da imagem</param>
+        /// <returns> view create com os dados da pessoa em caso de erro e em caso de sucesso retorna para o index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //o parametro serie recolhe os dados referentes a uma pessoa (Nome e o parametro fotografia representa a foto da pessoa)
+        //o parametro série recolhe os dados referentes a uma pessoa (Nome e o parametro fotografia representa a foto da pessoa)
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Nome,Foto")] Pessoas pessoa,HttpPostedFileBase uploadFoto)
         {
-            int idNovaPessoa = db.Pessoas.Max(s => s.ID) + 1;
-            pessoa.ID = idNovaPessoa;
-
-            string nomeFoto = "Pessoa_" + idNovaPessoa + ".jpg";
-
-            string path = "";
-
-            //verificar se foi fornecido ficheiro
-            //Há ficheiro?
-            if (uploadFoto != null)
+            try
             {
-                // o ficheiro foi fornecido
-                // validar se o q foi fornecido é uma imagem
-                // criar o caminho completo até ao sítio onde o ficheiro
-                // será guardado
-                path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+                int idNovaPessoa = db.Pessoas.Max(s => s.ID) + 1;
+                pessoa.ID = idNovaPessoa;
 
-                //guardar nome do file na bd
-                pessoa.Foto = nomeFoto;
+                string nomeFoto = "Pessoa_" + idNovaPessoa + ".jpg";
+
+                string path = "";
+
+                //verificar se foi fornecido ficheiro
+                //Há ficheiro?
+                if (uploadFoto != null)
+                {
+                    // o ficheiro foi fornecido
+                    // validar se o q foi fornecido é uma imagem
+                    // criar o caminho completo até ao sítio onde o ficheiro
+                    // será guardado
+                    path = Path.Combine(Server.MapPath("~/Imagens/"), nomeFoto);
+
+                    //guardar nome do file na bd
+                    pessoa.Foto = nomeFoto;
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Não foi fornecida uma imagem...");
+
+                    return View(pessoa);
+                }
+
+
+                if (ModelState.IsValid)
+                {
+                    // valida se os dados fornecidos estão de acordo 
+                    // com as regras definidas na especificação do Modelo
+                    //adiciona nova pessoa ao Modelo
+                    db.Pessoas.Add(pessoa);
+                    //guarda os dados na bd
+                    db.SaveChanges();
+                    //guarda a foto no disco rigido
+                    uploadFoto.SaveAs(path);
+                    return RedirectToAction("Index");
+                }        
             }
-            else
+            catch(Exception)
             {
-                ModelState.AddModelError("", "Não foi fornecida uma imagem...");
-
-                return View(pessoa);
+                ModelState.AddModelError("", string.Format("Ocorreu um erro com a criação da pessoa , tente novamente"));
             }
-
-
-            if (ModelState.IsValid)
-            {
-                // valida se os dados fornecidos estão de acordo 
-                // com as regras definidas na especificação do Modelo
-                //adiciona nova pessoa ao Modelo
-                db.Pessoas.Add(pessoa);
-                //guarda os dados na bd
-                db.SaveChanges();
-                //guarda a foto no disco rigido
-                uploadFoto.SaveAs(path);
-                return RedirectToAction("Index");
-            }
-
             return View(pessoa);
         }
 
         // GET: Pessoas/Edit/5
+        /// <summary>
+        /// faz get dos dados de 1 pessoa 
+        /// </summary>
+        /// <param name="id">id da pessoa</param>
+        /// <returns>view edit com os dados da pessoa cujo id é o fornecido</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -137,6 +148,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Pessoas/Edit/5
+        /// <summary>
+        /// edita 1 registo de 1 pessoa na bd incluindo o ficheiro de imagem. devolve 1 mensagem de erro em caso de erro 
+        /// </summary>
+        /// <param name="pessoa">pessoa(ID,Nome,Foto)</param>
+        /// <param name="editFoto">ficheiro de imagem</param>
+        /// <returns>retorna para a página de index em caso de sucesso e em caso de erro devolve 1 mensagem de erro</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -180,6 +197,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Pessoas/Delete/5
+        /// <summary>
+        /// faz get dos dados de uma pessoa cujo id é o fornecido
+        /// </summary>
+        /// <param name="id">id da pessoa</param>
+        /// <returns>view delete com os dados da pessoa</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -198,6 +220,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Pessoas/Delete/5
+        /// <summary>
+        /// elemina o registo da pessoa da bd. em caso de erro devolve 1 mensagem de erro 
+        /// </summary>
+        /// <param name="id">id da pessoa</param>
+        /// <returns>retorna para a view index em caso de sucesso , se nao devolve a view com os dados da pessoa e 1 mensagem de erro</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -207,7 +234,7 @@ namespace TF_TI2_19269_19262.Controllers
             try
             {
                 //Remover uma serie
-                //Caso haja papeos associados vai para a exceção
+                //Caso haja papeis associados vai para a exceção
                 db.Pessoas.Remove(pessoa);
                 db.SaveChanges();
                 return RedirectToAction("Index");

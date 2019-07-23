@@ -21,7 +21,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// seleciona todos os episodios de 1 determinada temporada e devolve os dados
         /// </summary>
         /// <param name="id">id od episódio</param>
-        /// <returns> dados dos episódios de 1 temporada</returns>
+        /// <returns>view index com os dados dos episódios de 1 temporada</returns>
         public ActionResult Index(int?id)
         {
             if (id == null)
@@ -45,7 +45,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// faz get dos dados de 1 episódio
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>episódio</returns>
+        /// <returns>view details com o episódio</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// retorna a view create e envia para a view o temporadaFK do episódio em questão
         /// </summary>
         /// <param name="id">id o episódio</param>
-        /// <returns></returns>
+        /// <returns>view create</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create(int id)
         {
@@ -87,7 +87,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// </summary>
         /// <param name="episodio">episodio(numero, nome, sinopse,foto,trailer,auxClassificacao e temporadaFk)</param>
         /// <param name="uploadFoto">ficheiro da imagem</param>
-        /// <returns>episódio e viewbag com o temporadaFK</returns>
+        /// <returns>view create com episódio e viewbag com o temporadaFK em caso de erro e retorna par ao index em caso de sucesso</returns>
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -156,7 +156,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// faz get dos dados do episódio
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>episódio e viewbag com temporadaFK</returns>
+        /// <returns>view edit com o  episódio e viewbag com temporadaFK</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -183,7 +183,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// </summary>
         /// <param name="episodio">episódio ( id,numero,nome,sinopse, foto, trailer, auxClassificacao e temporadaFK)</param>
         /// <param name="editFoto">ficheiro da imagem</param>
-        /// <returns>redireciona para a página de index</returns>
+        /// <returns>redireciona para a página de index em caso de sucesso e em caso de erro devolve 1 mensagem de erro</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -240,7 +240,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// faz get dos dados do episódio
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>episódio</returns>
+        /// <returns>view delete com o episódio</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -263,7 +263,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// elimina 1 registo de episódio da bd. em caso de erro , envia 1 mensagem de erro
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>redirect para a página de Index</returns>
+        /// <returns>redirect para a página de Index em caso de suecsso e em caso de erro devolve 1 mensagem de erro</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]

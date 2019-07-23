@@ -18,6 +18,10 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Series
+        /// <summary>
+        /// faz get de todas as séries e respetivas editoras
+        /// </summary>
+        /// <returns>devolve a view index com os dados das séries e das respetivas editoras</returns>
         public ActionResult Index()
         {
             // procura a totalidade das series na BD
@@ -26,9 +30,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Details/5
-        /*
-         mostra os dados referentes a uma serie
-         */
+        /// <summary>
+        /// faz get dos dados de 1 série
+        /// </summary>
+        /// <param name="id">id da série</param>
+        /// <returns>dados da série cujo id é o fonecido na view details</returns>
         public ActionResult Details(int? id)
         {
 
@@ -44,9 +50,13 @@ namespace TF_TI2_19269_19262.Controllers
             }
             return View(serie);
         }
-        //------------------------------------------------------------------------------------
-        //                             Tentar ir para a pagina Temporadas 
+
         // GET: Series/Temporadas/5
+        /// <summary>
+        /// get dos dados das temporadas associadas a 1 série para que posso ir para a página das temporadas
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>view das temporadas com os dados das temporadas associadas a 1 série</returns>
         public ActionResult Temporadas(int? id)
         {
             if (id == null)
@@ -67,6 +77,10 @@ namespace TF_TI2_19269_19262.Controllers
         /*
          * Apenas os utilizadores do tipo "Administrador" poderão criar, editar ou eliminar series
          */
+         /// <summary>
+         /// faz get dos dados de 1 série e poe os dados de 1 editora (id e nome ) num viewbag
+         /// </summary>
+         /// <returns>view create</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
@@ -75,15 +89,17 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Series/Create
-
-        //o parametro serie recolhe os dados referentes a uma serie (Nome, Genero, Sinopse, Video, AuxClassificacao (que mais tarde será substituido por classificacao e editoraFK
-        //e o parametro fotografia representa a foto da serie
+        /// <summary>
+        /// cria 1 registo de 1 série na bd incluindo o ficheiro de imagem.devolve mensagem de erro em caso de erro
+        /// </summary>
+        /// <param name="serie">série (Nome,genero,Sinopse,Video,AuxClassificacao e EditoraFK</param>
+        /// <param name="uploadFoto">ficheiro de imagem</param>
+        /// <returns>view create com os dados da série ou em caso de erro volta para o idex</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Nome,Genero,Sinopse,Video,AuxClassificacao,EditoraFK")] Series serie, HttpPostedFileBase uploadFoto)
         {
-
             try
             {
                 //converter o auxClassificacao para double
@@ -145,6 +161,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Edit/5
+        /// <summary>
+        /// faz get dos dados de 1 série
+        /// </summary>
+        /// <param name="id">id da série</param>
+        /// <returns> view edit com os dados da série</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -167,7 +188,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Series/Edit/5
-
+        /// <summary>
+        /// Edita 1 registo de 1 série na bd incluindo o ficheiro de imagem associado.Devolve mensagem de erro em caso de erro 
+        /// </summary>
+        /// <param name="serie">série (ID, Nome,Genero,Foto,Sinopse,Video,AuxClassificacao,EditoraFK</param>
+        /// <param name="editFoto">ficheiro de imagem</param>
+        /// <returns>retorna para o series details com o id da série vindo do viewbag</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -216,6 +242,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Series/Delete/5
+        /// <summary>
+        /// faz get dos dados da série cujo id é o fornecido 
+        /// </summary>
+        /// <param name="id">id da série</param>
+        /// <returns>view delete com os dados da série</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -234,6 +265,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Series/Delete/5
+        /// <summary>
+        /// elimina o registo de 1 série da bd.Devolve mensagem de erro em caso de erro
+        /// </summary>
+        /// <param name="id">id de 1 série</param>
+        /// <returns>retorna para a view index em caso de sucesso e retorna para a view delete com os dados da ´série em caso de falha com 1 mensagem de erro </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -248,7 +284,7 @@ namespace TF_TI2_19269_19262.Controllers
             return RedirectToAction("Index");
             }
             //Se houver uma temporada associada à serie apresenta este erro.
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associados"));
             }

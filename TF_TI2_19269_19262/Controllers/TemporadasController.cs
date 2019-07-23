@@ -16,13 +16,17 @@ namespace TF_TI2_19269_19262.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         //----Pedidos de Get à bd 
         // GET: Temporadas
+        /// <summary>
+        /// faz get dos dados de  todas as temporadas de 1 determinada série 
+        /// </summary>
+        /// <param name="id">id da série</param>
+        /// <returns>view index com as temporadas de 1 série</returns>
         public ActionResult Index(int? id)
         {
             if (id == null)
             {
                 return Redirect("/");
             }
-           // var temporada = db.Temporadas.Include(t => t.Serie);
             var temp = from t in db.Temporadas
                        where t.SerieFK == id
                          select t;
@@ -31,16 +35,26 @@ namespace TF_TI2_19269_19262.Controllers
             return View(temp.ToList());
         }
         // GET: Temporadas/select{id}
-        public ActionResult Temp(int id)
-        {
+        ///// <summary>
+        ///// get de dados de temporadas cuja série tem o id fornecido
+        ///// </summary>
+        ///// <param name="id">id da serie</param>
+        ///// <returns></returns>
+        //public ActionResult Temp(int id)
+        //{
             
-            var result = from r in db.Temporadas
-                         where r.SerieFK == id
-                         select r;
-            return View(result);
-        }
+        //    var result = from r in db.Temporadas
+        //                 where r.SerieFK == id
+        //                 select r;
+        //    return View(result);
+        //}
 
         // GET: Temporadas/Details/5
+        /// <summary>
+        /// get de todos os dados de 1 temporada cujo id é o fornecido
+        /// </summary>
+        /// <param name="id">id da temporada</param>
+        /// <returns>view details com os dados da temporada</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,10 +71,11 @@ namespace TF_TI2_19269_19262.Controllers
 
 
         /// <summary>
-        /// 
+        /// devolve o SerieFK num viewbag
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">id da série</param>
+        /// <returns>view create</returns>
+        //Get
         [Authorize(Roles = "Administrador")]
         public ActionResult Create(int id)
         {
@@ -69,16 +84,21 @@ namespace TF_TI2_19269_19262.Controllers
         }
         //---
         // POST: Temporadas/Create
+        /// <summary>
+        /// cira 1 registo de temporada na bd incluido a imagem da mesma. devolve mensagem de erro em caso de erro 
+        /// </summary>
+        /// <param name="temporada">temporada(Numero , Nome, Trailer e SerieFK)</param>
+        /// <param name="uploadFoto">ficheiro de imagem</param>
+        /// <returns>em caso de sucesso retorna para o id</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public ActionResult Create([Bind(Include = "Numero,Nome,Trailer,SerieFK")] Temporadas temporada, HttpPostedFileBase uploadFoto)
         {
-            /*
-             para fazer o post create de uma temporada , são recebidos os valores de ID, Numero.Nome,Trailer, SerieFK que representam uma temporada, e 1 foto
-             */
-             // definir o novo id para a temporada
-            int idNovaTemporada = db.Temporadas.Max(t => t.ID) + 1 ;
+            try
+            {
+                // definir o novo id para a temporada
+                int idNovaTemporada = db.Temporadas.Max(t => t.ID) + 1 ;
 
             // definir o nome da foto
             string nomeFoto = "Temporada_" + idNovaTemporada + ".jpg";
@@ -109,20 +129,20 @@ namespace TF_TI2_19269_19262.Controllers
                 //se o modelo for válido, adiciona 1 nova temporada á bd e guarda a foto
                 db.Temporadas.Add(temporada);
 
-                try
-                {
+                
                     db.SaveChanges();
-                }
-                catch (Exception)
+                    uploadFoto.SaveAs(path);
+                    return RedirectToAction("Index",new { id = temporada.SerieFK});
+                
+                
+                
+            }}catch (Exception)
                 {
                     //caso contrário apresenta uma mensagem de erro
                     ModelState.AddModelError("", "Não foi possivel guardar os dados. Por favor, tente novamente");
                     ViewBag.SerieFK = temporada.SerieFK;
                     return View(temporada);
                 }
-                uploadFoto.SaveAs(path);
-                return RedirectToAction("Index",new { id = temporada.SerieFK});
-            }
             
             ViewBag.SerieFK = new SelectList(db.Series, "ID", "Nome", temporada.SerieFK);
             return View("Index", new { id = temporada.SerieFK });
@@ -131,6 +151,11 @@ namespace TF_TI2_19269_19262.Controllers
 
         //caso o utilizador seja do tipo "Administrador" , poderá fazer edit da temporada
         // GET: Temporadas/Edit/5
+        /// <summary>
+        /// faz get de todos os dados de 1 temporada
+        /// </summary>
+        /// <param name="id">id da temporada</param>
+        /// <returns>view edit com os dados da temporada</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -154,6 +179,12 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Temporadas/Edit/5
+        /// <summary>
+        /// edita um registo de 1 temporada na bd incluindo a imagem associada . Devolve 1 mensagem de erro no caso de haver 1
+        /// </summary>
+        /// <param name="temporada">temporada (ID, Numero,Nome,Foto,Trailer,SerieFK)</param>
+        /// <param name="editFoto">ficheiro de imagem</param>
+        /// <returns>em caso de sucesso retona para a view index da mesma temporada, em caso de erro devolve 1 mensagem de erro</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -202,6 +233,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // GET: Temporadas/Delete/5
+        /// <summary>
+        /// faz get da temporada cujo id é o fornecido
+        /// </summary>
+        /// <param name="id">id da temporada</param>
+        /// <returns>view delete com os dados da temporada</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
@@ -218,6 +254,11 @@ namespace TF_TI2_19269_19262.Controllers
         }
 
         // POST: Temporadas/Delete/5
+        /// <summary>
+        /// elimina o registo de 1 temporada cujo id foi o fornecido
+        /// </summary>
+        /// <param name="id">id da temporada</param>
+        /// <returns>em caso de sucesso retorna para a view index da mesma serie onde estava, em caso de erro devolve uma mensagem de erro</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -230,7 +271,6 @@ namespace TF_TI2_19269_19262.Controllers
                 //caso encontre e seja válida,remove o registo e guarda as alterações
                 db.Temporadas.Remove(temporada);
                 db.SaveChanges();
-                return RedirectToAction("Index",new {id=temporada.SerieFK });
             }
             //caso contrário apresenta uma mensagem de erro
             catch (Exception ex)

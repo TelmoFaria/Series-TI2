@@ -18,7 +18,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// <summary>
         /// recebe da bd os dados dos comentários e dos episódios
         /// </summary>
-        /// <returns> retorna a lista de comentários com os episódios associados</returns>
+        /// <returns> retorna a view index com a lista de comentários com os episódios associados</returns>
         public ActionResult Index()
         {
             var comentarios = db.Comentarios.Include(c => c.Episodio);
@@ -30,7 +30,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// devolve os comentarários associados ao id, e faz redirect para o Index em caso de erro 
         /// </summary>
         /// <param name="id"> recebe o id do comentário</param>
-        /// <returns> devolve o comentário associado ao id</returns>
+        /// <returns> devolvea view details com o comentário associado ao id</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -50,7 +50,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// cria 1 viewbag com o id e nome do episódio associado ao comentário
         /// </summary>
         /// <param name="id"> recebe o id do comentário</param>
-        /// <returns>view()</returns>
+        /// <returns>view create</returns>
         public ActionResult Create(int? id)
         {
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome");
