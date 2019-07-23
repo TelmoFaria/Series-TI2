@@ -106,6 +106,7 @@ namespace TF_TI2_19269_19262.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    pessoa.Nome = pessoa.Nome.Trim();
                     // valida se os dados fornecidos estão de acordo 
                     // com as regras definidas na especificação do Modelo
                     //adiciona nova pessoa ao Modelo
@@ -119,7 +120,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro com a criação da pessoa , tente novamente"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro com a criação da pessoa , tente novamente."));
             }
             return View(pessoa);
         }
@@ -179,6 +180,7 @@ namespace TF_TI2_19269_19262.Controllers
                         pessoa.Foto = novoNome;
                         haFotoNova = true;
                     }
+                    pessoa.Nome = pessoa.Nome.Trim();
                     db.Entry(pessoa).State = EntityState.Modified;
                     db.SaveChanges();
                     if (haFotoNova)
@@ -190,7 +192,7 @@ namespace TF_TI2_19269_19262.Controllers
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da pessoa {0}", pessoa.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da pessoa,tente novamente.", pessoa.Nome));
                 }
             }
             return RedirectToAction("Index");
@@ -231,6 +233,10 @@ namespace TF_TI2_19269_19262.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Pessoas pessoa = db.Pessoas.Find(id);
+            if (pessoa == null)
+            {
+                return Redirect("/");
+            }
             try
             {
                 //Remover uma serie
@@ -239,9 +245,9 @@ namespace TF_TI2_19269_19262.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar esta pessoa pois existem papéis a ela associados"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar esta pessoa pois existem papéis a ela associados."));
             }
             return View(pessoa);
         }

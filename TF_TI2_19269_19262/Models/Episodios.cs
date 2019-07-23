@@ -44,13 +44,11 @@ namespace TF_TI2_19269_19262.Models
         /// Nome : nome do episódio (string)
         /// </summary>
         [Required]
-        //[RegularExpression("[A-Z]", ErrorMessage = "O nome tem de começar com letra maiúscula")]
         public string Nome { get; set; }
 
         /// <summary>
         /// Sinopse : sinopse/descirção do episódio (string)
         /// </summary>
-        //[RegularExpression("[A-Z]", ErrorMessage = "A sinopse tem de começar com letra maiúscula")]
         public string Sinopse { get; set; }
 
         /// <summary>

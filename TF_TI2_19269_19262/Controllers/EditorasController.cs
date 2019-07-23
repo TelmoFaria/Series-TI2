@@ -93,12 +93,13 @@ namespace TF_TI2_19269_19262.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Não foi fornecida uma imagem...");
-
+                    editora.Nome = editora.Nome.Trim();
                     return View(editora);
                 }
                 //verifica se o modelo é válido
                 if (ModelState.IsValid)
                 {
+                    editora.Nome = editora.Nome.Trim();
                     //se for guarda o registo na bd e guarda a foto na bd
                     db.Editora.Add(editora);
                     db.SaveChanges();
@@ -108,7 +109,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar a Editora"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a criar a editora,tente novamente."));
             }
             
 
@@ -172,6 +173,7 @@ namespace TF_TI2_19269_19262.Controllers
 
                     }
                     //são guardadas as alterações
+                    editora.Nome = editora.Nome.Trim();
                     db.Entry(editora).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -185,9 +187,9 @@ namespace TF_TI2_19269_19262.Controllers
                     }
                 }
                 //caso contrário , envia 1 mensagem de erro
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da editora {0}", editora.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da editora,tente novamente.", editora.Nome));
                 }
 
             }
@@ -229,6 +231,10 @@ namespace TF_TI2_19269_19262.Controllers
         {
             //procura pelo editora cujo id é o fornecido
             Editora editora = db.Editora.Find(id);
+            if (editora == null)
+            {
+                return Redirect("/");
+            }
             try
             {
                 //caso encontre , elimina da bd o registo e o utilizador é redirecionado para a página Ediroras Index
@@ -237,7 +243,7 @@ namespace TF_TI2_19269_19262.Controllers
                 return RedirectToAction("Index");
             }
             //caso contrario é enviada 1 mensagem de erro
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("", string.Format("Não é possível apagar esta editora pois existem Séries a ela associados"));
             }

@@ -174,9 +174,9 @@ namespace TF_TI2_19269_19262.Controllers
                         //atribui a role ao utilizador criado.
                         var result1 = UserManager.AddToRole(user.Id, "Utilizador");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        ModelState.AddModelError("", string.Format("Ocorreu um erro"));
+                        ModelState.AddModelError("", string.Format("Ocorreu um erro."));
                     }
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);

@@ -136,6 +136,11 @@ namespace TF_TI2_19269_19262.Controllers
                 //se os atributos introduzidos forem validos entra neste if 
                 if (ModelState.IsValid)
                 {
+                    
+                    serie.Nome = serie.Nome.Trim();
+                    serie.Genero = serie.Genero.Trim();
+                    serie.Sinopse = serie.Sinopse.Trim();
+
                     // valida se os dados fornecidos estão de acordo 
                     // com as regras definidas na especificação do Modelo
                     //adiciona nova serie ao Modelo
@@ -151,9 +156,9 @@ namespace TF_TI2_19269_19262.Controllers
                 ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
                 return View(serie);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro com a criação dos dados da serie "));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro com a criação dos dados da série,tente novamente. "));
                 return View(serie);
 
             }
@@ -193,7 +198,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// </summary>
         /// <param name="serie">série (ID, Nome,Genero,Foto,Sinopse,Video,AuxClassificacao,EditoraFK</param>
         /// <param name="editFoto">ficheiro de imagem</param>
-        /// <returns>retorna para o series details com o id da série vindo do viewbag</returns>
+        /// <returns>retorna para o series details</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -221,7 +226,10 @@ namespace TF_TI2_19269_19262.Controllers
                         serie.Foto = novoNome;
                         haFotoNova = true;
                     }
-                        db.Entry(serie).State = EntityState.Modified;
+                    serie.Nome = serie.Nome.Trim();
+                    serie.Genero = serie.Genero.Trim();
+                    serie.Sinopse = serie.Sinopse.Trim();
+                    db.Entry(serie).State = EntityState.Modified;
                         db.SaveChanges();
                         if (haFotoNova)
                             {
@@ -233,7 +241,7 @@ namespace TF_TI2_19269_19262.Controllers
                 catch (Exception)
                 {
                     //se houver um erro na edição apresenta este erro
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da serie {0}", serie.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição dos dados da série.", serie.Nome));
                 }
             }
             ViewBag.EditoraFK = new SelectList(db.Editora, "ID", "Nome", serie.EditoraFK);
@@ -269,24 +277,28 @@ namespace TF_TI2_19269_19262.Controllers
         /// elimina o registo de 1 série da bd.Devolve mensagem de erro em caso de erro
         /// </summary>
         /// <param name="id">id de 1 série</param>
-        /// <returns>retorna para a view index em caso de sucesso e retorna para a view delete com os dados da ´série em caso de falha com 1 mensagem de erro </returns>
+        /// <returns>retorna para a view index em caso de sucesso e retorna para a view delete com os dados da série em caso de falha com 1 mensagem de erro </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Series serie = db.Series.Find(id);
+            if (serie == null)
+            {
+                return Redirect("/");
+            }
             try { 
-            //Remover uma serie
+            //Remover uma série
             //Caso haja temporadas associadas vai para a exceção
             db.Series.Remove(serie);
             db.SaveChanges();
             return RedirectToAction("Index");
             }
-            //Se houver uma temporada associada à serie apresenta este erro.
+            //Se houver uma temporada associada à série apresenta este erro.
             catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associados"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar a série pois existem temporadas a ela associados."));
             }
             return View(serie);
         }

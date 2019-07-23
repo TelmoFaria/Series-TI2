@@ -83,7 +83,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("ocorreu um erro na criação do papel, tente novamente"));
+                ModelState.AddModelError("", string.Format("ocorreu um erro na criação do papel, tente novamente."));
             }
 
 
@@ -137,7 +137,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("ocorreu um erro ao editar o papel, tente novamente"));
+                ModelState.AddModelError("", string.Format("ocorreu um erro ao editar o papel, tente novamente."));
             }
             ViewBag.EpisodioFK = new SelectList(db.Episodios, "ID", "Nome", pessoasEpisodios.EpisodioFK);
             ViewBag.PessoaFK = new SelectList(db.Pessoas, "ID", "Nome", pessoasEpisodios.PessoaFK);
@@ -180,12 +180,16 @@ namespace TF_TI2_19269_19262.Controllers
             try
             {
                 PessoasEpisodios pessoasEpisodios = db.PessoasEpisodios.Find(id);
+                if (pessoasEpisodios == null)
+                {
+                    return Redirect("/");
+                }
                 db.PessoasEpisodios.Remove(pessoasEpisodios);
                 db.SaveChanges();
             }
             catch
             {
-                ModelState.AddModelError("", string.Format("ocorreu um erro ao eliminar o papel, tente novamente"));
+                ModelState.AddModelError("", string.Format("ocorreu um erro ao eliminar o papel, tente novamente."));
             }
             return RedirectToAction("Index");
         }

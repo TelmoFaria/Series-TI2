@@ -87,7 +87,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// </summary>
         /// <param name="episodio">episodio(numero, nome, sinopse,foto,trailer,auxClassificacao e temporadaFk)</param>
         /// <param name="uploadFoto">ficheiro da imagem</param>
-        /// <returns>view create com episódio e viewbag com o temporadaFK em caso de erro e retorna par ao index em caso de sucesso</returns>
+        /// <returns>view create com episódio em caso de erro e retorna para o index em caso de sucesso</returns>
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,6 +129,8 @@ namespace TF_TI2_19269_19262.Controllers
                 }
                 if (ModelState.IsValid)
                 {
+                    episodio.Nome = episodio.Nome.Trim();
+                    episodio.Sinopse = episodio.Sinopse.Trim();
                     // valida se os dados fornecidos estão de acordo 
                     // com as regras definidas na especificação do Modelo
                     //adiciona novo episodio ao Modelo
@@ -141,9 +143,9 @@ namespace TF_TI2_19269_19262.Controllers
                     return RedirectToAction("Index", new { id = episodio.TemporadaFK});
                 }
             }
-            catch
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar o Episódio"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar o Episódio,tente novamente."));
             }
             
 
@@ -156,7 +158,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// faz get dos dados do episódio
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>view edit com o  episódio e viewbag com temporadaFK</returns>
+        /// <returns>view edit com o  episódio</returns>
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -213,6 +215,8 @@ namespace TF_TI2_19269_19262.Controllers
                         haFotoNova = true;
 
                     }
+                    episodio.Nome = episodio.Nome.Trim();
+                    episodio.Sinopse = episodio.Sinopse.Trim();
                     db.Entry(episodio).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -224,14 +228,13 @@ namespace TF_TI2_19269_19262.Controllers
                         editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens/"), novoNome));
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //se houver um erro na edição apresenta este erro
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição do episódio {0}", episodio.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição do episódio ,tente novamente.", episodio.Nome));
                 }
 
             }
-           // ViewBag.TemporadaFK = new SelectList(db.Temporadas, "ID", "Nome", episodio.TemporadaFK);
             return RedirectToAction("Index", new { id = episodio.TemporadaFK });
         }
 
@@ -249,13 +252,14 @@ namespace TF_TI2_19269_19262.Controllers
                 //alterar as respostas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return Redirect("/");
             }
-            Episodios episodios = db.Episodios.Find(id);
-            if (episodios == null)
+            Episodios episodio = db.Episodios.Find(id);
+            if (episodio == null)
             {
                 //alterar as respostas por defeito, de modo a não haver erros de BadRequest ou de NotFound  
                 return Redirect("/");
             }
-            return View(episodios);
+
+            return View(episodio);
         }
 
         // POST: Episodios/Delete/5
@@ -263,13 +267,17 @@ namespace TF_TI2_19269_19262.Controllers
         /// elimina 1 registo de episódio da bd. em caso de erro , envia 1 mensagem de erro
         /// </summary>
         /// <param name="id">id do episódio</param>
-        /// <returns>redirect para a página de Index em caso de suecsso e em caso de erro devolve 1 mensagem de erro</returns>
+        /// <returns>redirect para a página de Index em caso de sucesso e em caso de erro devolve 1 mensagem de erro</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Episodios episodio = db.Episodios.Find(id);
+            if(episodio == null)
+            {
+                return Redirect("/");
+            }
             try
             {
                 //Remover um episodio
@@ -278,9 +286,9 @@ namespace TF_TI2_19269_19262.Controllers
                 db.SaveChanges();
             }
             //Se houver uma temporada associada à serie apresenta este erro.
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar este episodio pois existem comentários ou pessoas a ele associados"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar este episódio, pois existem comentários ou pessoas a ele associados."));
             }
             return RedirectToAction("Index", new { id = episodio.TemporadaFK });
         }

@@ -75,7 +75,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não é possível criar este utilizador"));
+                ModelState.AddModelError("", string.Format("Não é possível criar este utilizador,tente novamente."));
             }
             
 
@@ -125,7 +125,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Não foi possivel editar este utilizador"));
+                ModelState.AddModelError("", string.Format("Não foi possivel editar este utilizador,tente novamente."));
             }
             
             return View(utilizadores);
@@ -166,12 +166,16 @@ namespace TF_TI2_19269_19262.Controllers
             try
             {
                 Utilizadores utilizadores = db.Utilizadores.Find(id);
+                if (utilizadores == null)
+                {
+                    return Redirect("/");
+                }
                 db.Utilizadores.Remove(utilizadores);
                 db.SaveChanges();
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não foi possivel apagar este utilizador"));
+                ModelState.AddModelError("", string.Format("Não foi possivel apagar este utilizador,tente novamente."));
             }
             
             return RedirectToAction("Index");

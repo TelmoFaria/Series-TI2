@@ -34,20 +34,6 @@ namespace TF_TI2_19269_19262.Controllers
             ViewBag.SerieFK = id;
             return View(temp.ToList());
         }
-        // GET: Temporadas/select{id}
-        ///// <summary>
-        ///// get de dados de temporadas cuja série tem o id fornecido
-        ///// </summary>
-        ///// <param name="id">id da serie</param>
-        ///// <returns></returns>
-        //public ActionResult Temp(int id)
-        //{
-            
-        //    var result = from r in db.Temporadas
-        //                 where r.SerieFK == id
-        //                 select r;
-        //    return View(result);
-        //}
 
         // GET: Temporadas/Details/5
         /// <summary>
@@ -126,10 +112,11 @@ namespace TF_TI2_19269_19262.Controllers
             //verifica se o modelo é válido
             if (ModelState.IsValid)
             {
+                    temporada.Nome = temporada.Nome.Trim();
                 //se o modelo for válido, adiciona 1 nova temporada á bd e guarda a foto
                 db.Temporadas.Add(temporada);
 
-                
+                    
                     db.SaveChanges();
                     uploadFoto.SaveAs(path);
                     return RedirectToAction("Index",new { id = temporada.SerieFK});
@@ -139,7 +126,7 @@ namespace TF_TI2_19269_19262.Controllers
             }}catch (Exception)
                 {
                     //caso contrário apresenta uma mensagem de erro
-                    ModelState.AddModelError("", "Não foi possivel guardar os dados. Por favor, tente novamente");
+                    ModelState.AddModelError("", "Não foi possivel guardar os dados. Por favor, tente novamente.");
                     ViewBag.SerieFK = temporada.SerieFK;
                     return View(temporada);
                 }
@@ -212,6 +199,7 @@ namespace TF_TI2_19269_19262.Controllers
                         haFotoNova = true;
 
                     }
+                    temporada.Nome = temporada.Nome.Trim();
                     db.Entry(temporada).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -222,9 +210,9 @@ namespace TF_TI2_19269_19262.Controllers
                         editFoto.SaveAs(Path.Combine(Server.MapPath("~/Imagens/"), novoNome));
                     }
                     //caso contrário apresenta uma mensagem de erro
-                } catch (Exception ex)
+                } catch (Exception)
                 {
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da temporada {0}", temporada.Nome));
+                    ModelState.AddModelError("", string.Format("Ocorreu um erro com a edição da temporada,tente novamente.", temporada.Nome));
                 }
 
             }
@@ -266,6 +254,10 @@ namespace TF_TI2_19269_19262.Controllers
         {
             //procura a temporada referente ao id fornecido
             Temporadas temporada = db.Temporadas.Find(id);
+            if (temporada == null)
+            {
+                return Redirect("/");
+            }
             try
             {
                 //caso encontre e seja válida,remove o registo e guarda as alterações
@@ -273,9 +265,9 @@ namespace TF_TI2_19269_19262.Controllers
                 db.SaveChanges();
             }
             //caso contrário apresenta uma mensagem de erro
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar esta temporada pois existem episódios a ela associados"));
+                ModelState.AddModelError("", string.Format("Não é possível apagar esta temporada pois existem episódios a ela associados."));
             }
             return View("Index", new { id = temporada.SerieFK });
         }

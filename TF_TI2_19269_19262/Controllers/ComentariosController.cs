@@ -62,7 +62,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// cria um comentario na bd, em caso de erro mostra 1 messagem de erro
         /// </summary>
         /// <param name="comentario"> recebe um comentário com o texto e o episodioFK</param>
-        /// <returns> viewbags com utilizadorFK e episodioFK</returns>
+        /// <returns>volta para a pagina de onde veio</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         //Os utilizadores do tipo Utilizador e Administrador poderão criar comentários
@@ -75,6 +75,7 @@ namespace TF_TI2_19269_19262.Controllers
                 .Equals(User.Identity.Name)).FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(comentario.Texto))
             {
+                comentario.Texto = comentario.Texto.Trim();
                 comentario.UtilizadorFK = Ut.ID;
                 
                 if (ModelState.IsValid)
@@ -91,7 +92,7 @@ namespace TF_TI2_19269_19262.Controllers
             }
             catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Criar o comentário"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a criar o comentário,tente novamente."));
             }
             
             
@@ -103,7 +104,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// verifica qual é o utilizador e se tem permissões para editar 
         /// </summary>
         /// <param name="id"> recebe o id do cometário</param>
-        /// <returns>redirect para a view com os comentarios e viewbag com episodioFK</returns>
+        /// <returns>redirect para a view com os comentarios</returns>
         [Authorize(Roles = "Utilizador,Administrador")]
         public ActionResult Edit(int? id)
         {
@@ -112,7 +113,10 @@ namespace TF_TI2_19269_19262.Controllers
             uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
             Comentarios comentario = db.Comentarios.Find(id);
-
+            if (comentario == null)
+            {
+                return Redirect("/");
+            }
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -126,9 +130,9 @@ namespace TF_TI2_19269_19262.Controllers
                 return View(comentario);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Editar o comentário"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a editar o comentário,tente novamente."));
             }
             return RedirectToAction("Index");
         }
@@ -138,7 +142,7 @@ namespace TF_TI2_19269_19262.Controllers
         /// edita o registo de comentário na bd
         /// </summary>
         /// <param name="comentario"> comentario (id, texto e episodioFK)</param>
-        /// <returns>mensagem de erro caso ocorra e viewbag com episodioFK e return para a view index caso sucesso</returns>
+        /// <returns>mensagem de erro caso ocorrae returna para a view index caso sucesso</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Utilizador,Administrador")]
@@ -153,6 +157,7 @@ namespace TF_TI2_19269_19262.Controllers
                 {
                     if (ModelState.IsValid) { 
                     comentario.UtilizadorFK = Ut.ID;
+                    comentario.Texto = comentario.Texto.Trim();
                     db.Entry(comentario).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -162,9 +167,9 @@ namespace TF_TI2_19269_19262.Controllers
                 return View(comentario);
             }
             }
-            catch
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Editar o comentário"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a editar o comentário,tente novamente."));
             }
             
             return RedirectToAction("Index");
@@ -178,10 +183,14 @@ namespace TF_TI2_19269_19262.Controllers
         /// <returns>retorna o comentário associado a 1 id, ou mensagem de erro caso ocorra, e caso sucesso volta para a página de detalhes do episódio</returns>
         [Authorize(Roles = "Administrador,Utilizador")]
         public ActionResult Delete(int? id)
-        { Comentarios comentario = db.Comentarios.Find(id);
+        {
+            Comentarios comentario = db.Comentarios.Find(id);
             //um utilizador com a role Adim pode apagar qualquer comentario
             //um utilizador pode apenas apagar os seus comentarios   
-
+            if (comentario == null)
+            {
+                return Redirect("/");
+            }
             //pesquisa na base de dados o utilizador que está autenticado
             var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
@@ -201,9 +210,9 @@ namespace TF_TI2_19269_19262.Controllers
                 }
                 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro "));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro."));
             }
             return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
         }
@@ -221,6 +230,10 @@ namespace TF_TI2_19269_19262.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comentarios comentario = db.Comentarios.Find(id);
+            if (comentario == null)
+            {
+                return Redirect("/");
+            }
             try
             {
             var Ut = db.Utilizadores.Where(uti => uti.UserName.Equals(User.Identity.Name)).FirstOrDefault();
@@ -231,9 +244,9 @@ namespace TF_TI2_19269_19262.Controllers
                     db.SaveChanges();
                 }
             }
-            catch
+            catch(Exception)
             {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro a Eliminar o comentário"));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro a eliminar o comentário,tente novamente."));
             }
             
             return RedirectToAction("Details", "Episodios", new { id = comentario.EpisodioFK });
